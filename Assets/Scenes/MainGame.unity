@@ -313,7 +313,7 @@ Transform:
   m_GameObject: {fileID: 616317153}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.011, y: 0.475, z: 0}
+  m_LocalPosition: {x: 0.011, y: -0.5433, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -390,9 +390,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   InputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  playerInput: {fileID: 616317159}
   rb: {fileID: 616317154}
   jumpForce: 3
+  walkForce: 1.5
+  rayCastLength: 0.2
 --- !u!61 &616317158
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -480,7 +481,7 @@ GameObject:
   - component: {fileID: 1830663746}
   - component: {fileID: 1830663745}
   - component: {fileID: 1830663744}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
