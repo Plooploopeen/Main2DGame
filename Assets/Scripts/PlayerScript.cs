@@ -18,6 +18,8 @@ public class PlayerScript : MonoBehaviour
     private InputAction sprintAction;
     private InputAction moveAction;
     private bool isGrounded;
+    private float rayShiftAmount = 0.5f;
+    private bool canJump;
 
     private Vector2 velocity;
     private Vector2 moveDirection;
@@ -52,19 +54,34 @@ public class PlayerScript : MonoBehaviour
 
         moveDirection = moveAction.ReadValue<Vector2>();
 
-        //float leftRayPosition = 
+        Vector2 leftRayPosition = (Vector2)transform.position + Vector2.left * rayShiftAmount;
+        Vector2 rightRayPosition = (Vector2)transform.position + Vector2.right * rayShiftAmount;
 
         RaycastHit2D middleHit = Physics2D.Raycast(transform.position, Vector2.down, rayCastLength, LayerMask.GetMask("Ground"));
-        Debug.DrawRay(transform.position, Vector2.down * rayCastLength, Color.red, 1000f);     
+        RaycastHit2D leftHit = Physics2D.Raycast(leftRayPosition, Vector2.down, rayCastLength, LayerMask.GetMask("Ground"));
+        RaycastHit2D rightHit = Physics2D.Raycast(transform.position, Vector2.down, rayCastLength, LayerMask.GetMask("Ground"));
 
-        isGrounded = middleHit.collider != null;
+        Debug.DrawRay(transform.position, Vector2.down * rayCastLength, Color.red, 1000f);
 
-        if (isGrounded) 
+        if (middleHit.collider != null || leftHit.collider != null || rightHit.collider != null)
         {
-            Debug.Log(isGrounded);
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
         }
 
-        if (jumpAction.WasPressedThisFrame() && isGrounded)
+        if (isGrounded)
+        {
+            canJump = true;
+        }
+        else
+        {
+            canJump = false;
+        }
+
+        if (jumpAction.WasPressedThisFrame() && canJump)
         {
             jump();
         }
