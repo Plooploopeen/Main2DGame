@@ -13,6 +13,8 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] float walkForce;
     [SerializeField] float rayCastLength;
     [SerializeField] float rayShiftAmount;
+    [SerializeField] float fallMultipierSlow;
+    [SerializeField] float timerJumpLimit;
 
     private InputAction jumpAction;
     private InputAction attackAction;
@@ -22,7 +24,7 @@ public class PlayerScript : MonoBehaviour
     private bool canJump;
     private bool isJumping;
     private float timerJump = 0f;
-    private float timerJumpLimit = 0.2f;
+    private bool isJumpCompleted;
 
     private Vector2 velocity;
     private Vector2 moveDirection;
@@ -77,27 +79,29 @@ public class PlayerScript : MonoBehaviour
             isGrounded = false;
         }
 
-         if (isGrounded)
+        if (isGrounded && !jumpAction.IsPressed())
         {
+            isJumpCompleted = false;
             canJump = true;
             timerJump = 0;
         }
 
-
-        if (timerJump < timerJumpLimit && canJump && jumpAction.IsPressed())
+        if (timerJump < timerJumpLimit && canJump && jumpAction.IsPressed() && !isJumpCompleted)
         {
             rb.linearVelocity = Vector2.up * jumpForce;
             timerJump += Time.deltaTime;
         }
 
-        if (timerJump >= timerJumpLimit || !isGrounded && !jumpAction.IsPressed())
+        if (timerJump >= timerJumpLimit)
         {
             canJump = false;
+            isJumpCompleted = true;
         }
 
-        if (jumpAction.WasReleasedThisFrame())
+        if (jumpAction.WasReleasedThisFrame() && velocity.y > 0)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+            isJumpCompleted = true;
         }
 
     }
@@ -116,6 +120,15 @@ public class PlayerScript : MonoBehaviour
     {
         float horizontal = moveDirection.x;
         velocity.x = horizontal * walkForce;
+
+        if (velocity.y < 0f)
+        {
+            rb.gravityScale = fallMultipierSlow;
+        }
+        else
+        {
+            rb.gravityScale = 1f;
+        }
     }
 
 }
