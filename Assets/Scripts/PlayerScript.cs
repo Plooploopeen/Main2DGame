@@ -21,6 +21,8 @@ public class PlayerScript : MonoBehaviour
     private bool isGrounded;
     private bool canJump;
     private bool isJumping;
+    private float timerJump = 0f;
+    private float timerJumpLimit = 0.2f;
 
     private Vector2 velocity;
     private Vector2 moveDirection;
@@ -75,19 +77,41 @@ public class PlayerScript : MonoBehaviour
             isGrounded = false;
         }
 
+        //if (jumpAction.WasPressedThisFrame() && isGrounded)
+        //   {
+        //       isJumping = true;
+        //   }
+
+        //  if (isJumping && jumpAction.IsPressed())
+        //  {
+
+        //  }
+
         if (isGrounded)
         {
             canJump = true;
+            timerJump = 0;
         }
-        else
+
+
+        if (timerJump < timerJumpLimit && canJump && jumpAction.IsPressed())
+        {
+            rb.linearVelocity = Vector2.up * jumpForce;
+            timerJump += Time.deltaTime;
+        }
+
+        if (timerJump >= timerJumpLimit || !isGrounded && !jumpAction.IsPressed())
         {
             canJump = false;
         }
 
-        if (jumpAction.IsPressed() && canJump)
+        if (jumpAction.WasReleasedThisFrame())
         {
-            jump();
+            velocity.y = 0;
+            velocity = Vector2.zero;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
         }
+
     }
 
     void FixedUpdate()
@@ -99,10 +123,6 @@ public class PlayerScript : MonoBehaviour
         rb.linearVelocity = velocity;
     }
 
-    void jump()
-    {
-        rb.linearVelocity = Vector2.up * jumpForce;
-    }
 
     void movePlayer()
     {

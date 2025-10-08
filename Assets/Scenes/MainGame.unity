@@ -391,7 +391,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   InputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   rb: {fileID: 616317154}
-  jumpForce: 3
+  jumpForce: 2.5
   walkForce: 1.5
   rayCastLength: 0.18
   rayShiftAmount: 0.05
