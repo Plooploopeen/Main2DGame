@@ -77,17 +77,7 @@ public class PlayerScript : MonoBehaviour
             isGrounded = false;
         }
 
-        //if (jumpAction.WasPressedThisFrame() && isGrounded)
-        //   {
-        //       isJumping = true;
-        //   }
-
-        //  if (isJumping && jumpAction.IsPressed())
-        //  {
-
-        //  }
-
-        if (isGrounded)
+         if (isGrounded)
         {
             canJump = true;
             timerJump = 0;
