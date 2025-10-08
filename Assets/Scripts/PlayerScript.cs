@@ -65,8 +65,8 @@ public class PlayerScript : MonoBehaviour
         RaycastHit2D rightHit = Physics2D.Raycast(rightRayPosition, Vector2.down, rayCastLength, LayerMask.GetMask("Ground"));
 
         //Debug.DrawRay(transform.position, Vector2.down * rayCastLength, Color.orange);
-       // Debug.DrawRay(leftRayPosition, Vector2.down * rayCastLength, Color.red);
-       // Debug.DrawRay(rightRayPosition, Vector2.down * rayCastLength, Color.yellow);
+        // Debug.DrawRay(leftRayPosition, Vector2.down * rayCastLength, Color.red);
+        // Debug.DrawRay(rightRayPosition, Vector2.down * rayCastLength, Color.yellow);
 
         if (middleHit.collider != null || leftHit.collider != null || rightHit.collider != null)
         {
