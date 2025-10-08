@@ -97,8 +97,6 @@ public class PlayerScript : MonoBehaviour
 
         if (jumpAction.WasReleasedThisFrame())
         {
-            velocity.y = 0;
-            velocity = Vector2.zero;
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
         }
 
