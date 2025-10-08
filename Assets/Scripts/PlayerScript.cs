@@ -20,6 +20,7 @@ public class PlayerScript : MonoBehaviour
     private InputAction moveAction;
     private bool isGrounded;
     private bool canJump;
+    private bool isJumping;
 
     private Vector2 velocity;
     private Vector2 moveDirection;
@@ -83,7 +84,7 @@ public class PlayerScript : MonoBehaviour
             canJump = false;
         }
 
-        if (jumpAction.WasPressedThisFrame() && canJump)
+        if (jumpAction.IsPressed() && canJump)
         {
             jump();
         }
