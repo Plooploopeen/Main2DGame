@@ -536,6 +536,7 @@ MonoBehaviour:
   fallMultipierFast: 2
   timerJumpLimit: 0.15
   timerCoyoteTimeLimit: 0.05
+  timerJumpBufferLimit: 1
 --- !u!61 &616317158
 BoxCollider2D:
   m_ObjectHideFlags: 0

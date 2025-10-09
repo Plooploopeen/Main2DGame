@@ -1,3 +1,4 @@
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -17,6 +18,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] float fallMultipierFast;
     [SerializeField] float timerJumpLimit;
     [SerializeField] float timerCoyoteTimeLimit;
+    [SerializeField] float timerJumpBufferLimit;
 
     private InputAction jumpAction;
     private InputAction attackAction;
@@ -28,6 +30,7 @@ public class PlayerScript : MonoBehaviour
     private float timerJump = 0f;
     private bool isJumpCompleted;
     private float timerCoyoteTime;
+    private float timerJumpBuffer;
 
     private Vector2 velocity;
     private Vector2 moveDirection;
@@ -45,6 +48,7 @@ public class PlayerScript : MonoBehaviour
     {
         InputActions.FindActionMap("UI").Disable();
         InputActions.FindActionMap("Gameplay").Enable();
+        timerJumpBuffer = timerJumpBufferLimit;
     }
 
     private void OnEnable()
@@ -59,6 +63,7 @@ public class PlayerScript : MonoBehaviour
 
     void Update()
     {
+        //Velocity cap
 
         if (velocity.y < -3)
         {
@@ -66,6 +71,9 @@ public class PlayerScript : MonoBehaviour
         }
 
         moveDirection = moveAction.ReadValue<Vector2>();
+
+
+        // Check isGrounded
 
         Vector2 leftRayPosition = (Vector2)transform.position + Vector2.left * rayShiftAmount;
         Vector2 rightRayPosition = (Vector2)transform.position + Vector2.right * rayShiftAmount;
@@ -89,9 +97,9 @@ public class PlayerScript : MonoBehaviour
 
 
 
-         
+        //Jump
 
-        if (isGrounded && !jumpAction.IsPressed())
+        if (isGrounded && !jumpAction.IsPressed() && timerJumpBuffer >= timerJumpBufferLimit)
         {
             isJumpCompleted = false;
             canJump = true;
@@ -100,11 +108,16 @@ public class PlayerScript : MonoBehaviour
 
         if (timerJump < timerJumpLimit && canJump && jumpAction.IsPressed() && !isJumpCompleted && timerCoyoteTime < timerCoyoteTimeLimit)
         {
+            isJumping = true;
             rb.linearVelocity = Vector2.up * jumpForce;
             timerJump += Time.deltaTime;
         }
+        else
+        {
+            isJumping = false;
+        }
 
-        if (timerJump >= timerJumpLimit)
+        if (timerJump >= timerJumpLimit && timerJumpBuffer >= timerJumpBufferLimit)
         {
             canJump = false;
             isJumpCompleted = true;
@@ -116,17 +129,57 @@ public class PlayerScript : MonoBehaviour
             isJumpCompleted = true;
         }
 
+        if (!isGrounded && !isJumping && timerCoyoteTime >= timerCoyoteTimeLimit)
+        {
+            isJumpCompleted = true;
+        }
+        
+            
+        
 
 
 
-        if (!isGrounded && timerCoyoteTime < timerCoyoteTimeLimit && velocity.y < 0)
+
+        //Coyote time
+
+        if (!isGrounded && timerCoyoteTime < timerCoyoteTimeLimit && !jumpAction.IsPressed())
         {
             timerCoyoteTime += Time.deltaTime;
         }
+
         if (isGrounded)
         {
             timerCoyoteTime = 0;
         }
+
+
+
+
+        //Jump buffering
+
+        if (jumpAction.WasPressedThisFrame())
+        {
+            timerJumpBuffer = 0;
+        }
+        else if (jumpAction.WasReleasedThisFrame())
+        {
+            timerJumpBuffer = timerJumpBufferLimit;
+        }
+
+        if (jumpAction.IsPressed() && timerJumpBuffer < timerJumpBufferLimit && !isJumping)
+        {
+            timerJumpBuffer += Time.deltaTime;
+        }
+
+        if (timerJumpBuffer < timerJumpBufferLimit && jumpAction.IsPressed() && isGrounded)
+        {
+            isJumpCompleted = false;
+            canJump = true;
+        }
+
+
+
+            Debug.Log(canJump);
 
     }
 
