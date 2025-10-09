@@ -119,7 +119,6 @@ public class PlayerScript : MonoBehaviour
 
 
 
-
         if (!isGrounded && timerCoyoteTime < timerCoyoteTimeLimit && velocity.y < 0)
         {
             timerCoyoteTime += Time.deltaTime;
