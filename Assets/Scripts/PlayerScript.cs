@@ -117,7 +117,6 @@ public class PlayerScript : MonoBehaviour
         }
 
 
-        Debug.Log(timerCoyoteTime);
 
 
 
