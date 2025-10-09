@@ -14,7 +14,9 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] float rayCastLength;
     [SerializeField] float rayShiftAmount;
     [SerializeField] float fallMultipierSlow;
+    [SerializeField] float fallMultipierFast;
     [SerializeField] float timerJumpLimit;
+    [SerializeField] float timerCoyoteTimeLimit;
 
     private InputAction jumpAction;
     private InputAction attackAction;
@@ -25,6 +27,7 @@ public class PlayerScript : MonoBehaviour
     private bool isJumping;
     private float timerJump = 0f;
     private bool isJumpCompleted;
+    private float timerCoyoteTime;
 
     private Vector2 velocity;
     private Vector2 moveDirection;
@@ -57,6 +60,11 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
 
+        if (velocity.y < -3)
+        {
+            velocity.y = -3;
+        }
+
         moveDirection = moveAction.ReadValue<Vector2>();
 
         Vector2 leftRayPosition = (Vector2)transform.position + Vector2.left * rayShiftAmount;
@@ -79,6 +87,10 @@ public class PlayerScript : MonoBehaviour
             isGrounded = false;
         }
 
+
+
+         
+
         if (isGrounded && !jumpAction.IsPressed())
         {
             isJumpCompleted = false;
@@ -86,7 +98,7 @@ public class PlayerScript : MonoBehaviour
             timerJump = 0;
         }
 
-        if (timerJump < timerJumpLimit && canJump && jumpAction.IsPressed() && !isJumpCompleted)
+        if (timerJump < timerJumpLimit && canJump && jumpAction.IsPressed() && !isJumpCompleted && timerCoyoteTime < timerCoyoteTimeLimit)
         {
             rb.linearVelocity = Vector2.up * jumpForce;
             timerJump += Time.deltaTime;
@@ -102,6 +114,20 @@ public class PlayerScript : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
             isJumpCompleted = true;
+        }
+
+
+        Debug.Log(timerCoyoteTime);
+
+
+
+        if (!isGrounded && timerCoyoteTime < timerCoyoteTimeLimit && velocity.y < 0)
+        {
+            timerCoyoteTime += Time.deltaTime;
+        }
+        if (isGrounded)
+        {
+            timerCoyoteTime = 0;
         }
 
     }
@@ -127,7 +153,7 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            rb.gravityScale = 1f;
+            rb.gravityScale = fallMultipierFast;
         }
     }
 
