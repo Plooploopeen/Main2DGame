@@ -3,6 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -31,6 +32,7 @@ public class PlayerScript : MonoBehaviour
     private bool isJumpCompleted;
     private float timerCoyoteTime;
     private float timerJumpBuffer;
+    private bool justJumped;
 
     private Vector2 velocity;
     private Vector2 moveDirection;
@@ -97,30 +99,59 @@ public class PlayerScript : MonoBehaviour
 
 
 
+
         //Jump
 
-        if (isGrounded && !jumpAction.IsPressed() && timerJumpBuffer >= timerJumpBufferLimit)
+        if (isGrounded && (!jumpAction.IsPressed() || timerJump < timerJumpBufferLimit))
         {
             isJumpCompleted = false;
             canJump = true;
             timerJump = 0;
         }
+       else if (justJumped && timerJumpBuffer < timerJumpBufferLimit)
+       {
+            timerJump = timerJumpLimit;
+            canJump = false;
+       }
+        else if (isGrounded)
+        {
+            timerJump = 0f;
+        }
 
         if (timerJump < timerJumpLimit && canJump && jumpAction.IsPressed() && !isJumpCompleted && timerCoyoteTime < timerCoyoteTimeLimit)
         {
-            isJumping = true;
             rb.linearVelocity = Vector2.up * jumpForce;
             timerJump += Time.deltaTime;
+            isJumping = true;
         }
         else
         {
             isJumping = false;
         }
 
+        // Check if the player just jumped
+        if (canJump && isGrounded && jumpAction.IsPressed())
+        {
+            justJumped = true;
+        }
+        if (isJumping)
+        {
+            justJumped = false;
+        }
+        if (justJumped)
+        {
+            timerJump = 0f;
+        }
+
         if (timerJump >= timerJumpLimit && timerJumpBuffer >= timerJumpBufferLimit)
         {
             canJump = false;
             isJumpCompleted = true;
+        }
+        else if (timerJumpBuffer < timerJumpBufferLimit)
+        {
+            canJump = true;
+            isJumpCompleted = false;
         }
 
         if (jumpAction.WasReleasedThisFrame() && velocity.y > 0)
@@ -134,7 +165,10 @@ public class PlayerScript : MonoBehaviour
             isJumpCompleted = true;
         }
         
-            
+      //  if (justJumped)
+      //  {
+      //      timerJump = 0f;
+      //  }    
         
 
 
@@ -171,15 +205,13 @@ public class PlayerScript : MonoBehaviour
             timerJumpBuffer += Time.deltaTime;
         }
 
-        if (timerJumpBuffer < timerJumpBufferLimit && jumpAction.IsPressed() && isGrounded)
+        if (timerJumpBuffer < timerJumpBufferLimit && jumpAction.IsPressed() && isGrounded && timerJumpBuffer < timerJumpBufferLimit)
         {
             isJumpCompleted = false;
             canJump = true;
         }
 
-
-
-            Debug.Log(canJump);
+        Debug.Log(canJump);
 
     }
 
