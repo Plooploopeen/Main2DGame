@@ -30,7 +30,7 @@ public class PlayerScript : MonoBehaviour
     private bool isJumping;
     private float timerJump = 0f;
     private bool isJumpCompleted;
-    private float timerCoyoteTime;
+    private float timerCoyoteTime = 100;
     private float timerJumpBuffer;
     private bool justJumped;
 
@@ -98,121 +98,47 @@ public class PlayerScript : MonoBehaviour
         }
 
 
+        // Jump
 
-
-        //Jump
-
-        if (isGrounded && (!jumpAction.IsPressed() || timerJump < timerJumpBufferLimit))
+        // Check if able to jump
+        if (isGrounded && !jumpAction.IsPressed() && !isJumpCompleted)
         {
-            isJumpCompleted = false;
             canJump = true;
-            timerJump = 0;
         }
-       else if (justJumped && timerJumpBuffer < timerJumpBufferLimit)
-       {
-            timerJump = timerJumpLimit;
-            canJump = false;
-       }
-        else if (isGrounded)
+        else if (timerJump >= timerJumpLimit || (!isGrounded && timerCoyoteTime >= timerCoyoteTimeLimit && !isJumping))
         {
-            timerJump = 0f;
+            canJump = false;
         }
 
-        if (timerJump < timerJumpLimit && canJump && jumpAction.IsPressed() && !isJumpCompleted && timerCoyoteTime < timerCoyoteTimeLimit)
+        // Check if jumping
+        if (canJump && jumpAction.IsPressed())
         {
+            isJumping = true;
             rb.linearVelocity = Vector2.up * jumpForce;
             timerJump += Time.deltaTime;
-            isJumping = true;
-        }
-        else
-        {
-            isJumping = false;
         }
 
-        // Check if the player just jumped
-        if (canJump && isGrounded && jumpAction.IsPressed())
-        {
-            justJumped = true;
-        }
-        if (isJumping)
-        {
-            justJumped = false;
-        }
-        if (justJumped)
-        {
-            timerJump = 0f;
-        }
-
-        if (timerJump >= timerJumpLimit && timerJumpBuffer >= timerJumpBufferLimit)
-        {
-            canJump = false;
-            isJumpCompleted = true;
-        }
-        else if (timerJumpBuffer < timerJumpBufferLimit)
-        {
-            canJump = true;
-            isJumpCompleted = false;
-        }
-
+        // Check if jump was stopped
         if (jumpAction.WasReleasedThisFrame() && velocity.y > 0)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+            isJumping = false;
             isJumpCompleted = true;
         }
 
-        if (!isGrounded && !isJumping && timerCoyoteTime >= timerCoyoteTimeLimit)
+        //Check if reached max jump height
+        if (timerJump >= timerJumpLimit)
         {
+            isJumping = false;
             isJumpCompleted = true;
         }
         
-      //  if (justJumped)
-      //  {
-      //      timerJump = 0f;
-      //  }    
-        
-
-
-
-
-        //Coyote time
-
-        if (!isGrounded && timerCoyoteTime < timerCoyoteTimeLimit && !jumpAction.IsPressed())
-        {
-            timerCoyoteTime += Time.deltaTime;
-        }
-
-        if (isGrounded)
-        {
-            timerCoyoteTime = 0;
-        }
-
-
-
-
-        //Jump buffering
-
-        if (jumpAction.WasPressedThisFrame())
-        {
-            timerJumpBuffer = 0;
-        }
-        else if (jumpAction.WasReleasedThisFrame())
-        {
-            timerJumpBuffer = timerJumpBufferLimit;
-        }
-
-        if (jumpAction.IsPressed() && timerJumpBuffer < timerJumpBufferLimit && !isJumping)
-        {
-            timerJumpBuffer += Time.deltaTime;
-        }
-
-        if (timerJumpBuffer < timerJumpBufferLimit && jumpAction.IsPressed() && isGrounded && timerJumpBuffer < timerJumpBufferLimit)
+        // Reset bools if grounded
+        if (isGrounded && !jumpAction.IsPressed())
         {
             isJumpCompleted = false;
-            canJump = true;
+            timerJump = 0;
         }
-
-        Debug.Log(canJump);
-
     }
 
     void FixedUpdate()
@@ -241,3 +167,146 @@ public class PlayerScript : MonoBehaviour
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////Jump
+
+//if (isGrounded && (!jumpAction.IsPressed() || timerJump < timerJumpBufferLimit))
+//{
+//    isJumpCompleted = false;
+//    canJump = true;
+//    timerJump = 0;
+//}
+//else if (justJumped && timerJumpBuffer < timerJumpBufferLimit)
+//{
+//    timerJump = timerJumpLimit;
+//    canJump = false;
+//}
+//else if (isGrounded)
+//{
+//    timerJump = 0f;
+//}
+
+//if (timerJump < timerJumpLimit && canJump && jumpAction.IsPressed() && !isJumpCompleted && timerCoyoteTime < timerCoyoteTimeLimit)
+//{
+//    rb.linearVelocity = Vector2.up * jumpForce;
+//    timerJump += Time.deltaTime;
+//    isJumping = true;
+//}
+//else
+//{
+//    isJumping = false;
+//}
+
+//// Check if the player just jumped
+//if (canJump && isGrounded && jumpAction.IsPressed())
+//{
+//    justJumped = true;
+//}
+//if (isJumping)
+//{
+//    justJumped = false;
+//}
+//if (justJumped)
+//{
+//    timerJump = 0f;
+//}
+
+//if (timerJump >= timerJumpLimit && timerJumpBuffer >= timerJumpBufferLimit)
+//{
+//    canJump = false;
+//    isJumpCompleted = true;
+//}
+//else if (timerJumpBuffer < timerJumpBufferLimit)
+//{
+//    canJump = true;
+//    isJumpCompleted = false;
+//}
+
+//if (jumpAction.WasReleasedThisFrame() && velocity.y > 0)
+//{
+//    rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+//    isJumpCompleted = true;
+//}
+
+//if (!isGrounded && !isJumping && timerCoyoteTime >= timerCoyoteTimeLimit)
+//{
+//    isJumpCompleted = true;
+//}
+
+////  if (justJumped)
+////  {
+////      timerJump = 0f;
+////  }    
+
+
+
+
+
+////Coyote time
+
+//if (!isGrounded && timerCoyoteTime < timerCoyoteTimeLimit && !jumpAction.IsPressed())
+//{
+//    timerCoyoteTime += Time.deltaTime;
+//}
+
+//if (isGrounded)
+//{
+//    timerCoyoteTime = 0;
+//}
+
+
+
+
+////Jump buffering
+
+//if (jumpAction.WasPressedThisFrame())
+//{
+//    timerJumpBuffer = 0;
+//}
+//else if (jumpAction.WasReleasedThisFrame())
+//{
+//    timerJumpBuffer = timerJumpBufferLimit;
+//}
+
+//if (jumpAction.IsPressed() && timerJumpBuffer < timerJumpBufferLimit && !isJumping)
+//{
+//    timerJumpBuffer += Time.deltaTime;
+//}
+
+//if (timerJumpBuffer < timerJumpBufferLimit && jumpAction.IsPressed() && isGrounded && timerJumpBuffer < timerJumpBufferLimit)
+//{
+//    isJumpCompleted = false;
+//    canJump = true;
+//}
+
+//Debug.Log(canJump);
