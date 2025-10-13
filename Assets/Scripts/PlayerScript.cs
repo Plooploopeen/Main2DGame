@@ -101,7 +101,8 @@ public class PlayerScript : MonoBehaviour
         // Jump
 
         // Check if able to jump
-        if (isGrounded && !jumpAction.IsPressed() && !isJumpCompleted)
+        if (isGrounded && !jumpAction.IsPressed() && !isJumpCompleted && 
+            timerJump < timerJumpLimit && timerCoyoteTime < timerCoyoteTimeLimit)
         {
             canJump = true;
         }
@@ -133,12 +134,25 @@ public class PlayerScript : MonoBehaviour
             isJumpCompleted = true;
         }
         
+
+
         // Reset bools if grounded
         if (isGrounded && !jumpAction.IsPressed())
         {
             isJumpCompleted = false;
             timerJump = 0;
+            timerCoyoteTime = 0;
         }
+
+
+
+        // Coyote time
+
+        if (!isGrounded && timerCoyoteTime < timerCoyoteTimeLimit && !jumpAction.IsPressed())
+        {
+            timerCoyoteTime += Time.deltaTime;
+        }
+
     }
 
     void FixedUpdate()
