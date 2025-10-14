@@ -67,16 +67,16 @@ public class PlayerScript : MonoBehaviour
     {
         //Velocity cap
 
+    void capVelocity()
+    {
         if (velocity.y < -3)
         {
             velocity.y = -3;
         }
+    }
 
-        moveDirection = moveAction.ReadValue<Vector2>();
-
-
-        // Check isGrounded
-
+    void checkIsGrounded()
+    {
         Vector2 leftRayPosition = (Vector2)transform.position + Vector2.left * rayShiftAmount;
         Vector2 rightRayPosition = (Vector2)transform.position + Vector2.right * rayShiftAmount;
 
@@ -96,13 +96,12 @@ public class PlayerScript : MonoBehaviour
         {
             isGrounded = false;
         }
+    }
 
-        //Debug.Log(timerJumpBuffer);
-
-        // Jump
-
+    void jump()
+    {
         // Check if able to jump
-        if (isGrounded && !isJumpCompleted && 
+        if (isGrounded && !isJumpCompleted &&
             timerJump < timerJumpLimit && timerCoyoteTime < timerCoyoteTimeLimit)
         {
             canJump = true;
@@ -138,13 +137,13 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
-            //Check if reached max jump height
-            if (timerJump >= timerJumpLimit)
-            {
-                isJumping = false;
-                isJumpCompleted = true;
-            }
-        
+        //Check if reached max jump height
+        if (timerJump >= timerJumpLimit)
+        {
+            isJumping = false;
+            isJumpCompleted = true;
+        }
+
 
 
         // Reset bools if grounded
@@ -155,10 +154,10 @@ public class PlayerScript : MonoBehaviour
             timerCoyoteTime = 0;
         }
 
+    }
 
-
-        // Coyote time
-
+    void coyoteTime()
+    {
         if (!isGrounded && timerCoyoteTime < timerCoyoteTimeLimit && !isJumping && !isJumpCompleted)
         {
             timerCoyoteTime += Time.deltaTime;
@@ -167,12 +166,10 @@ public class PlayerScript : MonoBehaviour
         {
             timerCoyoteTime = timerCoyoteTimeLimit;
         }
+    }
 
-
-
-
-        // Sets up jump buffer timer
-
+    void jumpBuffer()
+    {
         if (jumpAction.WasPressedThisFrame())
         {
             timerJumpBuffer = 0;
@@ -188,64 +185,6 @@ public class PlayerScript : MonoBehaviour
             timerJumpBuffer = timerJumpBufferLimit;
         }
 
-
-        // Jump if jump buffer is active and player is on the ground
-        //if (jumpAction.IsPressed() && timerJumpBuffer < timerJumpBufferLimit && isGrounded)
-        //{
-
-        //}
-
-    }
-
-    void FixedUpdate()
-    {
-        velocity = rb.linearVelocity;
-
-        movePlayer();
-
-        rb.linearVelocity = velocity;
-    }
-
-
-    void movePlayer()
-    {
-        float horizontal = moveDirection.x;
-        velocity.x = horizontal * walkForce;
-
-        if (velocity.y < 0f)
-        {
-            rb.gravityScale = fallMultipierSlow;
-        }
-        else
-        {
-            rb.gravityScale = fallMultipierFast;
-        }
     }
 
 }
-
-
-
-////Jump buffering
-
-//if (jumpAction.WasPressedThisFrame())
-//{
-//    timerJumpBuffer = 0;
-//}
-//else if (jumpAction.WasReleasedThisFrame())
-//{
-//    timerJumpBuffer = timerJumpBufferLimit;
-//}
-
-//if (jumpAction.IsPressed() && timerJumpBuffer < timerJumpBufferLimit && !isJumping)
-//{
-//    timerJumpBuffer += Time.deltaTime;
-//}
-
-//if (timerJumpBuffer < timerJumpBufferLimit && jumpAction.IsPressed() && isGrounded && timerJumpBuffer < timerJumpBufferLimit)
-//{
-//    isJumpCompleted = false;
-//    canJump = true;
-//}
-
-//Debug.Log(canJump);
