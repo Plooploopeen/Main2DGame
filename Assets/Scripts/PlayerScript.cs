@@ -97,12 +97,12 @@ public class PlayerScript : MonoBehaviour
             isGrounded = false;
         }
 
-        Debug.Log(timerCoyoteTime);
+        //Debug.Log(timerJumpBuffer);
 
         // Jump
 
         // Check if able to jump
-        if (isGrounded && !jumpAction.IsPressed() && !isJumpCompleted && 
+        if (isGrounded && !isJumpCompleted && 
             timerJump < timerJumpLimit && timerCoyoteTime < timerCoyoteTimeLimit)
         {
             canJump = true;
@@ -119,19 +119,21 @@ public class PlayerScript : MonoBehaviour
             rb.linearVelocity = Vector2.up * jumpForce;
             timerJump += Time.deltaTime;
         }
+        else
+        {
+            isJumping = false;
+        }
 
-
+        //check is jump gets interupted
         if (jumpAction.WasReleasedThisFrame())
         {
             if (velocity.y > 0)
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
-                isJumping = false;
                 isJumpCompleted = true;
             }
             else
             {
-                isJumping = false;
                 isJumpCompleted = true;
             }
         }
@@ -146,7 +148,7 @@ public class PlayerScript : MonoBehaviour
 
 
         // Reset bools if grounded
-        if (isGrounded && !jumpAction.IsPressed())
+        if (isGrounded && !jumpAction.IsPressed() || isGrounded && timerJumpBuffer < timerJumpBufferLimit)
         {
             isJumpCompleted = false;
             timerJump = 0;
@@ -176,7 +178,7 @@ public class PlayerScript : MonoBehaviour
             timerJumpBuffer = 0;
         }
 
-        if (jumpAction.IsPressed())
+        if (jumpAction.IsPressed() && !isJumping)
         {
 
             timerJumpBuffer += Time.deltaTime;
