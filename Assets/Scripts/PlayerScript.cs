@@ -97,7 +97,7 @@ public class PlayerScript : MonoBehaviour
             isGrounded = false;
         }
 
-        Debug.Log(canJump);
+        Debug.Log(timerCoyoteTime);
 
         // Jump
 
@@ -157,9 +157,13 @@ public class PlayerScript : MonoBehaviour
 
         // Coyote time
 
-        if (!isGrounded && timerCoyoteTime < timerCoyoteTimeLimit && !jumpAction.IsPressed())
+        if (!isGrounded && timerCoyoteTime < timerCoyoteTimeLimit && !isJumping && !isJumpCompleted)
         {
             timerCoyoteTime += Time.deltaTime;
+        }
+        else if (isJumpCompleted)
+        {
+            timerCoyoteTime = timerCoyoteTimeLimit;
         }
 
 
