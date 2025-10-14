@@ -153,6 +153,33 @@ public class PlayerScript : MonoBehaviour
             timerCoyoteTime += Time.deltaTime;
         }
 
+
+
+
+        // Sets up jump buffer timer
+
+        if (jumpAction.WasPressedThisFrame())
+        {
+            timerJumpBuffer = 0;
+        }
+
+        if (jumpAction.IsPressed())
+        {
+
+            timerJumpBuffer += Time.deltaTime;
+        }
+        else
+        {
+            timerJumpBuffer = timerJumpBufferLimit;
+        }
+
+
+        // Jump if jump buffer is active and player is on the ground
+        //if (jumpAction.IsPressed() && timerJumpBuffer < timerJumpBufferLimit && isGrounded)
+        //{
+
+        //}
+
     }
 
     void FixedUpdate()
