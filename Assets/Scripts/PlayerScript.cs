@@ -65,7 +65,25 @@ public class PlayerScript : MonoBehaviour
 
     void Update()
     {
-        //Velocity cap
+
+        capVelocity();
+        checkIsGrounded();
+        jump();
+        coyoteTime();
+        jumpBuffer();
+
+    }
+
+    void FixedUpdate()
+    {
+        velocity = rb.linearVelocity;
+
+        movePlayer();
+
+        rb.linearVelocity = velocity;
+    }
+
+    //Velocity cap
 
     void capVelocity()
     {
@@ -187,4 +205,21 @@ public class PlayerScript : MonoBehaviour
 
     }
 
+    void movePlayer()
+    {
+        float horizontal = moveDirection.x;
+        velocity.x = horizontal * walkForce;
+
+        if (velocity.y < 0f)
+        {
+            rb.gravityScale = fallMultipierSlow;
+        }
+        else
+        {
+            rb.gravityScale = fallMultipierFast;
+        }
+    }
+
+
+    
 }
