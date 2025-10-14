@@ -30,7 +30,7 @@ public class PlayerScript : MonoBehaviour
     private bool isJumping;
     private float timerJump = 0f;
     private bool isJumpCompleted;
-    private float timerCoyoteTime = 100;
+    private float timerCoyoteTime;
     private float timerJumpBuffer;
     private bool justJumped;
 
@@ -97,6 +97,7 @@ public class PlayerScript : MonoBehaviour
             isGrounded = false;
         }
 
+        Debug.Log(canJump);
 
         // Jump
 
@@ -119,16 +120,24 @@ public class PlayerScript : MonoBehaviour
             timerJump += Time.deltaTime;
         }
 
-        // Check if jump was stopped
-        if (jumpAction.WasReleasedThisFrame() && velocity.y > 0)
+
+        if (jumpAction.WasReleasedThisFrame())
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
-            isJumping = false;
-            isJumpCompleted = true;
+            if (velocity.y > 0)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+                isJumping = false;
+                isJumpCompleted = true;
+            }
+            else
+            {
+                isJumping = false;
+                isJumpCompleted = true;
+            }
         }
 
-        //Check if reached max jump height
-        if (timerJump >= timerJumpLimit)
+            //Check if reached max jump height
+            if (timerJump >= timerJumpLimit)
         {
             isJumping = false;
             isJumpCompleted = true;
