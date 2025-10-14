@@ -66,6 +66,8 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
 
+        moveDirection = moveAction.ReadValue<Vector2>();
+
         capVelocity();
         checkIsGrounded();
         jump();
