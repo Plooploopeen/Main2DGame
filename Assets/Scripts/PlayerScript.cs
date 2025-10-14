@@ -138,10 +138,10 @@ public class PlayerScript : MonoBehaviour
 
             //Check if reached max jump height
             if (timerJump >= timerJumpLimit)
-        {
-            isJumping = false;
-            isJumpCompleted = true;
-        }
+            {
+                isJumping = false;
+                isJumpCompleted = true;
+            }
         
 
 
