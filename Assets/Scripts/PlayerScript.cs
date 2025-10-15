@@ -12,7 +12,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] PlayerInput playerInput;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] float jumpForce;
-    [SerializeField] float walkForce;
+    [SerializeField] float moveSpeed;
     [SerializeField] float rayCastLength;
     [SerializeField] float rayShiftAmount;
     [SerializeField] float fallMultipierSlow;
@@ -68,6 +68,7 @@ public class PlayerScript : MonoBehaviour
 
         moveDirection = moveAction.ReadValue<Vector2>();
 
+        sprint();
         capVelocity();
         checkIsGrounded();
         jump();
@@ -88,7 +89,7 @@ public class PlayerScript : MonoBehaviour
     void movePlayer()
     {
         float horizontal = moveDirection.x;
-        velocity.x = horizontal * walkForce;
+        velocity.x = horizontal * moveSpeed;
 
         if (velocity.y < 0f)
         {
@@ -219,6 +220,11 @@ public class PlayerScript : MonoBehaviour
         {
             timerJumpBuffer = timerJumpBufferLimit;
         }
+
+    }
+
+    void sprint()
+    {
 
     }
 }
