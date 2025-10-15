@@ -1,7 +1,9 @@
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -17,6 +19,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] float fallMultipierFast;
     [SerializeField] float timerJumpLimit;
     [SerializeField] float timerCoyoteTimeLimit;
+    [SerializeField] float timerJumpBufferLimit;
 
     private InputAction jumpAction;
     private InputAction attackAction;
@@ -28,6 +31,8 @@ public class PlayerScript : MonoBehaviour
     private float timerJump = 0f;
     private bool isJumpCompleted;
     private float timerCoyoteTime;
+    private float timerJumpBuffer;
+    private bool justJumped;
 
     private Vector2 velocity;
     private Vector2 moveDirection;
@@ -45,6 +50,7 @@ public class PlayerScript : MonoBehaviour
     {
         InputActions.FindActionMap("UI").Disable();
         InputActions.FindActionMap("Gameplay").Enable();
+        timerJumpBuffer = timerJumpBufferLimit;
     }
 
     private void OnEnable()
@@ -59,18 +65,13 @@ public class PlayerScript : MonoBehaviour
 
     void Update()
     {
-<<<<<<< Updated upstream
-=======
+
         moveDirection = moveAction.ReadValue<Vector2>();
 
         capVelocity();
-
         checkIsGrounded();
-
         jump();
-
         coyoteTime();
-
         jumpBuffer();
 
     }
@@ -83,7 +84,6 @@ public class PlayerScript : MonoBehaviour
 
         rb.linearVelocity = velocity;
     }
-
 
     void movePlayer()
     {
@@ -99,15 +99,19 @@ public class PlayerScript : MonoBehaviour
             rb.gravityScale = fallMultipierFast;
         }
     }
->>>>>>> Stashed changes
 
+    //Velocity cap
+
+    void capVelocity()
+    {
         if (velocity.y < -3)
         {
             velocity.y = -3;
         }
+    }
 
-        moveDirection = moveAction.ReadValue<Vector2>();
-
+    void checkIsGrounded()
+    {
         Vector2 leftRayPosition = (Vector2)transform.position + Vector2.left * rayShiftAmount;
         Vector2 rightRayPosition = (Vector2)transform.position + Vector2.right * rayShiftAmount;
 
@@ -127,72 +131,94 @@ public class PlayerScript : MonoBehaviour
         {
             isGrounded = false;
         }
+    }
 
-
-
-         
-
-        if (isGrounded && !jumpAction.IsPressed())
+    void jump()
+    {
+        // Check if able to jump
+        if (isGrounded && !isJumpCompleted &&
+            timerJump < timerJumpLimit && timerCoyoteTime < timerCoyoteTimeLimit)
         {
-            isJumpCompleted = false;
             canJump = true;
-            timerJump = 0;
+        }
+        else if (timerJump >= timerJumpLimit || (!isGrounded && timerCoyoteTime >= timerCoyoteTimeLimit && !isJumping))
+        {
+            canJump = false;
         }
 
-        if (timerJump < timerJumpLimit && canJump && jumpAction.IsPressed() && !isJumpCompleted && timerCoyoteTime < timerCoyoteTimeLimit)
+        // Check if jumping
+        if (canJump && jumpAction.IsPressed())
         {
+            isJumping = true;
             rb.linearVelocity = Vector2.up * jumpForce;
             timerJump += Time.deltaTime;
         }
+        else
+        {
+            isJumping = false;
+        }
 
+        //check is jump gets interupted
+        if (jumpAction.WasReleasedThisFrame())
+        {
+            if (velocity.y > 0)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+                isJumpCompleted = true;
+            }
+            else
+            {
+                isJumpCompleted = true;
+            }
+        }
+
+        //Check if reached max jump height
         if (timerJump >= timerJumpLimit)
         {
-            canJump = false;
-            isJumpCompleted = true;
-        }
-
-        if (jumpAction.WasReleasedThisFrame() && velocity.y > 0)
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+            isJumping = false;
             isJumpCompleted = true;
         }
 
 
 
-        if (!isGrounded && timerCoyoteTime < timerCoyoteTimeLimit && velocity.y < 0)
+        // Reset bools if grounded
+        if (isGrounded && !jumpAction.IsPressed() || isGrounded && timerJumpBuffer < timerJumpBufferLimit)
         {
-            timerCoyoteTime += Time.deltaTime;
-        }
-        if (isGrounded)
-        {
+            isJumpCompleted = false;
+            timerJump = 0;
             timerCoyoteTime = 0;
         }
 
     }
 
-    void FixedUpdate()
+    void coyoteTime()
     {
-        velocity = rb.linearVelocity;
-
-        movePlayer();
-
-        rb.linearVelocity = velocity;
+        if (!isGrounded && timerCoyoteTime < timerCoyoteTimeLimit && !isJumping && !isJumpCompleted)
+        {
+            timerCoyoteTime += Time.deltaTime;
+        }
+        else if (isJumpCompleted)
+        {
+            timerCoyoteTime = timerCoyoteTimeLimit;
+        }
     }
 
-
-    void movePlayer()
+    void jumpBuffer()
     {
-        float horizontal = moveDirection.x;
-        velocity.x = horizontal * walkForce;
-
-        if (velocity.y < 0f)
+        if (jumpAction.WasPressedThisFrame())
         {
-            rb.gravityScale = fallMultipierSlow;
+            timerJumpBuffer = 0;
+        }
+
+        if (jumpAction.IsPressed() && !isJumping)
+        {
+
+            timerJumpBuffer += Time.deltaTime;
         }
         else
         {
-            rb.gravityScale = fallMultipierFast;
+            timerJumpBuffer = timerJumpBufferLimit;
         }
-    }
 
+    }
 }
