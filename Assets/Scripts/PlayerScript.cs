@@ -63,7 +63,7 @@ public class PlayerScript : MonoBehaviour
         InputActions.FindActionMap("Gameplay").Disable();
     }
 
-    void Update()
+    private void Update()
     {
 
         moveDirection = moveAction.ReadValue<Vector2>();
