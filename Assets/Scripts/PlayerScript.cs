@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -9,37 +10,58 @@ public class PlayerScript : MonoBehaviour
 {
     public InputActionAsset InputActions;
 
+    [Header("References")]
     [SerializeField] PlayerInput playerInput;
     [SerializeField] Rigidbody2D rb;
+
+    [Header("Jump Settings")]
     [SerializeField] float jumpForce;
-    [SerializeField] float moveSpeed;
-    [SerializeField] float rayCastLength;
-    [SerializeField] float rayShiftAmount;
     [SerializeField] float fallMultipierSlow;
     [SerializeField] float fallMultipierFast;
-    [SerializeField] float timerJumpLimit;
+    [SerializeField] private float timerJumpLimit;
+
+    private bool canJump;
+    private bool isJumping;
+    private float timerJump = 0f;
+    private bool isJumpCompleted;
+    private bool justJumped;
+
+    [Header("Coyote Time")]
     [SerializeField] float timerCoyoteTimeLimit;
+
+    private float timerCoyoteTime;
+
+    [Header("Jump Buffer")]
     [SerializeField] float timerJumpBufferLimit;
+
+    private float timerJumpBuffer;
+
+
+    [Header("IsGrounded")]
+    [SerializeField] float rayCastLength;
+    [SerializeField] float rayShiftAmount;
+
+    private bool isGrounded;
+
+    [Header("Player movement and input")]
+    [SerializeField] float moveSpeed;
 
     private InputAction jumpAction;
     private InputAction attackAction;
     private InputAction sprintAction;
     private InputAction moveAction;
-    private bool isGrounded;
-    private bool canJump;
-    private bool isJumping;
-    private float timerJump = 0f;
-    private bool isJumpCompleted;
-    private float timerCoyoteTime;
-    private float timerJumpBuffer;
-    private bool justJumped;
 
+
+
+    [Header("Extras")]
     private Vector2 velocity;
     private Vector2 moveDirection;
 
 
+
     private void Awake()
     {
+
         jumpAction = InputSystem.actions.FindAction("Jump");
         attackAction = InputSystem.actions.FindAction("Attack");
         sprintAction = InputSystem.actions.FindAction("Sprint");
@@ -50,6 +72,7 @@ public class PlayerScript : MonoBehaviour
     {
         InputActions.FindActionMap("UI").Disable();
         InputActions.FindActionMap("Gameplay").Enable();
+
         timerJumpBuffer = timerJumpBufferLimit;
     }
 
@@ -63,9 +86,8 @@ public class PlayerScript : MonoBehaviour
         InputActions.FindActionMap("Gameplay").Disable();
     }
 
-    private void Update()
+    void Update()
     {
-
         moveDirection = moveAction.ReadValue<Vector2>();
 
         sprint();
@@ -74,6 +96,7 @@ public class PlayerScript : MonoBehaviour
         jump();
         coyoteTime();
         jumpBuffer();
+
 
     }
 
@@ -121,8 +144,8 @@ public class PlayerScript : MonoBehaviour
         RaycastHit2D rightHit = Physics2D.Raycast(rightRayPosition, Vector2.down, rayCastLength, LayerMask.GetMask("Ground"));
 
         //Debug.DrawRay(transform.position, Vector2.down * rayCastLength, Color.orange);
-        // Debug.DrawRay(leftRayPosition, Vector2.down * rayCastLength, Color.red);
-        // Debug.DrawRay(rightRayPosition, Vector2.down * rayCastLength, Color.yellow);
+        //Debug.DrawRay(leftRayPosition, Vector2.down * rayCastLength, Color.red);
+        //Debug.DrawRay(rightRayPosition, Vector2.down * rayCastLength, Color.yellow);
 
         if (middleHit.collider != null || leftHit.collider != null || rightHit.collider != null)
         {
