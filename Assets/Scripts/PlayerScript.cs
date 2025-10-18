@@ -289,20 +289,5 @@ public class PlayerScript : MonoBehaviour
         animator.SetBool("isJumping", isJumping);
         animator.SetBool("isMoving", isMoving);
         animator.SetBool("isFalling", isFalling);
-
-
-        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-
-        // Get all clip info
-        AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
-
-        string stateName = "Unknown";
-        if (clipInfo.Length > 0)
-        {
-            stateName = clipInfo[0].clip.name;
-        }
-
-        Debug.Log("Current State: " + stateName);
-
     }
 }
