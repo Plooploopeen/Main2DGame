@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -11,14 +12,15 @@ public class PlayerScript : MonoBehaviour
     public InputActionAsset InputActions;
 
     [Header("References")]
-    [SerializeField] PlayerInput playerInput;
-    [SerializeField] Rigidbody2D rb;
+    private PlayerScript playerScript;
+    private Rigidbody2D rb;
+    private Animator animator;
 
     [Header("Jump Settings")]
     [SerializeField] float jumpForce;
     [SerializeField] float fallMultipierSlow;
     [SerializeField] float fallMultipierFast;
-    [SerializeField] private float timerJumpLimit;
+    [SerializeField] float timerJumpLimit;
 
     private bool canJump;
     private bool isJumping;
@@ -45,12 +47,17 @@ public class PlayerScript : MonoBehaviour
 
     [Header("Player movement and input")]
     [SerializeField] float moveSpeed;
+    private bool isMoving;
+    private bool isFalling;
 
     private InputAction jumpAction;
     private InputAction attackAction;
     private InputAction sprintAction;
     private InputAction moveAction;
 
+    [Header("Public references")]
+
+    [Header("Player Animator")]
 
 
     [Header("Extras")]
@@ -61,6 +68,9 @@ public class PlayerScript : MonoBehaviour
 
     private void Awake()
     {
+        playerScript = GetComponent<PlayerScript>();
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
 
         jumpAction = InputSystem.actions.FindAction("Jump");
         attackAction = InputSystem.actions.FindAction("Attack");
@@ -97,6 +107,7 @@ public class PlayerScript : MonoBehaviour
         coyoteTime();
         jumpBuffer();
 
+        updateAnimations();
 
     }
 
@@ -113,6 +124,24 @@ public class PlayerScript : MonoBehaviour
     {
         float horizontal = moveDirection.x;
         velocity.x = horizontal * moveSpeed;
+
+        if (horizontal != 0)
+        {
+            isMoving = true;
+        }
+        else
+        {
+            isMoving = false;
+        }
+
+        if (!isGrounded && velocity.y < 0)
+        {
+            isFalling = true;
+        }
+        else
+        {
+            isFalling = false;
+        }
 
         if (velocity.y < 0f)
         {
@@ -143,9 +172,9 @@ public class PlayerScript : MonoBehaviour
         RaycastHit2D leftHit = Physics2D.Raycast(leftRayPosition, Vector2.down, rayCastLength, LayerMask.GetMask("Ground"));
         RaycastHit2D rightHit = Physics2D.Raycast(rightRayPosition, Vector2.down, rayCastLength, LayerMask.GetMask("Ground"));
 
-        //Debug.DrawRay(transform.position, Vector2.down * rayCastLength, Color.orange);
-        //Debug.DrawRay(leftRayPosition, Vector2.down * rayCastLength, Color.red);
-        //Debug.DrawRay(rightRayPosition, Vector2.down * rayCastLength, Color.yellow);
+        Debug.DrawRay(transform.position, Vector2.down * rayCastLength, Color.orange);
+        Debug.DrawRay(leftRayPosition, Vector2.down * rayCastLength, Color.red);
+        Debug.DrawRay(rightRayPosition, Vector2.down * rayCastLength, Color.yellow);
 
         if (middleHit.collider != null || leftHit.collider != null || rightHit.collider != null)
         {
@@ -173,9 +202,14 @@ public class PlayerScript : MonoBehaviour
         // Check if jumping
         if (canJump && jumpAction.IsPressed())
         {
-            isJumping = true;
             rb.linearVelocity = Vector2.up * jumpForce;
             timerJump += Time.deltaTime;
+        }
+        
+        // Check is the player is jumping
+        if (jumpAction.IsPressed() && velocity.y > 0)
+        {
+            isJumping = true;
         }
         else
         {
@@ -199,7 +233,6 @@ public class PlayerScript : MonoBehaviour
         //Check if reached max jump height
         if (timerJump >= timerJumpLimit)
         {
-            isJumping = false;
             isJumpCompleted = true;
         }
 
@@ -249,5 +282,14 @@ public class PlayerScript : MonoBehaviour
     void sprint()
     {
 
+    }
+
+    void updateAnimations()
+    {
+        animator.SetBool("isJumping", isJumping);
+        animator.SetBool("isMoving", isMoving);
+        animator.SetBool("isFalling", isFalling);
+
+    
     }
 }

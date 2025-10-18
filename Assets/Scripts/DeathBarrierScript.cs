@@ -6,7 +6,6 @@ public class DeathBarrierScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Dead");
             collision.transform.position = Vector2.zero;
         }
     }
