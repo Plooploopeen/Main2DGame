@@ -54,6 +54,7 @@ public class PlayerScript : MonoBehaviour
     private InputAction attackAction;
     private InputAction sprintAction;
     private InputAction moveAction;
+    private InputAction throwAction;
 
     [Header("Public references")]
 
