@@ -214,7 +214,7 @@ public class PlayerScript : MonoBehaviour
         }
         
         // Check is the player is jumping
-        if (jumpAction.IsPressed() && velocity.y > 0)
+        if (jumpAction.IsPressed() && (velocity.y > 0 || timerCoyoteTime < timerCoyoteTimeLimit))
         {
             isJumping = true;
         }
@@ -298,3 +298,4 @@ public class PlayerScript : MonoBehaviour
         animator.SetBool("isFalling", isFalling);
     }
 }
+
