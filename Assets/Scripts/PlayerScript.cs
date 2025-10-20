@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using TMPro;
+using Unity.Properties;
 using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
@@ -49,6 +50,8 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] float moveSpeed;
     private bool isMoving;
     private bool isFalling;
+    private bool isMovingRight;
+    private bool isMovingLeft;
 
     private InputAction jumpAction;
     private InputAction attackAction;
@@ -130,7 +133,41 @@ public class PlayerScript : MonoBehaviour
     void movePlayer()
     {
         float horizontal = moveDirection.x;
-        velocity.x = horizontal * moveSpeed;
+
+        // Check player movement input
+        if (moveDirection.x > 0)
+        {
+            isMovingRight = true;
+        }
+        else
+        {
+            isMovingRight = false;
+        }
+
+        if (moveDirection.x < 0)
+        {
+            isMovingLeft = true;
+        }
+        else
+        {
+            isMovingLeft = false;
+        }
+
+        // Apply movement
+        if (isMovingRight)
+        {
+            velocity.x = moveSpeed;
+        }
+
+        if (isMovingLeft)
+        {
+            velocity.x = -moveSpeed;
+        }
+
+        if (!isMovingLeft && !isMovingRight)
+            {
+                velocity.x = 0;
+            }
 
         if (horizontal != 0)
         {
@@ -140,6 +177,7 @@ public class PlayerScript : MonoBehaviour
         {
             isMoving = false;
         }
+
 
         if (!isGrounded && velocity.y < 0)
         {
