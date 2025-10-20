@@ -77,6 +77,7 @@ public class PlayerScript : MonoBehaviour
         attackAction = InputSystem.actions.FindAction("Attack");
         sprintAction = InputSystem.actions.FindAction("Sprint");
         moveAction = InputSystem.actions.FindAction("Move");
+        throwAction = InputSystem.actions.FindAction("Throw");
     }
 
     void Start()
@@ -109,6 +110,11 @@ public class PlayerScript : MonoBehaviour
         jumpBuffer();
 
         updateAnimations();
+
+        if (throwAction.ReadValue<Vector2>().magnitude > 0.1)
+        {
+            Debug.Log("Throw");
+        }
 
     }
 
