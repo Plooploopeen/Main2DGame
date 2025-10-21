@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -135,7 +136,7 @@ public class PlayerScript : MonoBehaviour
         float horizontal = moveDirection.x;
 
         // Check player movement input
-        if (moveDirection.x > 0)
+        if (moveDirection.x > 0.5)
         {
             isMovingRight = true;
         }
@@ -144,7 +145,7 @@ public class PlayerScript : MonoBehaviour
             isMovingRight = false;
         }
 
-        if (moveDirection.x < 0)
+        if (moveDirection.x < -0.5)
         {
             isMovingLeft = true;
         }
@@ -168,26 +169,8 @@ public class PlayerScript : MonoBehaviour
             {
                 velocity.x = 0;
             }
-
-        if (horizontal != 0)
-        {
-            isMoving = true;
-        }
-        else
-        {
-            isMoving = false;
-        }
-
-
-        if (!isGrounded && velocity.y < 0)
-        {
-            isFalling = true;
-        }
-        else
-        {
-            isFalling = false;
-        }
-
+        
+        // Make jumps fast and falling slow
         if (velocity.y < 0f)
         {
             rb.gravityScale = fallMultipierSlow;
@@ -331,6 +314,27 @@ public class PlayerScript : MonoBehaviour
 
     void updateAnimations()
     {
+        float horizontal = moveDirection.x;
+
+        if (horizontal != 0)
+        {
+            isMoving = true;
+        }
+        else
+        {
+            isMoving = false;
+        }
+
+
+        if (!isGrounded && velocity.y < 0)
+        {
+            isFalling = true;
+        }
+        else
+        {
+            isFalling = false;
+        }
+
         animator.SetBool("isJumping", isJumping);
         animator.SetBool("isMoving", isMoving);
         animator.SetBool("isFalling", isFalling);
