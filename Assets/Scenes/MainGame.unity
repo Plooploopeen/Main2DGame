@@ -670,7 +670,7 @@ MonoBehaviour:
   fallMultipierSlow: 0.6
   fallMultipierFast: 2
   timerJumpLimit: 0.15
-  timerCoyoteTimeLimit: 0.1
+  timerCoyoteTimeLimit: 0.15
   timerJumpBufferLimit: 0.2
   rayCastLength: 0.36
   rayShiftAmount: 0.11
@@ -875,7 +875,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.35, y: 0.65833336}
+    oldSize: {x: 0.35, y: 0.6666667}
     newSize: {x: 0.44, y: 0.81}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

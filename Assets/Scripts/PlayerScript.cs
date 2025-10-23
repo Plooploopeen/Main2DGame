@@ -120,6 +120,8 @@ public class PlayerScript : MonoBehaviour
             Debug.Log("Throw");
         }
 
+        //AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
     }
 
     void FixedUpdate()
@@ -339,5 +341,16 @@ public class PlayerScript : MonoBehaviour
         animator.SetBool("isMoving", isMoving);
         animator.SetBool("isFalling", isFalling);
     }
+    
+    public void onIdleCompleted()
+    {
+        if (Random.Range(0, 2) == 1)
+        {
+            animator.Play("Sword Slip", 0);
+            Debug.Log("Play");
+        }
+    }
+    
+
 }
 
