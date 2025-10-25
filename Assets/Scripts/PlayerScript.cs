@@ -11,7 +11,7 @@ using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class PlayerScript : MonoBehaviour
 {
-    public InputActionAsset InputActions;
+    [SerializeField] InputActionAsset InputActions;
 
     [Header("References")]
     private PlayerScript playerScript;
@@ -43,7 +43,8 @@ public class PlayerScript : MonoBehaviour
 
     [Header("IsGrounded")]
     [SerializeField] float rayCastLength;
-    [SerializeField] float rayShiftAmount;
+    [SerializeField] float rayShiftLeftAmount;
+    [SerializeField] float rayShiftRightAmount;
 
     private bool isGrounded;
 
@@ -138,7 +139,7 @@ public class PlayerScript : MonoBehaviour
         float horizontal = moveDirection.x;
 
         // Check player movement input
-        if (moveDirection.x > 0.5)
+        if (moveDirection.x > 0.4)
         {
             isMovingRight = true;
         }
@@ -147,7 +148,7 @@ public class PlayerScript : MonoBehaviour
             isMovingRight = false;
         }
 
-        if (moveDirection.x < -0.5)
+        if (moveDirection.x < -0.4)
         {
             isMovingLeft = true;
         }
@@ -195,12 +196,12 @@ public class PlayerScript : MonoBehaviour
 
     void checkIsGrounded()
     {
-        Vector2 leftRayPosition = (Vector2)transform.position + Vector2.left * rayShiftAmount;
-        Vector2 rightRayPosition = (Vector2)transform.position + Vector2.right * rayShiftAmount;
+        Vector2 leftRayPosition = (Vector2)transform.position + Vector2.left * rayShiftLeftAmount;
+        Vector2 rightRayPosition = (Vector2)transform.position + Vector2.right * rayShiftRightAmount;
 
-        RaycastHit2D middleHit = Physics2D.Raycast(transform.position, Vector2.down, rayCastLength, LayerMask.GetMask("Ground"));
-        RaycastHit2D leftHit = Physics2D.Raycast(leftRayPosition, Vector2.down, rayCastLength, LayerMask.GetMask("Ground"));
-        RaycastHit2D rightHit = Physics2D.Raycast(rightRayPosition, Vector2.down, rayCastLength, LayerMask.GetMask("Ground"));
+        RaycastHit2D middleHit = Physics2D.Raycast(transform.position, Vector2.down, rayCastLength, LayerMask.GetMask("Jumpable"));
+        RaycastHit2D leftHit = Physics2D.Raycast(leftRayPosition, Vector2.down, rayCastLength, LayerMask.GetMask("Jumpable"));
+        RaycastHit2D rightHit = Physics2D.Raycast(rightRayPosition, Vector2.down, rayCastLength, LayerMask.GetMask("Jumpable"));
 
         Debug.DrawRay(transform.position, Vector2.down * rayCastLength, Color.orange);
         Debug.DrawRay(leftRayPosition, Vector2.down * rayCastLength, Color.red);
@@ -344,10 +345,9 @@ public class PlayerScript : MonoBehaviour
     
     public void onIdleCompleted()
     {
-        if (Random.Range(0, 2) == 1)
+        if (Random.Range(0, 50) == 1)
         {
             animator.Play("Sword Slip", 0);
-            Debug.Log("Play");
         }
     }
     
