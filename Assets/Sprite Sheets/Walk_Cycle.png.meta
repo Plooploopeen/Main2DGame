@@ -208,7 +208,7 @@ TextureImporter:
         serializedVersion: 2
         x: 28
         y: 18
-        width: 30
+        width: 35
         height: 73
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -228,9 +228,9 @@ TextureImporter:
       name: Walk_Cycle_5
       rect:
         serializedVersion: 2
-        x: 130
+        x: 131
         y: 18
-        width: 36
+        width: 35
         height: 74
       alignment: 0
       pivot: {x: 0.5, y: 0.5}

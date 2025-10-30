@@ -12,7 +12,7 @@ public class NewMonoBehaviourScript : MonoBehaviour, IDamageable
 
     public void takeDamage(float damage)
     {
-        Debug.Log("Hit!");
+        Debug.Log(health);
         health -= damage;
 
         if (health <= 0)
