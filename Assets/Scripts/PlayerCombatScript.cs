@@ -7,7 +7,7 @@ public class PlayerAttackScript : MonoBehaviour
     [SerializeField] GameObject weaponHitbox;
 
     private InputAction attackAction;
-    private bool isAttacking = false;
+    public bool isAttacking = false;
     private bool canAttack = true;
 
     private void Awake()
@@ -17,7 +17,7 @@ public class PlayerAttackScript : MonoBehaviour
 
     void Start()
     {
-        
+        weaponHitbox.SetActive(false);
     }
 
     void Update()
@@ -26,6 +26,7 @@ public class PlayerAttackScript : MonoBehaviour
         {
             attack();
         }
+
     }
 
     void attack()

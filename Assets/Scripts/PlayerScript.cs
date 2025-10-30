@@ -17,6 +17,8 @@ public class PlayerScript : MonoBehaviour
     private PlayerScript playerScript;
     private Rigidbody2D rb;
     private Animator animator;
+    private PlayerAttackScript playerAttackScript;
+    private SpriteRenderer spriteRenderer;
 
     [Header("Jump Settings")]
     [SerializeField] float jumpForce;
@@ -75,8 +77,10 @@ public class PlayerScript : MonoBehaviour
     private void Awake()
     {
         playerScript = GetComponent<PlayerScript>();
+        playerAttackScript = GetComponent<PlayerAttackScript>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         jumpAction = InputSystem.actions.FindAction("Jump");
         attackAction = InputSystem.actions.FindAction("Attack");
@@ -120,9 +124,6 @@ public class PlayerScript : MonoBehaviour
         {
             Debug.Log("Throw");
         }
-
-        //AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-
     }
 
     void FixedUpdate()
@@ -157,15 +158,17 @@ public class PlayerScript : MonoBehaviour
             isMovingLeft = false;
         }
 
-        // Apply movement
+        // Apply movement and face direction
         if (isMovingRight)
         {
             velocity.x = moveSpeed;
+            spriteRenderer.flipX = false;
         }
 
         if (isMovingLeft)
         {
             velocity.x = -moveSpeed;
+            spriteRenderer.flipX = true;
         }
 
         if (!isMovingLeft && !isMovingRight)
@@ -341,6 +344,7 @@ public class PlayerScript : MonoBehaviour
         animator.SetBool("isJumping", isJumping);
         animator.SetBool("isMoving", isMoving);
         animator.SetBool("isFalling", isFalling);
+        animator.SetBool("isAttacking", playerAttackScript.isAttacking);
     }
     
     public void onIdleCompleted()
@@ -349,6 +353,11 @@ public class PlayerScript : MonoBehaviour
         {
             animator.Play("Sword Slip", 0);
         }
+    }
+
+    public void onAttackCompleted()
+    {
+
     }
     
 

@@ -879,7 +879,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.35, y: 0.6666667}
+    oldSize: {x: 0.39166668, y: 0.60833335}
     newSize: {x: 0.44, y: 0.81}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -915,6 +915,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttackScript
   inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   weaponHitbox: {fileID: 1948448134}
+  isAttacking: 0
 --- !u!1001 &982132006
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -988,6 +989,7 @@ GameObject:
   - component: {fileID: 1166296723}
   - component: {fileID: 1166296722}
   - component: {fileID: 1166296721}
+  - component: {fileID: 1166296725}
   m_Layer: 3
   m_Name: Enemy
   m_TagString: Untagged
@@ -1141,6 +1143,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1166296725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166296720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 154c3ea3f3ea86246aea8bd612aea91b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
+  maxHealth: 100
 --- !u!1 &1736775237
 GameObject:
   m_ObjectHideFlags: 0
