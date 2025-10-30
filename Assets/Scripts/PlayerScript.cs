@@ -111,6 +111,7 @@ public class PlayerScript : MonoBehaviour
     {
         moveDirection = moveAction.ReadValue<Vector2>();
 
+        // Movement
         sprint();
         capVelocity();
         checkIsGrounded();
@@ -118,6 +119,9 @@ public class PlayerScript : MonoBehaviour
         coyoteTime();
         jumpBuffer();
 
+        // Combat
+
+        // Animations
         updateAnimations();
 
         if (throwAction.ReadValue<Vector2>().magnitude > 0.1)
@@ -162,12 +166,14 @@ public class PlayerScript : MonoBehaviour
         if (isMovingRight)
         {
             velocity.x = moveSpeed;
+
             spriteRenderer.flipX = false;
         }
 
         if (isMovingLeft)
         {
             velocity.x = -moveSpeed;
+
             spriteRenderer.flipX = true;
         }
 
@@ -359,7 +365,5 @@ public class PlayerScript : MonoBehaviour
     {
 
     }
-    
-
 }
 

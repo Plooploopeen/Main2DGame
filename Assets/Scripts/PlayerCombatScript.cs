@@ -6,12 +6,16 @@ public class PlayerAttackScript : MonoBehaviour
     [SerializeField] InputActionAsset inputActions;
     [SerializeField] GameObject weaponHitbox;
 
+    private Animator animator;
+
     private InputAction attackAction;
     public bool isAttacking = false;
     private bool canAttack = true;
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
+
         attackAction = InputSystem.actions.FindAction("Attack");
     }
 
@@ -22,16 +26,13 @@ public class PlayerAttackScript : MonoBehaviour
 
     void Update()
     {
-        if (attackAction.WasPressedThisFrame() && canAttack)
-        {
-            attack();
-        }
-
+        checkIfAttacking();
     }
 
     void attack()
     {
         isAttacking = true;
+        animator.Play("Attacks.TestAttack");
     }
 
     public void enableHitbox()
@@ -47,5 +48,14 @@ public class PlayerAttackScript : MonoBehaviour
     public void attackCompleted()
     {
         isAttacking = false;
+        animator.Play("Idle");
+    }
+
+    void checkIfAttacking()
+    {
+        if (attackAction.WasPressedThisFrame() && canAttack)
+        {
+            attack();
+        }
     }
 }
