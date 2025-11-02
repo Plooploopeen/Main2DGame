@@ -6,13 +6,11 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
     public float health = 100;
     [SerializeField] float maxHealth = 100;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         health = maxHealth;
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -30,6 +28,6 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
 
     public void die()
     {
-        Debug.Log("Player died");
+
     }
 }
