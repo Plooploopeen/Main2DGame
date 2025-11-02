@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using TMPro;
 using Unity.Properties;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -52,10 +53,13 @@ public class PlayerScript : MonoBehaviour
 
     [Header("Player movement and input")]
     [SerializeField] float moveSpeed;
+    [SerializeField] float walkSpeed;
+    [SerializeField] float sprintSpeed;
     private bool isMoving;
     private bool isFalling;
     private bool isMovingRight;
     private bool isMovingLeft;
+    private bool isSprinting;
 
     private InputAction jumpAction;
     private InputAction attackAction;
@@ -110,6 +114,8 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         moveDirection = moveAction.ReadValue<Vector2>();
+
+        Debug.Log(isSprinting);
 
         // Movement
         sprint();
@@ -323,7 +329,16 @@ public class PlayerScript : MonoBehaviour
 
     void sprint()
     {
-
+        if (sprintAction.IsPressed())
+        {
+            moveSpeed = sprintSpeed;
+            isSprinting = true;
+        }
+        else if (!sprintAction.IsPressed())
+        {
+            moveSpeed = walkSpeed;
+            isSprinting = false;
+        }
     }
 
     void updateAnimations()
@@ -353,6 +368,7 @@ public class PlayerScript : MonoBehaviour
         animator.SetBool("isMoving", isMoving);
         animator.SetBool("isFalling", isFalling);
         animator.SetBool("isAttacking", playerAttackScript.isAttacking);
+        animator.SetBool("isSprinting", isSprinting);
     }
     
     public void onIdleCompleted()

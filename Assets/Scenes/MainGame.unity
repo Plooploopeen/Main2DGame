@@ -679,6 +679,8 @@ MonoBehaviour:
   rayShiftLeftAmount: 0.12
   rayShiftRightAmount: 0.13
   moveSpeed: 1.5
+  walkSpeed: 1.5
+  sprintSpeed: 3
 --- !u!114 &616317159
 MonoBehaviour:
   m_ObjectHideFlags: 0
