@@ -39,7 +39,7 @@ public class HitBox : MonoBehaviour
     }
 
     void checkForHits()
-    {        
+    {
         Vector2 center = hitBoxCollider.transform.position;
         Vector2 size = hitBoxCollider.size;
 
