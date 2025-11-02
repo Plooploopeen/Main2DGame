@@ -364,6 +364,11 @@ public class PlayerScript : MonoBehaviour
             isFalling = false;
         }
 
+        if (sprintAction.WasReleasedThisFrame() && Mathf.Abs(velocity.x) > walkSpeed)
+        {
+            animator.Play("stopSprintingSlide");
+        }
+
         animator.SetBool("isJumping", isJumping);
         animator.SetBool("isMoving", isMoving);
         animator.SetBool("isFalling", isFalling);
@@ -379,9 +384,9 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    public void onAttackCompleted()
+    public void onStopSprintingSlide()
     {
-
+        animator.Play("Idle");
     }
 }
 
