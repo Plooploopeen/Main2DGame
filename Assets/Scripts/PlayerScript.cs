@@ -56,6 +56,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] float walkSpeed;
     [SerializeField] float sprintSpeed;
     [SerializeField] float decelRate;
+    private bool isSliding;
     private bool isMoving;
     private bool isFalling;
     private bool isMovingRight;
@@ -116,6 +117,8 @@ public class PlayerScript : MonoBehaviour
     {
         moveDirection = moveAction.ReadValue<Vector2>();
 
+        Debug.Log(isSliding);
+
         // Movement
         sprint();
         capVelocity();
@@ -137,11 +140,23 @@ public class PlayerScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        velocity = rb.linearVelocity;
+        if (isSliding)
+        {
+            rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, decelRate * Time.fixedDeltaTime);
 
-        movePlayer();
+            if (Mathf.Abs(rb.linearVelocity.x) < 0.5f)
+            {
 
-        rb.linearVelocity = velocity;
+                rb.linearVelocity = Vector2.zero;
+                isSliding = false;
+            }
+        }
+        else
+        {
+            velocity = rb.linearVelocity;
+            movePlayer();
+            rb.linearVelocity = velocity;
+        }
     }
 
     void movePlayer()
@@ -195,7 +210,7 @@ public class PlayerScript : MonoBehaviour
         else
         {
             rb.gravityScale = fallMultipierFast;
-        }
+        }   
     }
 
     //Velocity cap
@@ -363,16 +378,10 @@ public class PlayerScript : MonoBehaviour
             isFalling = false;
         }
 
-        if (moveAction.WasReleasedThisFrame() && Mathf.Abs(velocity.x) > walkSpeed)
+        if (moveAction.WasReleasedThisFrame() && Mathf.Abs(velocity.x) > walkSpeed && isGrounded)
         {
-            //if (spriteRenderer.flipX == false)
-            //{
-
-            //}
-
-            rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, decelRate * Time.deltaTime);
-
             animator.Play("stopSprintingSlide");
+            isSliding = true;
         }
 
         animator.SetBool("isJumping", isJumping);
