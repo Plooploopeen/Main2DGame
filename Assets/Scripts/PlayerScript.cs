@@ -55,6 +55,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] float moveSpeed;
     [SerializeField] float walkSpeed;
     [SerializeField] float sprintSpeed;
+    [SerializeField] float decelRate;
     private bool isMoving;
     private bool isFalling;
     private bool isMovingRight;
@@ -114,8 +115,6 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         moveDirection = moveAction.ReadValue<Vector2>();
-
-        Debug.Log(isSprinting);
 
         // Movement
         sprint();
@@ -364,8 +363,15 @@ public class PlayerScript : MonoBehaviour
             isFalling = false;
         }
 
-        if (sprintAction.WasReleasedThisFrame() && Mathf.Abs(velocity.x) > walkSpeed)
+        if (moveAction.WasReleasedThisFrame() && Mathf.Abs(velocity.x) > walkSpeed)
         {
+            //if (spriteRenderer.flipX == false)
+            //{
+
+            //}
+
+            rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, decelRate * Time.deltaTime);
+
             animator.Play("stopSprintingSlide");
         }
 

@@ -26,11 +26,6 @@ public class HitBox : MonoBehaviour
         tryDamage(collision);
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        tryDamage(collision);
-    }
-
     private void OnEnable()
     {
         hitEnemies.Clear();

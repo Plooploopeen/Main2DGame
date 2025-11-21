@@ -14,6 +14,8 @@ public class NewMonoBehaviourScript : MonoBehaviour, IDamageable
     {
         health -= damage;
 
+
+
         if (health <= 0)
         {
             die();
