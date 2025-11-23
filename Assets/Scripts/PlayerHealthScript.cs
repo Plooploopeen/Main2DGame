@@ -31,7 +31,7 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
 
         Debug.Log(health);
 
-        StartCoroutine(FlashRed());
+        //StartCoroutine(FlashRed());
 
         if (health <= 0)
         {
@@ -44,12 +44,12 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
 
     }
 
-    IEnumerator FlashRed()
-    {
-        Color original = SpriteRenderer.color;
-        SpriteRenderer.color = Color.red;
-        yield return new WaitForSeconds(1);
-        SpriteRenderer.color = original;
+    //IEnumerator FlashRed()
+    //{
+    //    Color original = SpriteRenderer.color;
+    //    SpriteRenderer.color = Color.red;
+    //    yield return new WaitForSeconds(1);
+    //    SpriteRenderer.color = original;
 
-    }
+    //}
 }
