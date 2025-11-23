@@ -141,6 +141,7 @@ public class PlayerScript : MonoBehaviour
         if (isSliding)
         {
             rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, decelRate * Time.fixedDeltaTime);
+            animator.Play("Stop Sprinting Slide");
 
             if (Mathf.Abs(rb.linearVelocity.x) < 0.5f)
             {
