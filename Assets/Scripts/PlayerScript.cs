@@ -117,8 +117,6 @@ public class PlayerScript : MonoBehaviour
     {
         moveDirection = moveAction.ReadValue<Vector2>();
 
-        Debug.Log(isSliding);
-
         // Movement
         sprint();
         capVelocity();
@@ -134,7 +132,7 @@ public class PlayerScript : MonoBehaviour
 
         if (throwAction.ReadValue<Vector2>().magnitude > 0.1)
         {
-            Debug.Log("Throw");
+            
         }
     }
 
@@ -378,9 +376,9 @@ public class PlayerScript : MonoBehaviour
             isFalling = false;
         }
 
+        // Check if player just stopped moving while at running
         if (moveAction.WasReleasedThisFrame() && Mathf.Abs(velocity.x) > walkSpeed && isGrounded)
         {
-            animator.Play("stopSprintingSlide");
             isSliding = true;
         }
 
@@ -393,9 +391,9 @@ public class PlayerScript : MonoBehaviour
     
     public void onIdleCompleted()
     {
-        if (Random.Range(0, 50) == 1)
+        if (Random.Range(0, 40) == 1)
         {
-            animator.Play("Sword Slip", 0);
+            animator.Play("Sword Slip");
         }
     }
 
