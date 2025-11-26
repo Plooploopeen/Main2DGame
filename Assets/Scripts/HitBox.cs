@@ -31,6 +31,8 @@ public class HitBox : MonoBehaviour
     {
         hitEnemies.Clear();
 
+        //Invoke("checkForHits", 0.01f);
+
         checkForHits();
     }
 
@@ -50,7 +52,6 @@ public class HitBox : MonoBehaviour
     void tryDamage(Collider2D collision)
     {
         if (hitEnemies.Contains(collision)) return;
-
 
         IDamageable target = collision.gameObject.GetComponent<IDamageable>();
 

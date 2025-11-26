@@ -624,7 +624,7 @@ MonoBehaviour:
   damage: 10
   targetLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
 --- !u!1 &616317153
 GameObject:
   m_ObjectHideFlags: 0
@@ -1087,9 +1087,8 @@ GameObject:
   - component: {fileID: 1166296723}
   - component: {fileID: 1166296722}
   - component: {fileID: 1166296721}
-  - component: {fileID: 1166296725}
-  - component: {fileID: 1166296726}
   - component: {fileID: 1166296727}
+  - component: {fileID: 1166296725}
   - component: {fileID: 1166296728}
   m_Layer: 7
   m_Name: Enemy
@@ -1258,22 +1257,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
   maxHealth: 100
---- !u!114 &1166296726
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1166296720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 809bee901f1d22c45a15ca580737d9a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HitBox
-  damage: 10
-  targetLayers:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!95 &1166296727
 Animator:
   serializedVersion: 7
@@ -1313,7 +1296,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   hitBoxScript: {fileID: 0}
-  weaponHitBox: {fileID: 608868745}
+  weaponGameObject: {fileID: 608868745}
+  weaponCollider: {fileID: 608868747}
 --- !u!1 &1736775237
 GameObject:
   m_ObjectHideFlags: 0

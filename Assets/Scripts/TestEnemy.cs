@@ -12,16 +12,17 @@ public class TestEnemy : MonoBehaviour
 
     private Animator animator;
 
-    [SerializeField] GameObject weaponHitBox;
+    [SerializeField] GameObject weaponGameObject;
+    [SerializeField] BoxCollider2D weaponCollider;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        hitBoxScript = GetComponent<HitBox>();
+        hitBoxScript = weaponGameObject.GetComponent<HitBox>();
     }
     void Start()
     {
-        weaponHitBox.SetActive(false);
+        weaponGameObject.SetActive(false);
     }
 
     void Update()
@@ -43,11 +44,13 @@ public class TestEnemy : MonoBehaviour
 
     public void enableHitbox()
     {
-        weaponHitBox.SetActive(true);
+        weaponGameObject.SetActive(true);
+        weaponCollider.enabled = true;
     }
 
     public void disableHitbox()
     {
-        weaponHitBox.SetActive(false);
+        weaponGameObject.SetActive(false);
+        weaponCollider.enabled = false;
     }
 }
