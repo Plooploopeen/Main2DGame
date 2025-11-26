@@ -41,7 +41,7 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
 
     public void die()
     {
-
+        Destroy(gameObject);
     }
 
     //IEnumerator FlashRed()
