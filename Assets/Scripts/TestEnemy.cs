@@ -1,3 +1,5 @@
+using JetBrains.Annotations;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -6,15 +8,20 @@ public class TestEnemy : MonoBehaviour
     [SerializeField] float frontRayLength;
     [SerializeField] LayerMask frontRayLayers;
 
+    public HitBox hitBoxScript;
+
     private Animator animator;
+
+    [SerializeField] GameObject weaponHitBox;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        hitBoxScript = GetComponent<HitBox>();
     }
     void Start()
     {
-        
+        weaponHitBox.SetActive(false);
     }
 
     void Update()
@@ -28,5 +35,19 @@ public class TestEnemy : MonoBehaviour
             animator.Play("Attack");
         }
 
+        
+
+        //Debug.Log(hitBoxScript.hitCount);
+
+    }
+
+    public void enableHitbox()
+    {
+        weaponHitBox.SetActive(true);
+    }
+
+    public void disableHitbox()
+    {
+        weaponHitBox.SetActive(false);
     }
 }

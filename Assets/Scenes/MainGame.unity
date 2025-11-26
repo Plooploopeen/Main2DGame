@@ -542,7 +542,7 @@ GameObject:
   - component: {fileID: 608868747}
   - component: {fileID: 608868748}
   m_Layer: 0
-  m_Name: Attack
+  m_Name: WeaponHitbox
   m_TagString: Jumpable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -570,7 +570,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 608868745}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -1312,6 +1312,8 @@ MonoBehaviour:
   frontRayLayers:
     serializedVersion: 2
     m_Bits: 8
+  hitBoxScript: {fileID: 0}
+  weaponHitBox: {fileID: 608868745}
 --- !u!1 &1736775237
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,8 @@ public class HitBox : MonoBehaviour
 
     private List<Collider2D> hitEnemies = new List<Collider2D>();
 
+    public int hitCount => hitEnemies.Count;
+
     [SerializeField] LayerMask targetLayers;
 
     private Transform selfRoot;
@@ -20,7 +22,6 @@ public class HitBox : MonoBehaviour
         hitBoxCollider = GetComponent<BoxCollider2D>();
         selfRoot = transform.root;
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         tryDamage(collision);
@@ -62,11 +63,11 @@ public class HitBox : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Vector2 center = hitBoxCollider.transform.position;
-        Vector2 size = hitBoxCollider.size;
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(center, size);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Vector2 center = hitBoxCollider.transform.position;
+    //    Vector2 size = hitBoxCollider.size;
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireCube(center, size);
+    //}
 }
