@@ -8,12 +8,18 @@ public class NewMonoBehaviourScript : MonoBehaviour, IDamageable
 {
     private float health;
     [SerializeField] float maxHealth;
+    [SerializeField] float knockbackForce;
+    [SerializeField] float flashLength;
 
+    [SerializeField] Transform playerTransform;
+
+    private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Start()
@@ -21,11 +27,13 @@ public class NewMonoBehaviourScript : MonoBehaviour, IDamageable
         health = maxHealth;
     }
 
-    public void takeDamage(float damage)
+    public void takeDamage(float damage, Transform attackerTransform)
     {
         health -= damage;
 
         StartCoroutine(FlashRed());
+
+        applyKnockback(transform.position - attackerTransform.position);
 
         if (health <= 0)
         {
@@ -42,8 +50,16 @@ public class NewMonoBehaviourScript : MonoBehaviour, IDamageable
     {
         Color original = spriteRenderer.color;
         spriteRenderer.color = Color.red;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(flashLength);
         spriteRenderer.color = original;
 
     }
+
+    void applyKnockback(Vector2 direction)
+    {
+        direction.Normalize();
+        direction.y = 1f;
+        rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
+    }
+
 }

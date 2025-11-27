@@ -999,6 +999,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthScript
   health: 100
   maxHealth: 100
+  flashLength: 0.2
+  knockbackForce: 2
 --- !u!114 &616317165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1257,6 +1259,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
   maxHealth: 100
+  knockbackForce: 20
+  flashLength: 0.2
+  playerTransform: {fileID: 616317155}
 --- !u!95 &1166296727
 Animator:
   serializedVersion: 7

@@ -59,7 +59,7 @@ public class HitBox : MonoBehaviour
 
         if (target != null)
         {
-            target.takeDamage(damage);
+            target.takeDamage(damage, transform.parent.transform);
             hitEnemies.Add(collision);
         }
     }
