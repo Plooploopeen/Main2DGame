@@ -387,8 +387,8 @@ Transform:
   m_GameObject: {fileID: 334189648}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.739, y: -0.69, z: 0}
-  m_LocalScale: {x: 6.559744, y: 2.2172918, z: 1}
+  m_LocalPosition: {x: -3.877, y: -0.69, z: 0}
+  m_LocalScale: {x: 27.332483, y: 2.2172918, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1237,7 +1237,7 @@ Transform:
   m_GameObject: {fileID: 1166296720}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.453, y: 0.417, z: 0}
+  m_LocalPosition: {x: -1.512, y: 0.417, z: 0}
   m_LocalScale: {x: 1.5598769, y: 1.5598769, z: 1.5598769}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1291,13 +1291,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f3f3ceaec2f744db8f472645856919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  weaponGameObject: {fileID: 608868745}
+  weaponCollider: {fileID: 608868747}
+  playerTransform: {fileID: 616317155}
+  hitBoxScript: {fileID: 0}
   frontRayLength: 0.6
   frontRayLayers:
     serializedVersion: 2
     m_Bits: 8
-  hitBoxScript: {fileID: 0}
-  weaponGameObject: {fileID: 608868745}
-  weaponCollider: {fileID: 608868747}
 --- !u!1 &1736775237
 GameObject:
   m_ObjectHideFlags: 0
@@ -1566,8 +1567,8 @@ Transform:
   m_GameObject: {fileID: 1830663743}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.695, y: -0.177, z: 0}
-  m_LocalScale: {x: 6.559744, y: 2.2172918, z: 1}
+  m_LocalPosition: {x: 3.619, y: -0.177, z: 0}
+  m_LocalScale: {x: 22.631117, y: 2.2172918, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

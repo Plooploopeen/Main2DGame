@@ -5,28 +5,43 @@ using UnityEngine.Rendering;
 
 public class TestEnemy : MonoBehaviour
 {
-    [SerializeField] float frontRayLength;
-    [SerializeField] LayerMask frontRayLayers;
+
+    [Header("References")]
+    [SerializeField] GameObject weaponGameObject;
+    [SerializeField] BoxCollider2D weaponCollider;
+    [SerializeField] Transform playerTransform;
 
     public HitBox hitBoxScript;
 
     private Animator animator;
+    private SpriteRenderer spriteRenderer;
 
-    [SerializeField] GameObject weaponGameObject;
-    [SerializeField] BoxCollider2D weaponCollider;
+
+
+    [SerializeField] float frontRayLength;
+    [SerializeField] LayerMask frontRayLayers;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
         hitBoxScript = weaponGameObject.GetComponent<HitBox>();
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
     void Start()
     {
         weaponGameObject.SetActive(false);
+        weaponCollider.enabled = false;
     }
 
     void Update()
     {
+        checkForPlayer();
+        facePlayer();
+    }
+
+    void checkForPlayer()
+    {
+
         RaycastHit2D frontRay = Physics2D.Raycast(transform.position, Vector2.right, frontRayLength, frontRayLayers);
 
         Debug.DrawRay(transform.position, Vector2.right * frontRayLength, Color.red);
@@ -36,10 +51,21 @@ public class TestEnemy : MonoBehaviour
             animator.Play("Attack");
         }
 
-        
 
-        //Debug.Log(hitBoxScript.hitCount);
+    }
 
+    void facePlayer()
+    {
+        float direction = Mathf.Sign(playerTransform.position.x - transform.position.x);
+
+        if (direction > 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (direction < 0)
+        {
+            spriteRenderer.flipX = true;
+        }
     }
 
     public void enableHitbox()
