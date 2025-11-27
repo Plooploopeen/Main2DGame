@@ -16,10 +16,11 @@ public class TestEnemy : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
-
-
+    //-------other---------//
     [SerializeField] float frontRayLength;
     [SerializeField] LayerMask frontRayLayers;
+
+    private bool isFacingRight;
 
     private void Awake()
     {
@@ -41,8 +42,9 @@ public class TestEnemy : MonoBehaviour
 
     void checkForPlayer()
     {
+        float direction = Mathf.Sign(playerTransform.position.x - transform.position.x);
 
-        RaycastHit2D frontRay = Physics2D.Raycast(transform.position, Vector2.right, frontRayLength, frontRayLayers);
+        RaycastHit2D frontRay = Physics2D.Raycast(transform.position, Vector2.right * direction, frontRayLength, frontRayLayers);
 
         Debug.DrawRay(transform.position, Vector2.right * frontRayLength, Color.red);
 
@@ -57,14 +59,17 @@ public class TestEnemy : MonoBehaviour
     void facePlayer()
     {
         float direction = Mathf.Sign(playerTransform.position.x - transform.position.x);
+        float absScale = Mathf.Abs(transform.localScale.x);
 
         if (direction > 0)
         {
-            spriteRenderer.flipX = false;
+            isFacingRight = true;
+            transform.localScale = new Vector3(absScale, absScale, absScale);
         }
         else if (direction < 0)
         {
-            spriteRenderer.flipX = true;
+            isFacingRight = false;
+            transform.localScale = new Vector3(-absScale, absScale, absScale);
         }
     }
 
