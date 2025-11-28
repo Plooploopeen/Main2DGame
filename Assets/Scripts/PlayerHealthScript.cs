@@ -6,8 +6,8 @@ using System.Collections.Generic;
 public class PlayerHealthScript : MonoBehaviour, IDamageable
 {
     public float health = 100;
+    public float maxHealth = 100;
     public bool isKnockedBack;
-    [SerializeField] float maxHealth = 100;
     [SerializeField] float flashLength;
     [SerializeField] float knockbackForce;
     [SerializeField] float knockbackLength;
@@ -33,8 +33,6 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
 
     public void takeDamage(float damage, Transform attackerTransform)
     {
-        
-
         health -= damage;
 
         StartCoroutine(FlashRed());
