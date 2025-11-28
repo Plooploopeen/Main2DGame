@@ -41,8 +41,6 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
 
         StartCoroutine(ApplyKnockback(transform.position - attackerTransform.position));
 
-        //applyKnockback(transform.position - attackerTransform.position);
-
         if (health <= 0)
         {
             die();
@@ -72,10 +70,4 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
         yield return new WaitForSeconds(knockbackLength);
         isKnockedBack = false;       
     }
-        
-    //void applyKnockback(Vector2 direction)
-    //{
-        //direction.Normalize();
-        //rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
-    //}
 }
