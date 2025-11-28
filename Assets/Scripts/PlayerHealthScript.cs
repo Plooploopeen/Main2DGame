@@ -6,9 +6,11 @@ using System.Collections.Generic;
 public class PlayerHealthScript : MonoBehaviour, IDamageable
 {
     public float health = 100;
+    public bool isKnockedBack;
     [SerializeField] float maxHealth = 100;
     [SerializeField] float flashLength;
     [SerializeField] float knockbackForce;
+    [SerializeField] float knockbackLength;
 
     private SpriteRenderer SpriteRenderer;
     private Rigidbody2D rb;
@@ -35,11 +37,11 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
 
         health -= damage;
 
-        Debug.Log(health);
-
         StartCoroutine(FlashRed());
 
-        applyKnockback(transform.position - attackerTransform.position);
+        StartCoroutine(ApplyKnockback(transform.position - attackerTransform.position));
+
+        //applyKnockback(transform.position - attackerTransform.position);
 
         if (health <= 0)
         {
@@ -61,10 +63,19 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
 
     }
 
-    void applyKnockback(Vector2 direction)
+    IEnumerator ApplyKnockback(Vector2 direction)
     {
+        isKnockedBack = true;
         direction.Normalize();
-        direction.y = 0;
+        direction.y = 1;
         rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
+        yield return new WaitForSeconds(knockbackLength);
+        isKnockedBack = false;       
     }
+        
+    //void applyKnockback(Vector2 direction)
+    //{
+        //direction.Normalize();
+        //rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
+    //}
 }

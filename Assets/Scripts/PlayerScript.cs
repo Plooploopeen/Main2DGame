@@ -19,6 +19,7 @@ public class PlayerScript : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private PlayerAttackScript playerAttackScript;
+    private PlayerHealthScript playerHealthScript;
     private SpriteRenderer spriteRenderer;
 
     [Header("Jump Settings")]
@@ -84,6 +85,7 @@ public class PlayerScript : MonoBehaviour
     {
         playerScript = GetComponent<PlayerScript>();
         playerAttackScript = GetComponent<PlayerAttackScript>();
+        playerHealthScript = GetComponent<PlayerHealthScript>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -163,7 +165,7 @@ public class PlayerScript : MonoBehaviour
         float horizontal = moveDirection.x;
 
         // Check player movement input
-        if (moveDirection.x > 0.4)
+        if (moveDirection.x > 0.4 && !playerHealthScript.isKnockedBack)
         {
             isMovingRight = true;
         }
@@ -172,7 +174,7 @@ public class PlayerScript : MonoBehaviour
             isMovingRight = false;
         }
 
-        if (moveDirection.x < -0.4)
+        if (moveDirection.x < -0.4 && !playerHealthScript.isKnockedBack)
         {
             isMovingLeft = true;
         }
@@ -196,7 +198,7 @@ public class PlayerScript : MonoBehaviour
             spriteRenderer.flipX = true;
         }
 
-        if (!isMovingLeft && !isMovingRight)
+        if (!isMovingLeft && !isMovingRight && !playerHealthScript.isKnockedBack)
             {
                 velocity.x = 0;
             }
