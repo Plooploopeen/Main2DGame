@@ -360,7 +360,7 @@ public class PlayerScript : MonoBehaviour
     {
         float horizontal = moveDirection.x;
 
-        if (horizontal != 0)
+        if (Mathf.Abs(horizontal) > 0.4f)
         {
             isMoving = true;
         }
