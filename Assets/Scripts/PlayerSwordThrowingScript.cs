@@ -6,8 +6,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerSwordThrowingScript : MonoBehaviour
 {
+    [SerializeField] GameObject swordPrefafab;
 
+    private InputAction aimAction;
     private InputAction throwAction;
+
     private LineRenderer lineRenderer;
 
     private bool isAiming;
@@ -19,6 +22,7 @@ public class PlayerSwordThrowingScript : MonoBehaviour
 
     private void Awake()
     {
+        aimAction = InputSystem.actions.FindAction("Aim");
         throwAction = InputSystem.actions.FindAction("Throw");
         lineRenderer = GetComponent<LineRenderer>();
     }
@@ -29,9 +33,16 @@ public class PlayerSwordThrowingScript : MonoBehaviour
 
     void Update()
     {
-        if (throwAction.ReadValue<Vector2>().magnitude > 0.1)
+        aim();
+
+        checkThrow();
+    }
+
+    void aim()
+    {
+        if (aimAction.ReadValue<Vector2>().magnitude > 0.1)
         {
-            Debug.Log("Throw");
+            Debug.Log("Aim");
             isAiming = true;
         }
         else
@@ -39,9 +50,9 @@ public class PlayerSwordThrowingScript : MonoBehaviour
             isAiming = false;
         }
 
-        aimDirection = throwAction.ReadValue<Vector2>().normalized;
+        aimDirection = aimAction.ReadValue<Vector2>().normalized;
         startPoint = transform.position;
-        endPoint = transform.position + (Vector3)(aimDirection *  lineLength);
+        endPoint = transform.position + (Vector3)(aimDirection * lineLength);
 
 
         if (isAiming)
@@ -53,6 +64,14 @@ public class PlayerSwordThrowingScript : MonoBehaviour
         else
         {
             lineRenderer.enabled = false;
+        }
+    }
+
+    void checkThrow()
+    {
+        if (aimAction.IsPressed() && throwAction.IsPressed())
+        {
+            Debug.Log("Throw");
         }
     }
 }

@@ -68,7 +68,6 @@ public class PlayerScript : MonoBehaviour
     private InputAction attackAction;
     private InputAction sprintAction;
     private InputAction moveAction;
-    private InputAction throwAction;
 
     [Header("Public references")]
 
@@ -94,7 +93,6 @@ public class PlayerScript : MonoBehaviour
         attackAction = InputSystem.actions.FindAction("Attack");
         sprintAction = InputSystem.actions.FindAction("Sprint");
         moveAction = InputSystem.actions.FindAction("Move");
-        throwAction = InputSystem.actions.FindAction("Throw");
     }
 
     void Start()
@@ -127,15 +125,8 @@ public class PlayerScript : MonoBehaviour
         coyoteTime();
         jumpBuffer();
 
-        // Combat
-
         // Animations
         updateAnimations();
-
-        if (throwAction.ReadValue<Vector2>().magnitude > 0.1)
-        {
-            
-        }
     }
 
     void FixedUpdate()
