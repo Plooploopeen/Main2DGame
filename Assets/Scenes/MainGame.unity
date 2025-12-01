@@ -404,6 +404,7 @@ GameObject:
   - component: {fileID: 345206024}
   - component: {fileID: 345206023}
   - component: {fileID: 345206022}
+  - component: {fileID: 345206025}
   m_Layer: 0
   m_Name: Ground (3)
   m_TagString: Jumpable
@@ -530,6 +531,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &345206025
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345206021}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &358275751
 GameObject:
   m_ObjectHideFlags: 0
@@ -1008,7 +1036,7 @@ MonoBehaviour:
   fallMultipierFast: 2
   timerJumpLimit: 0.15
   timerCoyoteTimeLimit: 0.15
-  timerJumpBufferLimit: 0.2
+  timerJumpBufferLimit: 0.1
   rayCastLength: 0.36
   rayShiftLeftAmount: 0.12
   rayShiftRightAmount: 0.13
@@ -1174,7 +1202,10 @@ MonoBehaviour:
   swordPrefab: {fileID: 2030584675770901213, guid: 4428568ab09e49f4c90263c11c14386f, type: 3}
   swordTransform: {fileID: 1110491115}
   swordRb: {fileID: 0}
+  isSwordFlying: 1
   speed: 2
+  aimDirection: {x: 0, y: 0}
+  velocity: {x: 0, y: 0}
   lineLength: 0.8
 --- !u!120 &616317168
 LineRenderer:
@@ -1382,8 +1413,12 @@ PrefabInstance:
       value: DeathBarrier
       objectReference: {fileID: 0}
     - target: {fileID: 8780360847842451921, guid: b64cf3d5ce572514bbafb57965a5a7de, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.6917
+      objectReference: {fileID: 0}
+    - target: {fileID: 8780360847842451921, guid: b64cf3d5ce572514bbafb57965a5a7de, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.87668157
+      value: -0.87668
       objectReference: {fileID: 0}
     - target: {fileID: 8780360847842451921, guid: b64cf3d5ce572514bbafb57965a5a7de, type: 3}
       propertyPath: m_LocalPosition.y

@@ -1,3 +1,4 @@
+using System.IO;
 using System.Runtime.InteropServices;
 using Unity.VisualScripting;
 using UnityEditor.Build;
@@ -10,23 +11,24 @@ public class PlayerSwordThrowingScript : MonoBehaviour
 {
     [SerializeField] GameObject swordPrefab;
     [SerializeField] Transform swordTransform;
+    private PlayerSwordThrowingScript playerSwordThrowingScript;
 
 
     private InputAction aimAction;
     private InputAction throwAction;
-    private GameObject sword;
-    [SerializeField] Rigidbody2D swordRb;
+    public GameObject swordInstance;
+    public Rigidbody2D swordRb;
 
     private LineRenderer lineRenderer;
 
     private bool isAiming;
     private bool canThrow = true;
-    private bool isSwordFlying;
-    [SerializeField] float speed;
+    public bool isSwordFlying;
+    public float speed;
     private Vector2 startPoint;
     private Vector2 endPoint;
-    private Vector2 aimDirection;
-    private Vector2 velocity;
+    public Vector2 aimDirection;
+    public Vector2 velocity;
     [SerializeField] float lineLength;
 
 
@@ -35,6 +37,7 @@ public class PlayerSwordThrowingScript : MonoBehaviour
         aimAction = InputSystem.actions.FindAction("Aim");
         throwAction = InputSystem.actions.FindAction("Throw");
         lineRenderer = GetComponent<LineRenderer>();
+        playerSwordThrowingScript = GetComponent<PlayerSwordThrowingScript>();
     }
     void Start()
     {
@@ -50,19 +53,12 @@ public class PlayerSwordThrowingScript : MonoBehaviour
         {
             spawnSword();
         }
-
-        if (isSwordFlying)
-        {
-            moveSword();
-        }
-
     }
 
     void aim()
     {
         if (aimAction.ReadValue<Vector2>().magnitude > 0.1)
         {
-            Debug.Log("Aim");
             isAiming = true;
         }
         else
@@ -89,9 +85,12 @@ public class PlayerSwordThrowingScript : MonoBehaviour
 
     void spawnSword()
     {
-            Debug.Log("Throw");
             // spawn the sword
-            sword = Instantiate(swordPrefab, startPoint, Quaternion.identity);
+            swordInstance = Instantiate(swordPrefab, startPoint, Quaternion.identity);
+
+            // initialize sword script
+            swordScript swordScript = swordInstance.GetComponent<swordScript>();
+            swordScript.Initialize(playerSwordThrowingScript);
 
             // compute direction
             Vector2 dir = (endPoint - startPoint).normalized;
@@ -100,7 +99,7 @@ public class PlayerSwordThrowingScript : MonoBehaviour
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
             // rotate the sword to face that direction
-            sword.transform.rotation = Quaternion.Euler(0, 0, angle - 90);
+            swordInstance.transform.rotation = Quaternion.Euler(0, 0, angle - 90);
 
             //save direction for movemet/force later
             //var swordScript = sword.GetComponent<Sword>;
@@ -108,13 +107,9 @@ public class PlayerSwordThrowingScript : MonoBehaviour
 
             canThrow = false;
             isSwordFlying = true;
-            swordRb = sword.GetComponent<Rigidbody2D>();
-            swordTransform = sword.transform;
+            swordRb = swordInstance.GetComponent<Rigidbody2D>();
+            swordTransform = swordInstance.transform;
             velocity = aimDirection.normalized * speed;
-    }
-
-    void moveSword()
-    {
-        swordTransform.position += (Vector3)velocity * Time.deltaTime;
+            swordRb.linearVelocity = velocity;
     }
 }
