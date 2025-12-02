@@ -180,4 +180,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   currentVelocity: {x: 0, y: 0}
   playerSwordThrowingScript: {fileID: 0}
+  isStuck: 0
+  swordStuckSnapDistance: 0.01
+  stabAmount: 0.25
+  stuckSpeed: 0.001
   bounceCountLimit: 5
+  excludedLayers:
+    serializedVersion: 2
+    m_Bits: 1024

@@ -29,6 +29,7 @@ public class PlayerSwordThrowingScript : MonoBehaviour
     private Vector2 endPoint;
     public Vector2 aimDirection;
     public Vector2 velocity;
+    public LayerMask playerLayer;
     [SerializeField] float lineLength;
 
 
@@ -108,6 +109,10 @@ public class PlayerSwordThrowingScript : MonoBehaviour
             canThrow = false;
             isSwordFlying = true;
             swordRb = swordInstance.GetComponent<Rigidbody2D>();
+
+            // stop collison with player when thrown
+            playerSwordThrowingScript.swordRb.excludeLayers = playerLayer;
+
             swordTransform = swordInstance.transform;
             velocity = aimDirection.normalized * speed;
             swordRb.linearVelocity = velocity;

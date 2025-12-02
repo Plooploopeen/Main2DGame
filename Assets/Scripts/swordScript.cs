@@ -8,10 +8,16 @@ public class swordScript : MonoBehaviour
     
 {
     public Vector2 currentVelocity;
+    private Vector2 stuckPosision;
     public PlayerSwordThrowingScript playerSwordThrowingScript;
     public bool isStuck = false;
-    private int bounceCount = 0;    
+    private int bounceCount = 0;
+    private SpriteRenderer spriteRenderer;
+    [SerializeField] float swordStuckSnapDistance;
+    [SerializeField] float stabAmount;
+    [SerializeField] float stuckSpeed;
     [SerializeField] int bounceCountLimit;
+    [SerializeField] LayerMask excludedLayers;
 
     void Start()
     {
@@ -20,7 +26,18 @@ public class swordScript : MonoBehaviour
 
     void Update()
     {
+        if (bounceCount >= bounceCountLimit && !isStuck)
+        {
+            playerSwordThrowingScript.swordInstance.transform.position = Vector2.Lerp(playerSwordThrowingScript.swordInstance.transform.position, stuckPosision, stuckSpeed);
 
+            if (Vector2.Distance(playerSwordThrowingScript.swordInstance.transform.position, stuckPosision) < swordStuckSnapDistance)
+            {
+                playerSwordThrowingScript.swordRb.bodyType = RigidbodyType2D.Kinematic;
+                playerSwordThrowingScript.swordRb.linearVelocity = Vector2.zero;
+                playerSwordThrowingScript.velocity = Vector2.zero;
+                isStuck = true;
+            }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -36,12 +53,19 @@ public class swordScript : MonoBehaviour
 
         if (bounceCount >= bounceCountLimit)
         {
-            playerSwordThrowingScript.swordRb.bodyType = RigidbodyType2D.Kinematic;
-            playerSwordThrowingScript.swordRb.linearVelocity = Vector2.zero;
+            playerSwordThrowingScript.swordRb.excludeLayers = excludedLayers;
+            playerSwordThrowingScript.swordRb.linearVelocity = playerSwordThrowingScript.velocity;
+            stuckPosision = playerSwordThrowingScript.swordInstance.transform.position + (Vector3)(playerSwordThrowingScript.velocity.normalized * stabAmount);
 
-            isStuck = true;
+            // make sword drawn behind ground
+            spriteRenderer.sortingLayerName = "SwordStuck";
 
             return;
+        }
+
+        if (bounceCount == 1)
+        {
+            playerSwordThrowingScript.swordRb.excludeLayers &= ~playerSwordThrowingScript.playerLayer;
         }
 
         var firstContact = collision.contacts[0].normal;
@@ -59,6 +83,7 @@ public class swordScript : MonoBehaviour
     {
         playerSwordThrowingScript = psts;
         currentVelocity = playerSwordThrowingScript.velocity;
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
     }
 }

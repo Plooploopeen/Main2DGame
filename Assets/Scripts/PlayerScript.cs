@@ -20,6 +20,7 @@ public class PlayerScript : MonoBehaviour
     private Animator animator;
     private PlayerAttackScript playerAttackScript;
     private PlayerHealthScript playerHealthScript;
+    private PlayerAttackScript playerCombatScript;
     private SpriteRenderer spriteRenderer;
 
     [Header("Jump Settings")]
@@ -85,6 +86,7 @@ public class PlayerScript : MonoBehaviour
         playerScript = GetComponent<PlayerScript>();
         playerAttackScript = GetComponent<PlayerAttackScript>();
         playerHealthScript = GetComponent<PlayerHealthScript>();
+        playerCombatScript = GetComponent<PlayerAttackScript>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -124,6 +126,7 @@ public class PlayerScript : MonoBehaviour
         jump();
         coyoteTime();
         jumpBuffer();
+
 
         // Animations
         updateAnimations();
@@ -228,6 +231,8 @@ public class PlayerScript : MonoBehaviour
         Debug.DrawRay(leftRayPosition, Vector2.down * rayCastLength, Color.red);
         Debug.DrawRay(rightRayPosition, Vector2.down * rayCastLength, Color.yellow);
 
+        Debug.Log(isGrounded);
+
         if (middleHit.collider != null && middleHit.collider.CompareTag("Jumpable") || 
             leftHit.collider != null && leftHit.collider.CompareTag("Jumpable") || 
             rightHit.collider != null && rightHit.collider.CompareTag("Jumpable"))
@@ -244,7 +249,7 @@ public class PlayerScript : MonoBehaviour
     {
         // Check if able to jump
         if (isGrounded && !isJumpCompleted &&
-            timerJump < timerJumpLimit && timerCoyoteTime < timerCoyoteTimeLimit)
+            timerJump < timerJumpLimit && timerCoyoteTime < timerCoyoteTimeLimit && !playerCombatScript.isAttacking)
         {
             canJump = true;
         }
