@@ -18,9 +18,8 @@ public class PlayerScript : MonoBehaviour
     private PlayerScript playerScript;
     private Rigidbody2D rb;
     private Animator animator;
-    private PlayerAttackScript playerAttackScript;
-    private PlayerHealthScript playerHealthScript;
     private PlayerAttackScript playerCombatScript;
+    private PlayerHealthScript playerHealthScript;
     private SpriteRenderer spriteRenderer;
 
     [Header("Jump Settings")]
@@ -84,7 +83,7 @@ public class PlayerScript : MonoBehaviour
     private void Awake()
     {
         playerScript = GetComponent<PlayerScript>();
-        playerAttackScript = GetComponent<PlayerAttackScript>();
+        playerCombatScript = GetComponent<PlayerAttackScript>();
         playerHealthScript = GetComponent<PlayerHealthScript>();
         playerCombatScript = GetComponent<PlayerAttackScript>();
         rb = GetComponent<Rigidbody2D>();
@@ -123,10 +122,9 @@ public class PlayerScript : MonoBehaviour
         sprint();
         capVelocity();
         checkIsGrounded();
-        jump();
         coyoteTime();
         jumpBuffer();
-
+        jump();
 
         // Animations
         updateAnimations();
@@ -266,7 +264,7 @@ public class PlayerScript : MonoBehaviour
         }
         
         // Check is the player is jumping
-        if (jumpAction.IsPressed() && (velocity.y > 0 || timerCoyoteTime < timerCoyoteTimeLimit))
+        if (jumpAction.IsPressed() && (velocity.y > 0 || timerCoyoteTime < timerCoyoteTimeLimit) && !playerCombatScript.isAttacking)
         {
             isJumping = true;
         }
@@ -384,7 +382,7 @@ public class PlayerScript : MonoBehaviour
         animator.SetBool("isJumping", isJumping);
         animator.SetBool("isMoving", isMoving);
         animator.SetBool("isFalling", isFalling);
-        animator.SetBool("isAttacking", playerAttackScript.isAttacking);
+        animator.SetBool("isAttacking", playerCombatScript.isAttacking);
         animator.SetBool("isSprinting", isSprinting);
     }
     
