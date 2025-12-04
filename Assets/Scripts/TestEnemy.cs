@@ -40,13 +40,18 @@ public class TestEnemy : MonoBehaviour
         facePlayer();
     }
 
+    private void FixedUpdate()
+    {
+        
+    }
+
     void checkForPlayer()
     {
         float direction = Mathf.Sign(playerTransform.position.x - transform.position.x);
 
         RaycastHit2D frontRay = Physics2D.Raycast(transform.position, Vector2.right * direction, frontRayLength, frontRayLayers);
 
-        Debug.DrawRay(transform.position, Vector2.right * frontRayLength, Color.red);
+        Debug.DrawRay(transform.position, Vector2.right * direction * frontRayLength, Color.red);
 
         if (frontRay.collider != null && !animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
         {

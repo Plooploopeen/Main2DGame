@@ -13,6 +13,7 @@ public class swordScript : MonoBehaviour
     public bool isStuck = false;
     private int bounceCount = 0;
     private SpriteRenderer spriteRenderer;
+    private HitBox hitBoxScript;
     [SerializeField] float swordStuckSnapDistance;
     [SerializeField] float stabAmount;
     [SerializeField] float stuckSpeed;
@@ -45,11 +46,13 @@ public class swordScript : MonoBehaviour
         bounce(collision);
     }
 
-    void bounce(Collision2D collision)
+    public void bounce(Collision2D collision)
     {
 
 
         bounceCount++;
+
+        hitBoxScript.hitEnemies.Clear();
 
         if (bounceCount >= bounceCountLimit)
         {
@@ -84,6 +87,7 @@ public class swordScript : MonoBehaviour
         playerSwordThrowingScript = psts;
         currentVelocity = playerSwordThrowingScript.velocity;
         spriteRenderer = GetComponent<SpriteRenderer>();
+        hitBoxScript = GetComponentInChildren<HitBox>();
 
     }
 }

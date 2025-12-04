@@ -5,11 +5,12 @@ using System.Runtime.InteropServices.WindowsRuntime;
 
 public class HitBox : MonoBehaviour
 {
-    private BoxCollider2D hitBoxCollider;
+
+    [SerializeField] BoxCollider2D hitBoxCollider;
 
     [SerializeField] float damage;
 
-    private List<Collider2D> hitEnemies = new List<Collider2D>();
+    public List<Collider2D> hitEnemies = new List<Collider2D>();
 
     public int hitCount => hitEnemies.Count;
 
@@ -19,24 +20,22 @@ public class HitBox : MonoBehaviour
 
     private void Awake()
     {
-        hitBoxCollider = GetComponent<BoxCollider2D>();
         selfRoot = transform.root;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        tryDamage(collision);
+        TryDamage(collision);
+        Debug.Log(collision.name);
     }
 
     private void OnEnable()
     {
         hitEnemies.Clear();
 
-        //Invoke("checkForHits", 0.01f);
-
-        checkForHits();
+        CheckForHits();
     }
 
-    void checkForHits()
+    void CheckForHits()
     {
         Vector2 center = hitBoxCollider.transform.position;
         Vector2 size = hitBoxCollider.size;
@@ -45,11 +44,11 @@ public class HitBox : MonoBehaviour
 
         foreach (Collider2D collision in overlappingColliders)
         {
-            tryDamage(collision);
+            TryDamage(collision);
         }
     }
 
-    void tryDamage(Collider2D collision)
+    void TryDamage(Collider2D collision)
     {
         if (hitEnemies.Contains(collision)) return;
 

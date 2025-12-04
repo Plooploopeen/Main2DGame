@@ -229,8 +229,6 @@ public class PlayerScript : MonoBehaviour
         Debug.DrawRay(leftRayPosition, Vector2.down * rayCastLength, Color.red);
         Debug.DrawRay(rightRayPosition, Vector2.down * rayCastLength, Color.yellow);
 
-        Debug.Log(isGrounded);
-
         if (middleHit.collider != null && middleHit.collider.CompareTag("Jumpable") || 
             leftHit.collider != null && leftHit.collider.CompareTag("Jumpable") || 
             rightHit.collider != null && rightHit.collider.CompareTag("Jumpable"))
