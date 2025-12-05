@@ -8,6 +8,7 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
     public float health = 100;
     public float maxHealth = 100;
     public bool isKnockedBack;
+    private bool isFlashing = false;
     [SerializeField] float flashLength;
     [SerializeField] float knockbackForce;
     [SerializeField] float knockbackLength;
@@ -35,7 +36,7 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
     {
         health -= damage;
 
-        StartCoroutine(FlashRed());
+        if (!isFlashing) StartCoroutine(FlashRed());
 
         StartCoroutine(ApplyKnockback(transform.position - attackerTransform.position));
 
@@ -52,10 +53,12 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
 
     IEnumerator FlashRed()
     {
+        isFlashing = true;
         Color original = SpriteRenderer.color;
         SpriteRenderer.color = Color.red;
         yield return new WaitForSeconds(flashLength);
         SpriteRenderer.color = original;
+        isFlashing = false;
 
     }
 

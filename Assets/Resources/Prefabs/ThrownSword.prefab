@@ -279,7 +279,7 @@ MonoBehaviour:
   currentVelocity: {x: 0, y: 0}
   playerSwordThrowingScript: {fileID: 0}
   isStuck: 0
-  maxDistance: 3.04
+  maxDistance: 4.5
   swordStuckSnapDistance: 0.01
   stabAmount: 0.25
   stuckSpeed: 0.001

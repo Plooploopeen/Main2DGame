@@ -2,11 +2,13 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 using System.Collections.Generic;
+using TMPro;
 
 
 public class NewMonoBehaviourScript : MonoBehaviour, IDamageable
 {
     private float health;
+    private bool isFlashing = false;
     [SerializeField] float maxHealth;
     [SerializeField] float knockbackForce;
     [SerializeField] float flashLength;
@@ -31,7 +33,7 @@ public class NewMonoBehaviourScript : MonoBehaviour, IDamageable
     {
         health -= damage;
 
-        StartCoroutine(FlashRed());
+        if (!isFlashing) StartCoroutine(FlashRed());
 
         applyKnockback(transform.position - attackerTransform.position);
 
@@ -48,10 +50,12 @@ public class NewMonoBehaviourScript : MonoBehaviour, IDamageable
 
     IEnumerator FlashRed()
     {
+        isFlashing = true;
         Color original = spriteRenderer.color;
         spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(flashLength);
         spriteRenderer.color = original;
+        isFlashing = false;
 
     }
 

@@ -22,6 +22,10 @@ public class swordScript : MonoBehaviour
     [SerializeField] LayerMask excludedLayers;
     private Transform playerTransform;
 
+    private Vector2 currentScale;
+    private quaternion currentRotation;
+    private bool isStuckInHurtbox = false;
+
     void Start()
     {
 
@@ -57,6 +61,12 @@ public class swordScript : MonoBehaviour
         {
             bounceCount = 0;
         }
+
+        if (isStuckInHurtbox)
+        {
+            playerSwordThrowingScript.swordInstance.transform.localScale = currentScale;
+            playerSwordThrowingScript.swordInstance.transform.rotation = currentRotation;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -89,8 +99,16 @@ public class swordScript : MonoBehaviour
             // make sword drawn behind ground
             spriteRenderer.sortingLayerName = "SwordStuck";
 
-            // set parent to stuck object
-            playerSwordThrowingScript.swordInstance.transform.SetParent(collision.transform, true);
+            // set parent to stuck object. layer, remove this if statement and figure out scale problems so it can move with ground
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Hurtbox"))
+            {
+ 
+                playerSwordThrowingScript.swordInstance.transform.SetParent(collision.transform, true);
+                currentScale = playerSwordThrowingScript.swordInstance.transform.localScale;
+                currentRotation = playerSwordThrowingScript.swordInstance.transform.localRotation;
+                isStuckInHurtbox = true;
+
+            }
 
             return;
         }

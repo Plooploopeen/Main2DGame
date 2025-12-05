@@ -9,9 +9,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerSwordThrowingScript : MonoBehaviour
 {
-    public GameObject swordPrefab;
     [SerializeField] Transform swordTransform;
     private PlayerSwordThrowingScript playerSwordThrowingScript;
+    private GameObject swordPrefab;
 
 
     private InputAction aimAction;
