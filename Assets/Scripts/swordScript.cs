@@ -89,6 +89,9 @@ public class swordScript : MonoBehaviour
             // make sword drawn behind ground
             spriteRenderer.sortingLayerName = "SwordStuck";
 
+            // set parent to stuck object
+            playerSwordThrowingScript.swordInstance.transform.SetParent(collision.transform, true);
+
             return;
         }
 
