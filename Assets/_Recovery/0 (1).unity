@@ -835,7 +835,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1948448135}
-  - {fileID: 1736775241}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &616317156
@@ -1077,12 +1076,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7046f0604cddae741a47f83574377dcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  swordPrefab: {fileID: 0}
+  swordPrefab: {fileID: 2030584675770901213, guid: 4428568ab09e49f4c90263c11c14386f, type: 3}
   swordTransform: {fileID: 1084986281339720053, guid: 4428568ab09e49f4c90263c11c14386f, type: 3}
   swordInstance: {fileID: 0}
   swordRb: {fileID: 0}
-  canThrow: 1
-  isSwordFlying: 0
+  isSwordFlying: 1
   speed: 2
   aimDirection: {x: 0, y: 0}
   velocity: {x: 0, y: 0}
@@ -1828,11 +1826,11 @@ Transform:
   m_GameObject: {fileID: 1736775237}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.372, y: -0.204, z: -10}
+  m_LocalPosition: {x: 0, y: 0.351, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 616317155}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1830663743
 GameObject:
@@ -2141,6 +2139,7 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1736775241}
   - {fileID: 616317155}
   - {fileID: 1830663746}
   - {fileID: 334189651}

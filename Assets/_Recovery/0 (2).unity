@@ -387,8 +387,8 @@ Transform:
   m_GameObject: {fileID: 334189648}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.877, y: -0.69, z: 0}
-  m_LocalScale: {x: 27.332483, y: 2.2172918, z: 1}
+  m_LocalPosition: {x: -16.3, y: -0.69, z: 0}
+  m_LocalScale: {x: 104.090294, y: 2.2172918, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1077,12 +1077,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7046f0604cddae741a47f83574377dcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  swordPrefab: {fileID: 0}
+  swordPrefab: {fileID: 2030584675770901213, guid: 4428568ab09e49f4c90263c11c14386f, type: 3}
   swordTransform: {fileID: 1084986281339720053, guid: 4428568ab09e49f4c90263c11c14386f, type: 3}
   swordInstance: {fileID: 0}
   swordRb: {fileID: 0}
-  canThrow: 1
-  isSwordFlying: 0
+  isSwordFlying: 1
   speed: 2
   aimDirection: {x: 0, y: 0}
   velocity: {x: 0, y: 0}
@@ -1965,8 +1964,8 @@ Transform:
   m_GameObject: {fileID: 1830663743}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.619, y: -0.177, z: 0}
-  m_LocalScale: {x: 22.631117, y: 2.2172918, z: 1}
+  m_LocalPosition: {x: 15.67, y: -0.177, z: 0}
+  m_LocalScale: {x: 97.87958, y: 2.2172918, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

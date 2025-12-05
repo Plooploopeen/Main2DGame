@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerSwordThrowingScript : MonoBehaviour
 {
-    [SerializeField] GameObject swordPrefab;
+    public GameObject swordPrefab;
     [SerializeField] Transform swordTransform;
     private PlayerSwordThrowingScript playerSwordThrowingScript;
 
@@ -22,7 +22,7 @@ public class PlayerSwordThrowingScript : MonoBehaviour
     private LineRenderer lineRenderer;
 
     private bool isAiming;
-    private bool canThrow = true;
+    public bool canThrow = true;
     public bool isSwordFlying;
     public float speed;
     private Vector2 startPoint;
@@ -39,6 +39,7 @@ public class PlayerSwordThrowingScript : MonoBehaviour
         throwAction = InputSystem.actions.FindAction("Throw");
         lineRenderer = GetComponent<LineRenderer>();
         playerSwordThrowingScript = GetComponent<PlayerSwordThrowingScript>();
+        swordPrefab = Resources.Load<GameObject>("Prefabs/ThrownSword");
     }
     void Start()
     {
@@ -50,7 +51,7 @@ public class PlayerSwordThrowingScript : MonoBehaviour
 
         aim();
 
-        if (aimAction.IsPressed() && throwAction.IsPressed() && canThrow)
+        if (aimAction.IsPressed() && throwAction.WasPerformedThisFrame() && canThrow)
         {
             spawnSword();
         }

@@ -8,17 +8,19 @@ public class swordScript : MonoBehaviour
     
 {
     public Vector2 currentVelocity;
-    private Vector2 stuckPosision;
+    private Vector2 stuckPosition;
     public PlayerSwordThrowingScript playerSwordThrowingScript;
     public bool isStuck = false;
     private int bounceCount = 0;
     private SpriteRenderer spriteRenderer;
     private HitBox hitBoxScript;
+    [SerializeField] float maxDistance;
     [SerializeField] float swordStuckSnapDistance;
     [SerializeField] float stabAmount;
     [SerializeField] float stuckSpeed;
     [SerializeField] int bounceCountLimit;
     [SerializeField] LayerMask excludedLayers;
+    private Transform playerTransform;
 
     void Start()
     {
@@ -29,9 +31,9 @@ public class swordScript : MonoBehaviour
     {
         if (bounceCount >= bounceCountLimit && !isStuck)
         {
-            playerSwordThrowingScript.swordInstance.transform.position = Vector2.Lerp(playerSwordThrowingScript.swordInstance.transform.position, stuckPosision, stuckSpeed);
+            playerSwordThrowingScript.swordInstance.transform.position = Vector2.Lerp(playerSwordThrowingScript.swordInstance.transform.position, stuckPosition, stuckSpeed);
 
-            if (Vector2.Distance(playerSwordThrowingScript.swordInstance.transform.position, stuckPosision) < swordStuckSnapDistance)
+            if (Vector2.Distance(playerSwordThrowingScript.swordInstance.transform.position, stuckPosition) < swordStuckSnapDistance)
             {
                 playerSwordThrowingScript.swordRb.bodyType = RigidbodyType2D.Kinematic;
                 playerSwordThrowingScript.swordRb.linearVelocity = Vector2.zero;
@@ -39,11 +41,35 @@ public class swordScript : MonoBehaviour
                 isStuck = true;
             }
         }
+
+        bool gravityOn = false;
+
+        // stop flying if sword is too far away from player
+        if (Vector2.Distance(playerSwordThrowingScript.swordInstance.transform.position, playerTransform.position) > maxDistance)
+        {
+            playerSwordThrowingScript.swordRb.gravityScale = 0.5f;
+            playerSwordThrowingScript.swordRb.freezeRotation = false;
+            playerSwordThrowingScript.swordRb.excludeLayers &= ~playerSwordThrowingScript.playerLayer;
+            gravityOn = true;
+        }
+
+        if (gravityOn)
+        {
+            bounceCount = 0;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        bounce(collision);
+
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            pickUpSword();
+        }
+        else
+        {
+            bounce(collision);
+        }
     }
 
     public void bounce(Collision2D collision)
@@ -58,7 +84,7 @@ public class swordScript : MonoBehaviour
         {
             playerSwordThrowingScript.swordRb.excludeLayers = excludedLayers;
             playerSwordThrowingScript.swordRb.linearVelocity = playerSwordThrowingScript.velocity;
-            stuckPosision = playerSwordThrowingScript.swordInstance.transform.position + (Vector3)(playerSwordThrowingScript.velocity.normalized * stabAmount);
+            stuckPosition = playerSwordThrowingScript.swordInstance.transform.position + (Vector3)(playerSwordThrowingScript.velocity.normalized * stabAmount);
 
             // make sword drawn behind ground
             spriteRenderer.sortingLayerName = "SwordStuck";
@@ -88,6 +114,14 @@ public class swordScript : MonoBehaviour
         currentVelocity = playerSwordThrowingScript.velocity;
         spriteRenderer = GetComponent<SpriteRenderer>();
         hitBoxScript = GetComponentInChildren<HitBox>();
+        playerTransform = playerSwordThrowingScript.GetComponentInParent<Transform>();
+
+    }
+
+    void pickUpSword()
+    {
+        Destroy(playerSwordThrowingScript.swordInstance);
+        playerSwordThrowingScript.canThrow = true;
 
     }
 }
