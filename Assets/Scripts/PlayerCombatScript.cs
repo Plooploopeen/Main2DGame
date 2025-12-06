@@ -1,3 +1,4 @@
+using UnityEditor.iOS.Xcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,18 +6,20 @@ public class PlayerAttackScript : MonoBehaviour
 {
     [SerializeField] InputActionAsset inputActions;
     [SerializeField] GameObject weaponHitbox;
+    private PlayerSwordThrowingScript playerSwordThrowingScript;
 
     private Animator animator;
 
     private InputAction attackAction;
     public bool isAttacking = false;
-    private bool canAttack = true;
+    public bool canAttack = true;
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
-
         attackAction = InputSystem.actions.FindAction("Attack");
+
+        animator = GetComponent<Animator>();
+        playerSwordThrowingScript = GetComponent<PlayerSwordThrowingScript>();
     }
 
     void Start()
@@ -26,7 +29,15 @@ public class PlayerAttackScript : MonoBehaviour
 
     void Update()
     {
-        checkIfAttacking();
+        if (!playerSwordThrowingScript.hasSword)
+        {
+            canAttack = false;
+        }
+        else
+        {
+            canAttack = true;
+        }
+        checkShouldAttack();
     }
 
     void attack()
@@ -51,7 +62,7 @@ public class PlayerAttackScript : MonoBehaviour
         animator.Play("Idle");
     }
 
-    void checkIfAttacking()
+    void checkShouldAttack()
     {
         if (attackAction.WasPressedThisFrame() && canAttack)
         {

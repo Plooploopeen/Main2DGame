@@ -143,6 +143,7 @@ public class swordScript : MonoBehaviour
     {
         Destroy(playerSwordThrowingScript.swordInstance);
         playerSwordThrowingScript.canThrow = true;
+        playerSwordThrowingScript.hasSword = true;
 
     }
 }

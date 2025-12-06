@@ -24,6 +24,7 @@ public class PlayerSwordThrowingScript : MonoBehaviour
     private bool isAiming;
     public bool canThrow = true;
     public bool isSwordFlying;
+    public bool hasSword = true;
     public float speed;
     private Vector2 startPoint;
     private Vector2 endPoint;
@@ -108,6 +109,7 @@ public class PlayerSwordThrowingScript : MonoBehaviour
             //swordScript.travelDir = dir;
 
             canThrow = false;
+            hasSword = false;
             isSwordFlying = true;
             swordRb = swordInstance.GetComponent<Rigidbody2D>();
 
