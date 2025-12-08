@@ -380,6 +380,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 9136229560443524793, guid: c8fc00a6c1caad64783e7a396319b656, type: 3}
   m_PrefabInstance: {fileID: 1531958172}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &218401626 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9136229560443524793, guid: c8fc00a6c1caad64783e7a396319b656, type: 3}
+  m_PrefabInstance: {fileID: 930477993}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &218401627 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5787624660149443162, guid: c8fc00a6c1caad64783e7a396319b656, type: 3}
@@ -2939,6 +2944,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1094657947 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9136229560443524793, guid: c8fc00a6c1caad64783e7a396319b656, type: 3}
+  m_PrefabInstance: {fileID: 1654548003}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1094657948 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5787624660149443162, guid: c8fc00a6c1caad64783e7a396319b656, type: 3}
@@ -2953,6 +2963,11 @@ GameObject:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9136229560443524793, guid: c8fc00a6c1caad64783e7a396319b656, type: 3}
   m_PrefabInstance: {fileID: 825033880}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1131739810 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9136229560443524793, guid: c8fc00a6c1caad64783e7a396319b656, type: 3}
+  m_PrefabInstance: {fileID: 402326459}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &1131739811 stripped
 RectTransform:
@@ -2996,6 +3011,7 @@ MonoBehaviour:
   inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   inventory: {fileID: 2147448398}
   spellSlots: []
+  hotbarSlots: []
   slotSelector: {fileID: 0}
 --- !u!4 &1182854400
 Transform:
@@ -4753,6 +4769,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 9136229560443524793, guid: c8fc00a6c1caad64783e7a396319b656, type: 3}
   m_PrefabInstance: {fileID: 592909054}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1781144029 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9136229560443524793, guid: c8fc00a6c1caad64783e7a396319b656, type: 3}
+  m_PrefabInstance: {fileID: 746362173}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1781144030 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5787624660149443162, guid: c8fc00a6c1caad64783e7a396319b656, type: 3}
@@ -5562,6 +5583,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5787624660149443162, guid: c8fc00a6c1caad64783e7a396319b656, type: 3}
   m_PrefabInstance: {fileID: 2063478090}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2078354064 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9136229560443524793, guid: c8fc00a6c1caad64783e7a396319b656, type: 3}
+  m_PrefabInstance: {fileID: 3025080038689161924}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &2078354065 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5787624660149443162, guid: c8fc00a6c1caad64783e7a396319b656, type: 3}
@@ -5643,6 +5669,12 @@ MonoBehaviour:
   - {fileID: 417291950}
   - {fileID: 1612640392}
   - {fileID: 774731988}
+  hotbarSlots:
+  - {fileID: 2078354064}
+  - {fileID: 1094657947}
+  - {fileID: 218401626}
+  - {fileID: 1131739810}
+  - {fileID: 1781144029}
   slotSelector: {fileID: 1074942517}
 --- !u!1001 &3025080038689161924
 PrefabInstance:

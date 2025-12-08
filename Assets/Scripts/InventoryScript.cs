@@ -11,91 +11,198 @@ public class InventoryScript : MonoBehaviour
 
     [SerializeField] GameObject inventory;
     [SerializeField] GameObject[] spellSlots;
+    [SerializeField] GameObject[] hotbarSlots;
     [SerializeField] SpriteRenderer slotSelector;
 
     private InputAction menuAction;
     private InputAction DPadAction;
+    private InputAction acceptAction;
+    private InputAction backAction;
 
-    private int cursorIndex = 0;
+    private int selectorIndex = 0;
     private int currentSlot = 0;
     private int slotChangeAmount;
+
+    private bool isInInventory;
+    private bool isInHotbar;
 
     private void Awake()
     {
         menuAction = InputSystem.actions.FindAction("Menu");
         DPadAction = InputSystem.actions.FindAction("DPad");
+        acceptAction = InputSystem.actions.FindAction("Focus");
+        backAction = InputSystem.actions.FindAction("Jump");
+
+
     }
 
     void Start()
     {
         inventory.SetActive(false);
-        StartCoroutine(MoveSelectorNextFrame());
+        StartCoroutine(ResetSelectorNextFrame());
 
     }
 
     void Update()
     {
-        if (menuAction.WasPressedThisFrame())
+        if (inventory.activeSelf && DPadAction.WasPressedThisFrame() && isInInventory)
         {
-            inventory.SetActive(!inventory.activeSelf);
-
-            if (inventory.activeSelf) {Time.timeScale = 0f;}
-            else if (!inventory.activeSelf) { Time.timeScale = 1f;}
+            moveInventorySlot();
         }
 
-        Vector2 DPadDirection = DPadAction.ReadValue<Vector2>();
-
-        if (inventory.activeSelf && DPadAction.WasPressedThisFrame())
+        if (menuAction.WasPressedThisFrame())
         {
-            if (DPadDirection.x > 0)
-            {
-                currentSlot = cursorIndex;
-                slotChangeAmount = 1;
-                changeSlot(currentSlot, slotChangeAmount);
-            }
-            else if (DPadDirection.x < 0)
-            {
-                currentSlot = cursorIndex;
-                slotChangeAmount = -1;
-                changeSlot(currentSlot, slotChangeAmount);
-            }
-            else if (DPadDirection.y > 0) 
-            {
-                currentSlot = cursorIndex;
-                slotChangeAmount = -3;
-                changeSlot(currentSlot, slotChangeAmount);
-            }
-            else if (DPadDirection.y < 0)
-            {
-                currentSlot = cursorIndex;
-                slotChangeAmount = 3;
-                changeSlot(currentSlot, slotChangeAmount);
-            }
+            toggleMenu();
+        }
+                
+        checkInInventory();
+
+        if (DPadAction.WasPressedThisFrame() && isInHotbar)
+        {
+            moveHotbarSlot();
+        }
+
+        checkInHotbar();
+
+        if (isInInventory && acceptAction.WasPressedThisFrame())
+        {
+            moveToHotbar();
+        }
+
+        if (isInHotbar && backAction.WasPressedThisFrame())
+        {
+            moveToInventory();
         }
     }
 
     private void OnEnable()
     {
-        Debug.Log("Enabled");
-        StartCoroutine(MoveSelectorNextFrame());
-
+        StartCoroutine(ResetSelectorNextFrame());
     }
 
     private void OnDisable()
     {
-        Debug.Log("Disabled");
+        
     }
 
-    IEnumerator MoveSelectorNextFrame()
+    IEnumerator ResetSelectorNextFrame()
     {
         yield return null;
         slotSelector.transform.position = spellSlots[0].transform.position;
-        cursorIndex = 0;
+        selectorIndex = 0;
     }
 
-    void changeSlot(int currentSlot, int slotChangeAmount)
+    void changeSpellSlot(int currentSlot, int slotChangeAmount)
     {
         slotSelector.transform.position = spellSlots[currentSlot + slotChangeAmount].transform.position;
-        cursorIndex = currentSlot + slotChangeAmount;
+        selectorIndex = currentSlot + slotChangeAmount;
+    }
+
+    void changeHotbarSlot (int currentSlot, int slotChangeAmount)
+    {
+        slotSelector.transform.position = hotbarSlots[currentSlot + slotChangeAmount].transform.position;
+        selectorIndex = currentSlot + slotChangeAmount;
+    }
+
+
+    void moveInventorySlot()
+    {
+        Vector2 DPadDirection = DPadAction.ReadValue<Vector2>();
+
+            if (DPadDirection.x > 0)
+            {
+                currentSlot = selectorIndex;
+                slotChangeAmount = 1;
+                changeSpellSlot(currentSlot, slotChangeAmount);
+            }
+            else if (DPadDirection.x < 0)
+            {
+                currentSlot = selectorIndex;
+                slotChangeAmount = -1;
+                changeSpellSlot(currentSlot, slotChangeAmount);
+            }
+            else if (DPadDirection.y > 0)
+            {
+                currentSlot = selectorIndex;
+                slotChangeAmount = -3;
+                changeSpellSlot(currentSlot, slotChangeAmount);
+            }
+            else if (DPadDirection.y < 0)
+            {
+                currentSlot = selectorIndex;
+                slotChangeAmount = 3;
+                changeSpellSlot(currentSlot, slotChangeAmount);
+            }
+    }
+
+    void moveHotbarSlot()
+    {
+        Vector2 DPadDirection = DPadAction.ReadValue<Vector2>();
+
+        if (DPadDirection.x > 0)
+        {
+            currentSlot = selectorIndex;
+            slotChangeAmount = 1;
+            changeHotbarSlot(currentSlot, slotChangeAmount);
+        }
+        else if (DPadDirection.x < 0)
+        {
+            currentSlot = selectorIndex;
+            slotChangeAmount = -1;
+            changeHotbarSlot(currentSlot, slotChangeAmount);
+        }
+    }
+
+    void toggleMenu()
+    { 
+            inventory.SetActive(!inventory.activeSelf);
+
+            if (inventory.activeSelf) { Time.timeScale = 0f; }
+            else if (!inventory.activeSelf) { Time.timeScale = 1f; }
+    }
+
+    void checkInInventory()
+    {
+        foreach (GameObject slot in spellSlots)
+        {
+            if (slotSelector.transform.position == slot.transform.position && inventory.activeSelf)
+            {
+                isInInventory = true;
+                break;
+            }
+            else
+            {
+                isInInventory = false;
+            }
+        }
+    }
+
+    void checkInHotbar()
+    {
+        foreach (GameObject slot in hotbarSlots)
+        {
+            if (slotSelector.transform.position == slot.transform.position)
+            {
+                isInHotbar = true;
+                break;
+            }
+            else
+            {
+                isInHotbar = false;
+            }
+        }
+    }
+
+    void moveToHotbar()
+    {
+        slotSelector.transform.position = hotbarSlots[0].transform.position;
+        isInHotbar = true;
+        selectorIndex = 0;
+    }
+
+    void moveToInventory()
+    {
+        slotSelector.transform.position = spellSlots[0].transform.position;
+        selectorIndex = 0;
     }
 }
