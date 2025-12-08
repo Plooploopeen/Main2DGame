@@ -25,7 +25,6 @@ public class HitBox : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         TryDamage(collision);
-        Debug.Log(collision.name);
     }
 
     private void OnEnable()
