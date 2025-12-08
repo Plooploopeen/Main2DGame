@@ -79,6 +79,16 @@ public class PlayerSwordThrowingScript : MonoBehaviour
             lineRenderer.enabled = true;
             lineRenderer.SetPosition(0, startPoint);
             lineRenderer.SetPosition(1, endPoint);
+            if (hasSword)
+            {
+                lineRenderer.startColor = Color.green;
+                lineRenderer.endColor = Color.green;
+            }
+            else
+            {
+                lineRenderer.startColor = Color.red;
+                lineRenderer.endColor = Color.red;
+            }
         }
         else
         {
