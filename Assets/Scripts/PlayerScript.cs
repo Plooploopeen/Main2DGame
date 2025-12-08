@@ -12,9 +12,9 @@ using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class PlayerScript : MonoBehaviour
 {
-    [SerializeField] InputActionAsset InputActions;
 
     [Header("References")]
+    [SerializeField] InputActionAsset InputActions;
     private PlayerScript playerScript;
     private Rigidbody2D rb;
     private Animator animator;
