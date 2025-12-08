@@ -74,7 +74,7 @@ public class PlayerSwordThrowingScript : MonoBehaviour
         endPoint = transform.position + (Vector3)(aimDirection * lineLength);
 
 
-        if (isAiming)
+        if (isAiming && Time.timeScale == 1f)
         {
             lineRenderer.enabled = true;
             lineRenderer.SetPosition(0, startPoint);
