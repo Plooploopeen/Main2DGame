@@ -5,11 +5,18 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.Rendering;
 using Unity.VisualScripting;
+using System.Linq;
+using UnityEngine.InputSystem.Utilities;
 
 public class InventoryScript : MonoBehaviour    
 {
 
+    public delegate void OnItemChanged();
+    public OnItemChanged onItemChangedCallback;
+
     public static InventoryScript instance;    
+    
+    public List<Item> items = new List<Item>();
 
     [SerializeField] InputActionAsset inputActions;
 
@@ -21,6 +28,7 @@ public class InventoryScript : MonoBehaviour
     [SerializeField] GameObject[] spellSlots;
     [SerializeField] GameObject[] hotbarSlots;
     [SerializeField] SpriteRenderer slotSelector;
+    [SerializeField] int slotCount;
 
     private InputAction menuAction;
     private InputAction DPadAction;
@@ -48,8 +56,6 @@ public class InventoryScript : MonoBehaviour
         }
 
         instance = this;
-
-
     }
 
     void Start()
@@ -222,8 +228,34 @@ public class InventoryScript : MonoBehaviour
         selectorIndex = 0;
     }
 
-    void fillSlots()
+    //---------item manager------------//
+
+    public bool Add(Item item)
     {
-        
+        Debug.Log(items.Count);
+
+        if (items.Count >= slotCount)
+        {
+            return false;
+        }
+
+        items.Add(item);
+
+        if (onItemChangedCallback  != null)
+        {
+            onItemChangedCallback.Invoke();
+        }   
+
+        return true;
+    }
+
+    public void remove(Item item)
+    {
+        items.Remove(item);
+
+        if (onItemChangedCallback != null)
+        {
+            onItemChangedCallback.Invoke();
+        }
     }
 }

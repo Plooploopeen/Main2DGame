@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7038ac390ce351e44b5ed8ca8d8cb1e9, type: 3}
   m_Name: Test Item
   m_EditorClassIdentifier: Assembly-CSharp::Item
-  name: Fireball
+  name: Test Item
   icon: {fileID: 0}
