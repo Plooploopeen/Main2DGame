@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72b8a3d4c62e89a49b43c1149520c1af, type: 3}
+  m_Name: IceBlast
+  m_EditorClassIdentifier: Assembly-CSharp::SpellDataScript
+  spellName: IceBlast
+  spellSprite: {fileID: -389556799766694118, guid: d9d77c3e3a1814d4fb8bebc827ade6ef, type: 3}
+  spellDamage: 15
+  spellMpCost: 8
+  spellPrefab: {fileID: 0}

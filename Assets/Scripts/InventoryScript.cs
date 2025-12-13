@@ -4,12 +4,20 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.Rendering;
+using Unity.VisualScripting;
 
-public class InventoryScript : MonoBehaviour
+public class InventoryScript : MonoBehaviour    
 {
+
+    public static InventoryScript instance;    
+
     [SerializeField] InputActionAsset inputActions;
 
+    private List<SpellSlotScript> createdSlotScripts = new List<SpellSlotScript>();
+
     [SerializeField] GameObject inventory;
+    [SerializeField] GameObject inventoryPanel;
+    [SerializeField] GameObject spellSlotPrefab;
     [SerializeField] GameObject[] spellSlots;
     [SerializeField] GameObject[] hotbarSlots;
     [SerializeField] SpriteRenderer slotSelector;
@@ -32,6 +40,14 @@ public class InventoryScript : MonoBehaviour
         DPadAction = InputSystem.actions.FindAction("DPad");
         acceptAction = InputSystem.actions.FindAction("Focus");
         backAction = InputSystem.actions.FindAction("Jump");
+
+        if (instance  != null)
+        {
+            Debug.Log("More than one instance of inventory found!");
+            return;
+        }
+
+        instance = this;
 
 
     }
@@ -204,5 +220,10 @@ public class InventoryScript : MonoBehaviour
     {
         slotSelector.transform.position = spellSlots[0].transform.position;
         selectorIndex = 0;
+    }
+
+    void fillSlots()
+    {
+        
     }
 }
