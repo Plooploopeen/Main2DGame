@@ -1,25 +1,29 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpellSlotScript : MonoBehaviour
 {
-    private SpellDataScript spellData;
-    public void setUp(SpellDataScript spell)
+    public Image icon;
+
+    Item item;
+
+    public void addItem(Item newItem)
     {
-        spellData = spell;
+        item = newItem;
+        icon.enabled = true;
+        icon.sprite = item.icon;
 
-        spellData.spellIcon = spell.spellIcon;
-
-    }
-
-    public void setEmpty()
-    {
-
-        spellData = null;
-
-        if (spellData != null)
+        if (icon.sprite == null)
         {
-            // spellSprite is disabled
-            spellData.spellIcon = null;
+            Debug.Log("icon sprite is null");
         }
     }
+
+    public void clearSlot()
+    {
+        item = null;
+        icon.sprite = null;
+        icon.enabled = false;
+    }
 }
+

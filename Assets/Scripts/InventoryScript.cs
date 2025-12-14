@@ -39,7 +39,7 @@ public class InventoryScript : MonoBehaviour
     private int currentSlot = 0;
     private int slotChangeAmount;
 
-    private bool isInInventory;
+    private bool isInInventory = true;
     private bool isInHotbar;
 
     private void Awake()
@@ -76,15 +76,11 @@ public class InventoryScript : MonoBehaviour
         {
             toggleMenu();
         }
-                
-        checkInInventory();
 
         if (DPadAction.WasPressedThisFrame() && isInHotbar)
         {
             moveHotbarSlot();
         }
-
-        checkInHotbar();
 
         if (isInInventory && acceptAction.WasPressedThisFrame())
         {
@@ -183,57 +179,26 @@ public class InventoryScript : MonoBehaviour
             else if (!inventory.activeSelf) { Time.timeScale = 1f; }
     }
 
-    void checkInInventory()
-    {
-        foreach (GameObject slot in spellSlots)
-        {
-            if (slotSelector.transform.position == slot.transform.position && inventory.activeSelf)
-            {
-                isInInventory = true;
-                break;
-            }
-            else
-            {
-                isInInventory = false;
-            }
-        }
-    }
-
-    void checkInHotbar()
-    {
-        foreach (GameObject slot in hotbarSlots)
-        {
-            if (slotSelector.transform.position == slot.transform.position)
-            {
-                isInHotbar = true;
-                break;
-            }
-            else
-            {
-                isInHotbar = false;
-            }
-        }
-    }
-
     void moveToHotbar()
     {
         slotSelector.transform.position = hotbarSlots[0].transform.position;
-        isInHotbar = true;
         selectorIndex = 0;
+        isInHotbar = true;
+        isInInventory = false;
     }
 
     void moveToInventory()
     {
         slotSelector.transform.position = spellSlots[0].transform.position;
         selectorIndex = 0;
+        isInHotbar = false;
+        isInInventory = true;
     }
 
     //---------item manager------------//
 
     public bool Add(Item item)
     {
-        Debug.Log(items.Count);
-
         if (items.Count >= slotCount)
         {
             return false;

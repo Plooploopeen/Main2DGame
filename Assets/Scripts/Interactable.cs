@@ -16,7 +16,7 @@ public class Interactable : MonoBehaviour
 
     public virtual void interact()
     {
-        Debug.Log("Interacting with" + transform.name);
+
     }
 
     private void Update()
