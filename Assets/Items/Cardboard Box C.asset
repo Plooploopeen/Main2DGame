@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7038ac390ce351e44b5ed8ca8d8cb1e9, type: 3}
+  m_Name: Cardboard Box C
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  name: Cardboard Box C
+  icon: {fileID: -2316861450084954638, guid: 3b34b9aedebdf7f48ba7d2c407900e81, type: 3}
