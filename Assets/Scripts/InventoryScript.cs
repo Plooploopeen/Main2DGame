@@ -67,6 +67,14 @@ public class InventoryScript : MonoBehaviour
 
     void Update()
     {
+        if (!inventory.activeSelf)
+        {
+            selectorIndex = 0;
+            slotSelector.transform.position = spellSlots[0].transform.position;
+            isInInventory = true;
+            isInHotbar = false;
+        }
+        
         if (inventory.activeSelf && DPadAction.WasPressedThisFrame() && isInInventory)
         {
             moveInventorySlot();

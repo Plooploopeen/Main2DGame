@@ -33,5 +33,10 @@ public class SpellSlotScript : MonoBehaviour
             item.use();
         }
     }
+
+    public Item getItem()
+    {
+        return item;
+    }
 }
 
