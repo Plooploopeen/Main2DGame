@@ -14,19 +14,24 @@ public class InventoryScript : MonoBehaviour
     public delegate void OnItemChanged();
     public OnItemChanged onItemChangedCallback;
 
-    public static InventoryScript instance;    
-    
+    public static InventoryScript instance;
+    public Transform inventoryParent;
+    public Transform hotbarParent;
+
     public List<Item> items = new List<Item>();
 
     [SerializeField] InputActionAsset inputActions;
 
     private List<SpellSlotScript> createdSlotScripts = new List<SpellSlotScript>();
+    private Item selectedItem;
+
+    SpellSlotScript[] inventorySlots;
+    SpellSlotScript[] hotbarSlots;
 
     [SerializeField] GameObject inventory;
     [SerializeField] GameObject inventoryPanel;
     [SerializeField] GameObject spellSlotPrefab;
     [SerializeField] GameObject[] spellSlots;
-    [SerializeField] GameObject[] hotbarSlots;
     [SerializeField] SpriteRenderer slotSelector;
     [SerializeField] int slotCount;
 
@@ -48,6 +53,9 @@ public class InventoryScript : MonoBehaviour
         DPadAction = InputSystem.actions.FindAction("DPad");
         acceptAction = InputSystem.actions.FindAction("Focus");
         backAction = InputSystem.actions.FindAction("Jump");
+
+        inventorySlots = inventoryParent.GetComponentsInChildren<SpellSlotScript>();
+        hotbarSlots = hotbarParent.GetComponentsInChildren<SpellSlotScript>();
 
         if (instance  != null)
         {
@@ -99,7 +107,14 @@ public class InventoryScript : MonoBehaviour
         {
             moveToInventory();
         }
+
+        if (isInHotbar && acceptAction.WasPressedThisFrame())
+        {
+            equipSpell();
+        }
     }
+
+
 
     private void OnEnable()
     {
@@ -189,10 +204,18 @@ public class InventoryScript : MonoBehaviour
 
     void moveToHotbar()
     {
-        slotSelector.transform.position = hotbarSlots[0].transform.position;
-        selectorIndex = 0;
-        isInHotbar = true;
-        isInInventory = false;
+        if (inventorySlots[selectorIndex].getItem() != null)
+        {
+            selectedItem = inventorySlots[selectorIndex].getItem();
+            slotSelector.transform.position = hotbarSlots[0].transform.position;
+            selectorIndex = 0;
+            isInHotbar = true;
+            isInInventory = false;
+        }
+        else
+        {
+            return;
+        }
     }
 
     void moveToInventory()
@@ -201,6 +224,11 @@ public class InventoryScript : MonoBehaviour
         selectorIndex = 0;
         isInHotbar = false;
         isInInventory = true;
+    }
+
+    void equipSpell()
+    {
+        hotbarSlots[selectorIndex].addItem(selectedItem);
     }
 
     //---------item manager------------//
