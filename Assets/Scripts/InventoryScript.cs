@@ -42,10 +42,12 @@ public class InventoryScript : MonoBehaviour
 
     private int selectorIndex = 0;
     private int currentSlot = 0;
+    private int selectedInventorySlotIndex;
     private int slotChangeAmount;
 
     private bool isInInventory = true;
     private bool isInHotbar;
+    private bool justMovedToHotbar;
 
     private void Awake()
     {
@@ -103,6 +105,11 @@ public class InventoryScript : MonoBehaviour
             moveToHotbar();
         }
 
+        if (backAction.WasPressedThisFrame() && isInInventory && inventory.activeSelf)
+        {
+            toggleMenu();
+        }
+
         if (isInHotbar && backAction.WasPressedThisFrame())
         {
             moveToInventory();
@@ -112,6 +119,8 @@ public class InventoryScript : MonoBehaviour
         {
             equipSpell();
         }
+
+        justMovedToHotbar = false;
     }
 
 
@@ -206,11 +215,13 @@ public class InventoryScript : MonoBehaviour
     {
         if (inventorySlots[selectorIndex].getItem() != null)
         {
+            selectedInventorySlotIndex = selectorIndex;
             selectedItem = inventorySlots[selectorIndex].getItem();
             slotSelector.transform.position = hotbarSlots[0].transform.position;
             selectorIndex = 0;
             isInHotbar = true;
             isInInventory = false;
+            justMovedToHotbar = true;
         }
         else
         {
@@ -228,7 +239,22 @@ public class InventoryScript : MonoBehaviour
 
     void equipSpell()
     {
-        hotbarSlots[selectorIndex].addItem(selectedItem);
+        if (!justMovedToHotbar)
+        {
+            // add selected item to hotbar
+            hotbarSlots[selectorIndex].addItem(selectedItem);
+
+            // remove selected item from inventory
+            inventorySlots[selectedInventorySlotIndex].clearSlot();
+
+            // change bools
+            isInHotbar = false;
+            isInInventory = true;
+
+            // move selector back to inventory
+            slotSelector.transform.position = inventorySlots[selectedInventorySlotIndex].transform.position;
+            selectorIndex = selectedInventorySlotIndex;
+        }
     }
 
     //---------item manager------------//
