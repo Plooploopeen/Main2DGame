@@ -5,4 +5,9 @@ public class Item : ScriptableObject
 {
     new public string name = "New item";
     public Sprite icon;
+
+    public virtual void use()
+    {
+        Debug.Log("using " + name);
+    }
 }

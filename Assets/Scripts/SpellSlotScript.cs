@@ -25,5 +25,13 @@ public class SpellSlotScript : MonoBehaviour
         icon.sprite = null;
         icon.enabled = false;
     }
+
+    public void useItem()
+    {
+        if (item != null)
+        {
+            item.use();
+        }
+    }
 }
 
