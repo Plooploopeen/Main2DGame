@@ -24,6 +24,7 @@ public class InventoryScript : MonoBehaviour
 
     private List<SpellSlotScript> createdSlotScripts = new List<SpellSlotScript>();
     private Item selectedItem;
+    private Item replacedItem;
 
     SpellSlotScript[] inventorySlots;
     SpellSlotScript[] hotbarSlots;
@@ -240,12 +241,12 @@ public class InventoryScript : MonoBehaviour
     void equipSpell()
     {
         if (!justMovedToHotbar)
-        {
+        {   
+            replacedItem = hotbarSlots[selectorIndex].getItem();
+
             // add selected item to hotbar
             hotbarSlots[selectorIndex].addItem(selectedItem);
 
-            // remove selected item from inventory
-            inventorySlots[selectedInventorySlotIndex].clearSlot();
 
             // change bools
             isInHotbar = false;
@@ -254,6 +255,16 @@ public class InventoryScript : MonoBehaviour
             // move selector back to inventory
             slotSelector.transform.position = inventorySlots[selectedInventorySlotIndex].transform.position;
             selectorIndex = selectedInventorySlotIndex;
+
+            // remove selected item from inventory
+            if (hotbarSlots[selectorIndex].getItem() != null)
+            {
+                inventorySlots[selectedInventorySlotIndex].addItem(replacedItem);
+                return;
+            }
+
+            inventorySlots[selectedInventorySlotIndex].clearSlot();
+
         }
     }
 
