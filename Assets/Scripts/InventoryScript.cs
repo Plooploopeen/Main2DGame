@@ -241,12 +241,21 @@ public class InventoryScript : MonoBehaviour
     void equipSpell()
     {
         if (!justMovedToHotbar)
-        {   
+        {
+
             replacedItem = hotbarSlots[selectorIndex].getItem();
+
+            if (hotbarSlots[selectorIndex].getItem() != null)
+            {
+                inventorySlots[selectedInventorySlotIndex].addItem(replacedItem);
+            }
+            else
+            {
+                inventorySlots[selectedInventorySlotIndex].clearSlot();
+            }
 
             // add selected item to hotbar
             hotbarSlots[selectorIndex].addItem(selectedItem);
-
 
             // change bools
             isInHotbar = false;
@@ -255,16 +264,6 @@ public class InventoryScript : MonoBehaviour
             // move selector back to inventory
             slotSelector.transform.position = inventorySlots[selectedInventorySlotIndex].transform.position;
             selectorIndex = selectedInventorySlotIndex;
-
-            // remove selected item from inventory
-            if (hotbarSlots[selectorIndex].getItem() != null)
-            {
-                inventorySlots[selectedInventorySlotIndex].addItem(replacedItem);
-                return;
-            }
-
-            inventorySlots[selectedInventorySlotIndex].clearSlot();
-
         }
     }
 
