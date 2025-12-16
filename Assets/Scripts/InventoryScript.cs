@@ -1,12 +1,13 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
-using System.Collections;
-using UnityEngine.Rendering;
-using Unity.VisualScripting;
-using System.Linq;
 using UnityEngine.InputSystem.Utilities;
+using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class InventoryScript : MonoBehaviour    
 {
@@ -244,7 +245,8 @@ public class InventoryScript : MonoBehaviour
         {
 
             replacedItem = hotbarSlots[selectorIndex].getItem();
-
+                
+            // if slot is not null, replace it and put previous item back in intentory
             if (hotbarSlots[selectorIndex].getItem() != null)
             {
                 inventorySlots[selectedInventorySlotIndex].addItem(replacedItem);
@@ -252,7 +254,22 @@ public class InventoryScript : MonoBehaviour
             else
             {
                 inventorySlots[selectedInventorySlotIndex].clearSlot();
+                // cycle through inventory slots after moved one in inventory and move them back one
+                for (int i = selectedInventorySlotIndex + 1; i < slotCount; i++)
+                {
+                    Item movedItem = inventorySlots[i].getItem();
+                    if (movedItem != null)
+                    {
+                        inventorySlots[i - 1].addItem(movedItem);
+                    }
+                    else
+                    {
+                        inventorySlots[i - 1].clearSlot();
+                    }
+                }
+
             }
+
 
             // add selected item to hotbar
             hotbarSlots[selectorIndex].addItem(selectedItem);
