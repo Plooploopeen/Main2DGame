@@ -50,6 +50,7 @@ public class InventoryScript : MonoBehaviour
     private bool isInInventory = true;
     private bool isInHotbar;
     private bool justMovedToHotbar;
+    private bool isUnequipping;
 
     private void Awake()
     {
@@ -214,20 +215,23 @@ public class InventoryScript : MonoBehaviour
     }
 
     void moveToHotbar()
-    {
+    {            
+        selectedInventorySlotIndex = selectorIndex;
+        slotSelector.transform.position = hotbarSlots[0].transform.position;
+        selectorIndex = 0;
+        isInHotbar = true;
+        isInInventory = false;
+        justMovedToHotbar = true;
+
         if (inventorySlots[selectorIndex].getItem() != null)
         {
-            selectedInventorySlotIndex = selectorIndex;
+
             selectedItem = inventorySlots[selectorIndex].getItem();
-            slotSelector.transform.position = hotbarSlots[0].transform.position;
-            selectorIndex = 0;
-            isInHotbar = true;
-            isInInventory = false;
-            justMovedToHotbar = true;
+
         }
         else
         {
-            return;
+            isUnequipping = true;
         }
     }
 
@@ -237,6 +241,7 @@ public class InventoryScript : MonoBehaviour
         selectorIndex = 0;
         isInHotbar = false;
         isInInventory = true;
+        isUnequipping = false;
     }
 
     void equipSpell()
@@ -250,10 +255,13 @@ public class InventoryScript : MonoBehaviour
             if (hotbarSlots[selectorIndex].getItem() != null)
             {
                 inventorySlots[selectedInventorySlotIndex].addItem(replacedItem);
+                items[selectedInventorySlotIndex] = replacedItem;
             }
             else
             {
                 inventorySlots[selectedInventorySlotIndex].clearSlot();
+
+                items.RemoveAt(selectedInventorySlotIndex);
                 // cycle through inventory slots after moved one in inventory and move them back one
                 for (int i = selectedInventorySlotIndex + 1; i < slotCount; i++)
                 {

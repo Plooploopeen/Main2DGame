@@ -28,10 +28,6 @@ public class InventoryUI : MonoBehaviour
             {
                 slots[i].addItem(inventory.items[i]);
             }
-            else
-            {
-                slots[i].clearSlot();
-            }
         }
     }
 }
