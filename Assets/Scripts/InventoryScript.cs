@@ -196,15 +196,28 @@ public class InventoryScript : MonoBehaviour
     void moveHotbarSlot()
     {
         Vector2 DPadDirection = DPadAction.ReadValue<Vector2>();
+        int limit = hotbarSlots.Length - 1;
 
         if (DPadDirection.x > 0)
         {
+            if (selectorIndex == limit)
+            {
+                selectorIndex = 0;
+                slotSelector.transform.position = hotbarSlots[0].transform.position;
+                return;
+            }
             currentSlot = selectorIndex;
             slotChangeAmount = 1;
             changeHotbarSlot(currentSlot, slotChangeAmount);
         }
         else if (DPadDirection.x < 0)
         {
+            if (selectorIndex == 0)
+            {
+                selectorIndex = limit;
+                slotSelector.transform.position = hotbarSlots[limit].transform.position;
+                return;
+            }
             currentSlot = selectorIndex;
             slotChangeAmount = -1;
             changeHotbarSlot(currentSlot, slotChangeAmount);
