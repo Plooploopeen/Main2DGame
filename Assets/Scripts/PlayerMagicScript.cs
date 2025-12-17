@@ -2,13 +2,14 @@ using UnityEngine;
 
 public class PlayerMagicScript : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public int currentMP = 10;
+    public int maxMP = 10;
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         
