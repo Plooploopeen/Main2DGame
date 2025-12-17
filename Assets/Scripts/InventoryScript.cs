@@ -332,22 +332,25 @@ public class InventoryScript : MonoBehaviour
     //-------------end of item manager---------------------//
     void unequipSpell()
     {
-        if (hotbarSlots[selectorIndex].getItem() != null)
+        if (!justMovedToHotbar)
         {
-            Item movedItem = hotbarSlots[selectorIndex].getItem();
+            if (hotbarSlots[selectorIndex].getItem() != null)
+            {
+                Item movedItem = hotbarSlots[selectorIndex].getItem();
 
-            inventorySlots[selectedInventorySlotIndex].addItem(movedItem);
-            items.Add(movedItem);
+                inventorySlots[selectedInventorySlotIndex].addItem(movedItem);
+                items.Add(movedItem);
 
-            hotbarSlots[selectorIndex].clearSlot();
+                hotbarSlots[selectorIndex].clearSlot();
 
-            // change bools
-            isInHotbar = false;
-            isInInventory = true;
+                // change bools
+                isInHotbar = false;
+                isInInventory = true;
 
-            // move selector back to inventory
-            slotSelector.transform.position = inventorySlots[selectedInventorySlotIndex].transform.position;
-            selectorIndex = selectedInventorySlotIndex;
+                // move selector back to inventory
+                slotSelector.transform.position = inventorySlots[selectedInventorySlotIndex].transform.position;
+                selectorIndex = selectedInventorySlotIndex;
+            }
         }
     }
 }
