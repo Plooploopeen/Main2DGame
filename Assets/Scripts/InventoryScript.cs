@@ -118,9 +118,14 @@ public class InventoryScript : MonoBehaviour
             moveToInventory();
         }
 
-        if (isInHotbar && acceptAction.WasPressedThisFrame())
+        if (isInHotbar && !isUnequipping && acceptAction.WasPressedThisFrame())
         {
             equipSpell();
+        }
+
+        if (isInHotbar && isUnequipping && acceptAction.WasPressedThisFrame())
+        {
+            unequipSpell();
         }
 
         justMovedToHotbar = false;
@@ -218,12 +223,11 @@ public class InventoryScript : MonoBehaviour
     {            
         selectedInventorySlotIndex = selectorIndex;
         slotSelector.transform.position = hotbarSlots[0].transform.position;
-        selectorIndex = 0;
         isInHotbar = true;
         isInInventory = false;
         justMovedToHotbar = true;
 
-        if (inventorySlots[selectorIndex].getItem() != null)
+        if (inventorySlots[selectedInventorySlotIndex].getItem() != null)
         {
 
             selectedItem = inventorySlots[selectorIndex].getItem();
@@ -233,6 +237,8 @@ public class InventoryScript : MonoBehaviour
         {
             isUnequipping = true;
         }
+
+        selectorIndex = 0;
     }
 
     void moveToInventory()
@@ -290,6 +296,8 @@ public class InventoryScript : MonoBehaviour
             slotSelector.transform.position = inventorySlots[selectedInventorySlotIndex].transform.position;
             selectorIndex = selectedInventorySlotIndex;
         }
+
+ 
     }
 
     //---------item manager------------//
@@ -318,6 +326,28 @@ public class InventoryScript : MonoBehaviour
         if (onItemChangedCallback != null)
         {
             onItemChangedCallback.Invoke();
+        }
+    }
+
+    //-------------end of item manager---------------------//
+    void unequipSpell()
+    {
+        if (hotbarSlots[selectorIndex].getItem() != null)
+        {
+            Item movedItem = hotbarSlots[selectorIndex].getItem();
+
+            inventorySlots[selectedInventorySlotIndex].addItem(movedItem);
+            items.Add(movedItem);
+
+            hotbarSlots[selectorIndex].clearSlot();
+
+            // change bools
+            isInHotbar = false;
+            isInInventory = true;
+
+            // move selector back to inventory
+            slotSelector.transform.position = inventorySlots[selectedInventorySlotIndex].transform.position;
+            selectorIndex = selectedInventorySlotIndex;
         }
     }
 }
