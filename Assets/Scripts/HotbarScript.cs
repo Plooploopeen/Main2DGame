@@ -69,7 +69,10 @@ public class HotbarScript : MonoBehaviour
         if (focusAction.WasPressedThisFrame() && slotSelector.enabled)
         {
             Item spell = inventoryScript.hotbarSlots[selectorIndex].getItem();
-            playerMagicScript.castSpell(spell);
+            if (spell != null)
+            {
+                playerMagicScript.getSpell(spell);
+            }
         }
     }
 

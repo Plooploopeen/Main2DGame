@@ -51,6 +51,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] float rayShiftRightAmount;
 
     private bool isGrounded;
+    public bool IsGrounded => isGrounded;
 
     [Header("Player movement and input")]
     [SerializeField] float moveSpeed;
@@ -76,7 +77,7 @@ public class PlayerScript : MonoBehaviour
 
     [Header("Extras")]
     private Vector2 velocity;
-    private Vector2 moveDirection;
+    public Vector2 moveDirection;
 
 
 
