@@ -14,4 +14,9 @@ public class PlayerMagicScript : MonoBehaviour
     {
         
     }
+
+    public void castSpell(Item spell)
+    {
+        Debug.Log("Cast spell" + spell.name);
+    }
 }

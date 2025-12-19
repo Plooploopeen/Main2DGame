@@ -11,10 +11,11 @@ using UnityEngine.UI;
 
 public class HotbarScript : MonoBehaviour
 {
+    public PlayerMagicScript playerMagicScript;
+    public InventoryScript inventoryScript;
+
     public static InventoryScript instance;
     public Transform hotbarParent;
-
-    public List<Item> items = new List<Item>();
 
     [SerializeField] InputActionAsset inputActions;
 
@@ -31,8 +32,9 @@ public class HotbarScript : MonoBehaviour
     private InputAction DPadAction;
     private InputAction acceptAction;
     private InputAction backAction;
-    private InputAction LT;
-    private InputAction RT;
+    private InputAction LB;
+    private InputAction RB;
+    private InputAction focusAction;
 
     private int selectorIndex = 0;
     private int currentSlot = 0;
@@ -41,8 +43,10 @@ public class HotbarScript : MonoBehaviour
     private void Awake()
     {
         hotbarSlots = hotbarParent.GetComponentsInChildren<SpellSlotScript>();
-        LT = InputSystem.actions.FindAction("LT");
-        RT = InputSystem.actions.FindAction("RT");
+        LB = InputSystem.actions.FindAction("LB");
+        RB = InputSystem.actions.FindAction("RB");
+        focusAction = InputSystem.actions.FindAction("Focus");
+
 
     }
 
@@ -61,6 +65,12 @@ public class HotbarScript : MonoBehaviour
         {
             moveHotbarSlot();
         }
+
+        if (focusAction.WasPressedThisFrame() && slotSelector.enabled)
+        {
+            Item spell = inventoryScript.hotbarSlots[selectorIndex].getItem();
+            playerMagicScript.castSpell(spell);
+        }
     }
 
     void changeHotbarSlot(int currentSlot, int slotChangeAmount)
@@ -73,7 +83,7 @@ public class HotbarScript : MonoBehaviour
     {
         int limit = hotbarSlots.Length - 1;
 
-        if (RT.WasPressedThisFrame())
+        if (RB.WasPressedThisFrame())
         {
             if (selectorIndex == limit)
             {
@@ -85,7 +95,7 @@ public class HotbarScript : MonoBehaviour
             slotChangeAmount = 1;
             changeHotbarSlot(currentSlot, slotChangeAmount);
         }
-        else if (LT.WasPressedThisFrame())
+        else if (LB.WasPressedThisFrame())
         {
             if (selectorIndex == 0)
             {
@@ -98,4 +108,6 @@ public class HotbarScript : MonoBehaviour
             changeHotbarSlot(currentSlot, slotChangeAmount);
         }
     }
+
+
 }

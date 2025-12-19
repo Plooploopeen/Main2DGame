@@ -28,7 +28,7 @@ public class InventoryScript : MonoBehaviour
     private Item replacedItem;
 
     SpellSlotScript[] inventorySlots;
-    SpellSlotScript[] hotbarSlots;
+    public SpellSlotScript[] hotbarSlots;
 
     [SerializeField] GameObject inventory;
     [SerializeField] GameObject inventoryPanel;

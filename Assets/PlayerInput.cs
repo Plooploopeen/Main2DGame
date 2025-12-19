@@ -174,7 +174,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""LT"",
+                    ""name"": ""LB"",
                     ""type"": ""Button"",
                     ""id"": ""39a47ac9-47fa-4233-8918-624805549760"",
                     ""expectedControlType"": """",
@@ -183,7 +183,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""RT"",
+                    ""name"": ""RB"",
                     ""type"": ""Button"",
                     ""id"": ""24ac9fce-765f-46d2-89f8-4e73eb5378e0"",
                     ""expectedControlType"": """",
@@ -508,7 +508,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""LT"",
+                    ""action"": ""LB"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -519,7 +519,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""RT"",
+                    ""action"": ""RB"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1116,8 +1116,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Gameplay_Throw = m_Gameplay.FindAction("Throw", throwIfNotFound: true);
         m_Gameplay_Menu = m_Gameplay.FindAction("Menu", throwIfNotFound: true);
         m_Gameplay_DPad = m_Gameplay.FindAction("DPad", throwIfNotFound: true);
-        m_Gameplay_LT = m_Gameplay.FindAction("LT", throwIfNotFound: true);
-        m_Gameplay_RT = m_Gameplay.FindAction("RT", throwIfNotFound: true);
+        m_Gameplay_LB = m_Gameplay.FindAction("LB", throwIfNotFound: true);
+        m_Gameplay_RB = m_Gameplay.FindAction("RB", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1220,8 +1220,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Throw;
     private readonly InputAction m_Gameplay_Menu;
     private readonly InputAction m_Gameplay_DPad;
-    private readonly InputAction m_Gameplay_LT;
-    private readonly InputAction m_Gameplay_RT;
+    private readonly InputAction m_Gameplay_LB;
+    private readonly InputAction m_Gameplay_RB;
     /// <summary>
     /// Provides access to input actions defined in input action map "Gameplay".
     /// </summary>
@@ -1270,13 +1270,13 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @DPad => m_Wrapper.m_Gameplay_DPad;
         /// <summary>
-        /// Provides access to the underlying input action "Gameplay/LT".
+        /// Provides access to the underlying input action "Gameplay/LB".
         /// </summary>
-        public InputAction @LT => m_Wrapper.m_Gameplay_LT;
+        public InputAction @LB => m_Wrapper.m_Gameplay_LB;
         /// <summary>
-        /// Provides access to the underlying input action "Gameplay/RT".
+        /// Provides access to the underlying input action "Gameplay/RB".
         /// </summary>
-        public InputAction @RT => m_Wrapper.m_Gameplay_RT;
+        public InputAction @RB => m_Wrapper.m_Gameplay_RB;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1330,12 +1330,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @DPad.started += instance.OnDPad;
             @DPad.performed += instance.OnDPad;
             @DPad.canceled += instance.OnDPad;
-            @LT.started += instance.OnLT;
-            @LT.performed += instance.OnLT;
-            @LT.canceled += instance.OnLT;
-            @RT.started += instance.OnRT;
-            @RT.performed += instance.OnRT;
-            @RT.canceled += instance.OnRT;
+            @LB.started += instance.OnLB;
+            @LB.performed += instance.OnLB;
+            @LB.canceled += instance.OnLB;
+            @RB.started += instance.OnRB;
+            @RB.performed += instance.OnRB;
+            @RB.canceled += instance.OnRB;
         }
 
         /// <summary>
@@ -1374,12 +1374,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @DPad.started -= instance.OnDPad;
             @DPad.performed -= instance.OnDPad;
             @DPad.canceled -= instance.OnDPad;
-            @LT.started -= instance.OnLT;
-            @LT.performed -= instance.OnLT;
-            @LT.canceled -= instance.OnLT;
-            @RT.started -= instance.OnRT;
-            @RT.performed -= instance.OnRT;
-            @RT.canceled -= instance.OnRT;
+            @LB.started -= instance.OnLB;
+            @LB.performed -= instance.OnLB;
+            @LB.canceled -= instance.OnLB;
+            @RB.started -= instance.OnRB;
+            @RB.performed -= instance.OnRB;
+            @RB.canceled -= instance.OnRB;
         }
 
         /// <summary>
@@ -1744,19 +1744,19 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnDPad(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "LT" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "LB" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnLT(InputAction.CallbackContext context);
+        void OnLB(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "RT" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "RB" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnRT(InputAction.CallbackContext context);
+        void OnRB(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
