@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   name: Cardboard Box C
   icon: {fileID: -2316861450084954638, guid: 3b34b9aedebdf7f48ba7d2c407900e81, type: 3}
+  cost: 10
+  decreaseCostAmount: 2

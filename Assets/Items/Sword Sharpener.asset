@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   name: Sword Sharpener
   icon: {fileID: 712035800519618848, guid: f50c4376281d89446a93674b6c38422f, type: 3}
+  cost: 7
+  decreaseCostAmount: 1

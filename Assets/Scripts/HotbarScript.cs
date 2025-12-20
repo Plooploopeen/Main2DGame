@@ -37,6 +37,7 @@ public class HotbarScript : MonoBehaviour
     private InputAction focusAction;
 
     private int selectorIndex = 0;
+    public int SelectorIndex => selectorIndex;
     private int currentSlot = 0;
     private int slotChangeAmount;
 
@@ -64,15 +65,6 @@ public class HotbarScript : MonoBehaviour
         if (!inventory.activeSelf)
         {
             moveHotbarSlot();
-        }
-
-        if (focusAction.WasPressedThisFrame() && slotSelector.enabled)
-        {
-            Item spell = inventoryScript.hotbarSlots[selectorIndex].getItem();
-            if (spell != null)
-            {
-                playerMagicScript.getSpell(spell);
-            }
         }
     }
 

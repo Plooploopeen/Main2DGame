@@ -5,6 +5,8 @@ public class Item : ScriptableObject
 {
     new public string name = "New item";
     public Sprite icon;
+    public int cost;
+    public int decreaseCostAmount;
 
     public virtual void use()
     {

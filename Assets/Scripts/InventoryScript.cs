@@ -168,7 +168,6 @@ public class InventoryScript : MonoBehaviour
 
     void moveInventorySlot()
     {
-        Debug.Log("move inventory slot");
         Vector2 DPadDirection = DPadAction.ReadValue<Vector2>();
 
             if (DPadDirection.x > 0)
@@ -199,8 +198,6 @@ public class InventoryScript : MonoBehaviour
 
     void moveHotbarSlot()
     {
-        Debug.Log("move hotbar slot");
-
         Vector2 DPadDirection = DPadAction.ReadValue<Vector2>();
         int limit = hotbarSlots.Length - 1;
 
@@ -232,16 +229,14 @@ public class InventoryScript : MonoBehaviour
 
     void toggleMenu()
     {
-        Debug.Log("toggle menu");
         inventory.SetActive(!inventory.activeSelf);
 
-            if (inventory.activeSelf) { Time.timeScale = 0f; }
-            else if (!inventory.activeSelf) { Time.timeScale = 1f; }
+        if (inventory.activeSelf) { Time.timeScale = 0f; }
+        else if (!inventory.activeSelf) { Time.timeScale = 1f; }
     }
 
     void moveToHotbar()
     {
-        Debug.Log("move to hotbar");
         selectedInventorySlotIndex = selectorIndex;
         selectorIndex = 0;
         slotSelector.transform.position = hotbarSlots[0].transform.position;
@@ -263,7 +258,6 @@ public class InventoryScript : MonoBehaviour
 
     void moveToInventory()
     {
-        Debug.Log("move to inventory");
         slotSelector.transform.position = spellSlots[selectedInventorySlotIndex].transform.position;
         selectorIndex = selectedInventorySlotIndex;
         isInHotbar = false;
@@ -273,8 +267,6 @@ public class InventoryScript : MonoBehaviour
 
     void equipSpell()
     {
-        Debug.Log("equip spell");
-
         if (!justMovedToHotbar)
         {
 
@@ -333,7 +325,6 @@ public class InventoryScript : MonoBehaviour
 
     public bool Add(Item item)
     {
-        Debug.Log("add");
         if (items.Count >= slotCount)
         {
             return false;
@@ -351,7 +342,6 @@ public class InventoryScript : MonoBehaviour
 
     public void remove(Item item)
     {
-        Debug.Log("remove");
         items.Remove(item);
 
         if (onItemChangedCallback != null)
@@ -363,7 +353,6 @@ public class InventoryScript : MonoBehaviour
     //-------------end of item manager---------------------//
     void unequipSpell()
     {
-        Debug.Log("unequip spell");
         if (!justMovedToHotbar)
         {
             if (hotbarSlots[selectorIndex].getItem() != null)
