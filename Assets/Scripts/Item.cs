@@ -7,6 +7,7 @@ public class Item : ScriptableObject
     public Sprite icon;
     public int cost;
     public int decreaseCostAmount;
+    public GameObject itemPrefab;
 
     public virtual void use()
     {

@@ -20,7 +20,7 @@ public class PlayerMagicScript : MonoBehaviour
     public int currentMP;
     public int maxMP;
     private int cost;
-    private float interval = 1;
+    private float interval = 0.5f;
     private bool isFocusing;
     private float focusTime = 0;
 
@@ -50,11 +50,14 @@ public class PlayerMagicScript : MonoBehaviour
             cost = selectedSpell.cost;
             textReduction.text = "-" + cost;
         }
-
-        if (focusAction.WasReleasedThisFrame())
+        else if (isFocusing && focusAction.WasReleasedThisFrame())
         {
-            textReduction.text = "";
+            castSpell();
+        }
+        else if (!isGrounded || !focusAction.IsPressed() || playerScript.moveDirection.x != 0 || inventory.activeSelf)
+        {
             isFocusing = false;
+            textReduction.text = "";
         }
 
         if (isFocusing)
@@ -70,10 +73,28 @@ public class PlayerMagicScript : MonoBehaviour
             if (focusTime >= interval)
             {
                 focusTime -= interval;
+                if (cost <= 0) { return;}
                 cost -= selectedSpell.decreaseCostAmount;
                 textReduction.text = "-" + cost;
                 
             }
+    }
 
+    void castSpell()
+    {
+        if (cost <= currentMP)
+        {
+            currentMP -= cost;
+        }
+        else { return;}
+
+        GameObject spellInstance = Instantiate(selectedSpell.itemPrefab, transform.position, Quaternion.identity);
+
+        SpellBase spellScript = spellInstance.GetComponent<SpellBase>();
+
+        if (spellScript != null)
+        {
+            spellScript.Initialize(playerScript.isMovingRight);
+        }
     }
 }

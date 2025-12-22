@@ -17,7 +17,7 @@ TagManager:
   - PlayerAttackHitbox
   - SwordProjectile
   - Ground
-  - 
+  - IgnorePlayer
   - 
   - 
   - 

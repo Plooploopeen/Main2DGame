@@ -61,7 +61,7 @@ public class PlayerScript : MonoBehaviour
     private bool isSliding;
     private bool isMoving;
     private bool isFalling;
-    private bool isMovingRight;
+    public bool isMovingRight;
     private bool isMovingLeft;
     private bool isSprinting;
 

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7038ac390ce351e44b5ed8ca8d8cb1e9, type: 3}
   m_Name: Cardboard Box C
   m_EditorClassIdentifier: Assembly-CSharp::Item
-  name: Cardboard Box C
+  name: Fireball
   icon: {fileID: -2316861450084954638, guid: 3b34b9aedebdf7f48ba7d2c407900e81, type: 3}
   cost: 10
   decreaseCostAmount: 2
+  itemPrefab: {fileID: 5946078661519353354, guid: 733e2c073ab1991498f3c1395a972d81, type: 3}
