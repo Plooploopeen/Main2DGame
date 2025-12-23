@@ -2,13 +2,10 @@ using JetBrains.Annotations;
 using TMPro;
 using Unity.Properties;
 using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -20,7 +17,7 @@ public class PlayerScript : MonoBehaviour
     private Animator animator;
     private PlayerAttackScript playerCombatScript;
     private PlayerHealthScript playerHealthScript;
-    private SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
 
     [Header("Jump Settings")]
     [SerializeField] float jumpForce;
@@ -61,7 +58,7 @@ public class PlayerScript : MonoBehaviour
     private bool isSliding;
     private bool isMoving;
     private bool isFalling;
-    public bool isMovingRight;
+    private bool isMovingRight;
     private bool isMovingLeft;
     private bool isSprinting;
 
@@ -78,6 +75,7 @@ public class PlayerScript : MonoBehaviour
     [Header("Extras")]
     private Vector2 velocity;
     public Vector2 moveDirection;
+    public float horizontal;
 
 
 
@@ -118,6 +116,7 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         moveDirection = moveAction.ReadValue<Vector2>();
+        horizontal = moveDirection.x;
 
         // Movement
         sprint();
@@ -155,8 +154,6 @@ public class PlayerScript : MonoBehaviour
 
     void movePlayer()
     {
-        float horizontal = moveDirection.x;
-
         // Check player movement input
         if (moveDirection.x > 0.4 && !playerHealthScript.isKnockedBack)
         {

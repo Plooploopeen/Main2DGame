@@ -2,6 +2,7 @@ using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using TreeEditor;
 
 public class HitBox : MonoBehaviour
 {
@@ -57,8 +58,15 @@ public class HitBox : MonoBehaviour
 
         if (target != null)
         {
-            target.takeDamage(damage, transform.parent.transform);
-            hitEnemies.Add(collision);
+            if (transform.parent != null)
+            {
+                target.takeDamage(damage, transform.parent.transform);
+            }
+            else
+            {
+                target.takeDamage(damage, transform);
+            }
+                hitEnemies.Add(collision);
         }
     }
 

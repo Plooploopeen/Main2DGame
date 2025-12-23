@@ -5,29 +5,50 @@ public class fireballScript : SpellBase
     private Rigidbody2D rb;
 
     [SerializeField] float speed;
+    private bool castRight;
+    [SerializeField] float maxDistance;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        if (playerScript.spriteRenderer.flipX == false)
+        {
+            castRight = true;
+        }
+        else
+        {
+            castRight = false;
+        }
+
     }
 
     private void Update()
     {
         moveFireball();
+
+        if (Vector2.Distance(transform.position, playerScript.transform.position) > maxDistance)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void moveFireball()
     {
-        if (isFacingRight)
+        if (castRight)
         {
-            Vector2 newVelocity = rb.linearVelocity;
-            newVelocity.x += speed * Time.deltaTime;
-            rb.linearVelocity = newVelocity;
+            rb.linearVelocity = new Vector2(speed, rb.linearVelocity.y);
         }
-        else if (!isFacingRight)
+        else
         {
-            Vector2 newVelocity = rb.linearVelocity;
-            newVelocity.x = -speed * Time.deltaTime;
-            rb.linearVelocity = newVelocity;
+            rb.linearVelocity = new Vector2(-speed, rb.linearVelocity.y);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            Destroy(gameObject);
         }
     }
 }

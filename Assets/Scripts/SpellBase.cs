@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class SpellBase : MonoBehaviour
 {
-    protected bool isFacingRight;
-    public void Initialize(bool isRight)
-    {   
-        isFacingRight = isRight;
+    protected PlayerScript playerScript;
+    public void Initialize()
+    {
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        playerScript = playerObject.GetComponent<PlayerScript>();
     }
 }

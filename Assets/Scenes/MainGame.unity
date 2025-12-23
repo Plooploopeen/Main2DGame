@@ -2241,6 +2241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   InputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  spriteRenderer: {fileID: 0}
   jumpForce: 3.5
   fallMultipierSlow: 0.6
   fallMultipierFast: 2
@@ -2254,8 +2255,8 @@ MonoBehaviour:
   walkSpeed: 1.5
   sprintSpeed: 3
   decelRate: 5
-  isMovingRight: 0
   moveDirection: {x: 0, y: 0}
+  horizontal: 0
 --- !u!114 &616317159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2969,7 +2970,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 100/100
+  m_Text: '10/10
+
+'
 --- !u!222 &707963898
 CanvasRenderer:
   m_ObjectHideFlags: 0

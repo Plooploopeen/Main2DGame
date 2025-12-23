@@ -39,6 +39,7 @@ public class PlayerMagicScript : MonoBehaviour
     void Start()
     {
         textReduction.text = "";
+        currentMP = maxMP;
     }
 
     void Update()
@@ -47,8 +48,11 @@ public class PlayerMagicScript : MonoBehaviour
         {
             isFocusing = true;
             selectedSpell = hotbarSlots[hotbarScript.SelectorIndex].getItem();
-            cost = selectedSpell.cost;
-            textReduction.text = "-" + cost;
+            if (selectedSpell != null)
+            {
+                cost = selectedSpell.cost;
+                textReduction.text = "-" + cost;
+            }
         }
         else if (isFocusing && focusAction.WasReleasedThisFrame())
         {
@@ -82,19 +86,23 @@ public class PlayerMagicScript : MonoBehaviour
 
     void castSpell()
     {
-        if (cost <= currentMP)
+        if (selectedSpell != null)
         {
-            currentMP -= cost;
-        }
-        else { return;}
+            if (cost <= currentMP)
+            {
+                currentMP -= cost;
+            }
+            else { return; }
 
-        GameObject spellInstance = Instantiate(selectedSpell.itemPrefab, transform.position, Quaternion.identity);
 
-        SpellBase spellScript = spellInstance.GetComponent<SpellBase>();
+            GameObject spellInstance = Instantiate(selectedSpell.itemPrefab, transform.position, Quaternion.identity);
 
-        if (spellScript != null)
-        {
-            spellScript.Initialize(playerScript.isMovingRight);
+            SpellBase spellScript = spellInstance.GetComponent<SpellBase>();
+
+            if (spellScript != null)
+            {
+                spellScript.Initialize();
+            }
         }
     }
 }
