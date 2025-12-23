@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using Unity.PlasticSCM.Editor.WebApi;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,8 +18,9 @@ public class PlayerMagicScript : MonoBehaviour
     public Transform hotbarParent;
     SpellSlotScript[] hotbarSlots;
 
-    public int currentMP;
+    public float currentMP;
     public int maxMP;
+    public float percentGain;
     private int cost;
     private float interval = 0.5f;
     private bool isFocusing;
@@ -67,6 +69,11 @@ public class PlayerMagicScript : MonoBehaviour
         if (isFocusing)
         {
             focus();
+        }
+
+        if (currentMP > maxMP)
+        {
+            currentMP = maxMP;
         }
     }
 

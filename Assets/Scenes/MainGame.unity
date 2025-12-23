@@ -2407,6 +2407,7 @@ MonoBehaviour:
   hotbarParent: {fileID: 530874021}
   currentMP: 10
   maxMP: 10
+  percentGain: 0.2
 --- !u!114 &616317167
 MonoBehaviour:
   m_ObjectHideFlags: 0

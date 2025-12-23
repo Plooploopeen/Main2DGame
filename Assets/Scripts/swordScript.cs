@@ -1,12 +1,14 @@
+using NUnit.Framework.Internal.Commands;
 using System.Security.Cryptography;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 public class swordScript : MonoBehaviour
-
-    
 {
+    private PlayerMagicScript playerMagicScript;
+
     public Vector2 currentVelocity;
     private Vector2 stuckPosition;
     public PlayerSwordThrowingScript playerSwordThrowingScript;
@@ -108,6 +110,11 @@ public class swordScript : MonoBehaviour
                 currentRotation = playerSwordThrowingScript.swordInstance.transform.localRotation;
                 isStuckInHurtbox = true;
 
+
+                // gain mp if last hit collides with an enemy
+                float gain = playerMagicScript.percentGain * playerMagicScript.maxMP;
+                playerMagicScript.currentMP += gain;
+
             }
 
             return;
@@ -136,6 +143,8 @@ public class swordScript : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         hitBoxScript = GetComponentInChildren<HitBox>();
         playerTransform = playerSwordThrowingScript.GetComponentInParent<Transform>();
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        playerMagicScript = playerObject.GetComponent<PlayerMagicScript>();
 
     }
 
