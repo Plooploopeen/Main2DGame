@@ -67,6 +67,7 @@ public class PlayerMagicScript : MonoBehaviour
         else
         {
             hotbarScript.slotSelector.enabled = false;
+            focusTime = 0;
         }
 
         if (currentMP > maxMP)
@@ -97,7 +98,7 @@ public class PlayerMagicScript : MonoBehaviour
             {
                 currentMP -= cost;
             }
-            else { return; }
+            else {return;}
 
 
             GameObject spellInstance = Instantiate(selectedSpell.itemPrefab, transform.position, Quaternion.identity);
@@ -117,11 +118,11 @@ public class PlayerMagicScript : MonoBehaviour
         {
             StartCoroutine(StartFocusWithDelay());
         }
-        else if (isFocusing && rightAction.WasReleasedThisFrame() || bottomAction.WasReleasedThisFrame() || leftAction.WasReleasedThisFrame() || topAction.WasReleasedThisFrame())
+        else if (isFocusing && LB.IsPressed() && rightAction.WasReleasedThisFrame() || bottomAction.WasReleasedThisFrame() || leftAction.WasReleasedThisFrame() || topAction.WasReleasedThisFrame())
         {
             castSpell();
         }
-        else if (!isGrounded || (!rightAction.IsPressed() && !bottomAction.IsPressed() && !leftAction.IsPressed() && !topAction.IsPressed()) || playerScript.moveDirection.x != 0 || inventory.activeSelf)
+        else if (!isGrounded || playerScript.moveDirection.x != 0 || inventory.activeSelf || (!rightAction.IsPressed() && !bottomAction.IsPressed() && !leftAction.IsPressed() && !topAction.IsPressed()))
         {
             isFocusing = false;
             textReduction.text = "";

@@ -225,24 +225,28 @@ public class PlayerScript : MonoBehaviour
         Vector2 leftRayPosition = (Vector2)transform.position + Vector2.left * rayShiftLeftAmount;
         Vector2 rightRayPosition = (Vector2)transform.position + Vector2.right * rayShiftRightAmount;
 
-        RaycastHit2D middleHit = Physics2D.Raycast(transform.position, Vector2.down, rayCastLength);
-        RaycastHit2D leftHit = Physics2D.Raycast(leftRayPosition, Vector2.down, rayCastLength);
-        RaycastHit2D rightHit = Physics2D.Raycast(rightRayPosition, Vector2.down, rayCastLength);
+        int layerMask = ~LayerMask.GetMask("Player");
+
+        RaycastHit2D middleHit = Physics2D.Raycast(transform.position, Vector2.down, rayCastLength, layerMask);
+        RaycastHit2D leftHit = Physics2D.Raycast(leftRayPosition, Vector2.down, rayCastLength, layerMask);
+        RaycastHit2D rightHit = Physics2D.Raycast(rightRayPosition, Vector2.down, rayCastLength, layerMask);
 
         Debug.DrawRay(transform.position, Vector2.down * rayCastLength, Color.orange);
         Debug.DrawRay(leftRayPosition, Vector2.down * rayCastLength, Color.red);
         Debug.DrawRay(rightRayPosition, Vector2.down * rayCastLength, Color.yellow);
 
-        if (middleHit.collider != null && middleHit.collider.CompareTag("Jumpable") || 
-            leftHit.collider != null && leftHit.collider.CompareTag("Jumpable") || 
-            rightHit.collider != null && rightHit.collider.CompareTag("Jumpable"))
-        {
-            isGrounded = true;
-        }
-        else
-        {
-            isGrounded = false;
-        }
+        isGrounded = (middleHit.collider != null && middleHit.collider.CompareTag("Jumpable")) ||
+                     (leftHit.collider != null && leftHit.collider.CompareTag("Jumpable")) ||
+                     (rightHit.collider != null && rightHit.collider.CompareTag("Jumpable"));
+
+        // DEBUG - Check what each ray hit
+        if (middleHit.collider != null)
+            Debug.Log("Middle hit: " + middleHit.collider.name + " | Tag: " + middleHit.collider.tag);
+        if (leftHit.collider != null)
+            Debug.Log("Left hit: " + leftHit.collider.name + " | Tag: " + leftHit.collider.tag);
+        if (rightHit.collider != null)
+            Debug.Log("Right hit: " + rightHit.collider.name + " | Tag: " + rightHit.collider.tag);
+
     }
 
     void jump()
