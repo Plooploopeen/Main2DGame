@@ -30,8 +30,6 @@ public class HotbarScript : MonoBehaviour
 
     private InputAction menuAction;
     private InputAction DPadAction;
-    private InputAction acceptAction;
-    private InputAction backAction;
     private InputAction LB;
     private InputAction RB;
     private InputAction rightAction;
