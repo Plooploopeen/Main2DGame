@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -159,10 +160,10 @@ public class InventoryScript : MonoBehaviour
         selectorIndex = currentSlot + slotChangeAmount;
     }
 
-    void changeHotbarSlot (int currentSlot, int slotChangeAmount)
+    void changeHotbarSlot (int newSlot)
     {
-        slotSelector.transform.position = hotbarSlots[currentSlot + slotChangeAmount].transform.position;
-        selectorIndex = currentSlot + slotChangeAmount;
+        slotSelector.transform.position = hotbarSlots[newSlot].transform.position;
+        selectorIndex = newSlot;
     }
 
 
@@ -199,31 +200,22 @@ public class InventoryScript : MonoBehaviour
     void moveHotbarSlot()
     {
         Vector2 DPadDirection = DPadAction.ReadValue<Vector2>();
-        int limit = hotbarSlots.Length - 1;
-
+        
         if (DPadDirection.x > 0)
         {
-            if (selectorIndex == limit)
-            {
-                selectorIndex = 0;
-                slotSelector.transform.position = hotbarSlots[0].transform.position;
-                return;
-            }
-            currentSlot = selectorIndex;
-            slotChangeAmount = 1;
-            changeHotbarSlot(currentSlot, slotChangeAmount);
+            changeHotbarSlot(1);
+        }
+        else if (DPadDirection.y < 0)
+        {
+            changeHotbarSlot(2);
         }
         else if (DPadDirection.x < 0)
         {
-            if (selectorIndex == 0)
-            {
-                selectorIndex = limit;
-                slotSelector.transform.position = hotbarSlots[limit].transform.position;
-                return;
-            }
-            currentSlot = selectorIndex;
-            slotChangeAmount = -1;
-            changeHotbarSlot(currentSlot, slotChangeAmount);
+            changeHotbarSlot(3);
+        }
+        else if (DPadDirection.y > 0)
+        {
+            changeHotbarSlot(0);
         }
     }
 

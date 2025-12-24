@@ -238,15 +238,6 @@ public class PlayerScript : MonoBehaviour
         isGrounded = (middleHit.collider != null && middleHit.collider.CompareTag("Jumpable")) ||
                      (leftHit.collider != null && leftHit.collider.CompareTag("Jumpable")) ||
                      (rightHit.collider != null && rightHit.collider.CompareTag("Jumpable"));
-
-        // DEBUG - Check what each ray hit
-        if (middleHit.collider != null)
-            Debug.Log("Middle hit: " + middleHit.collider.name + " | Tag: " + middleHit.collider.tag);
-        if (leftHit.collider != null)
-            Debug.Log("Left hit: " + leftHit.collider.name + " | Tag: " + leftHit.collider.tag);
-        if (rightHit.collider != null)
-            Debug.Log("Right hit: " + rightHit.collider.name + " | Tag: " + rightHit.collider.tag);
-
     }
 
     void jump()

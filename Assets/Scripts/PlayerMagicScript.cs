@@ -114,15 +114,15 @@ public class PlayerMagicScript : MonoBehaviour
 
     void checkShouldFocus()
     {
-        if (isGrounded && playerScript.moveDirection.x == 0 && !inventory.activeSelf && LB.IsPressed() && (rightAction.WasPressedThisFrame() || bottomAction.WasPressedThisFrame() || leftAction.WasPressedThisFrame() || topAction.WasPressedThisFrame()))
+        if (isGrounded && playerScript.moveDirection.x == 0 && !inventory.activeSelf && LB.IsPressed() && (rightAction.WasPressedThisFrame() || bottomAction.WasPressedThisFrame() || leftAction.WasPressedThisFrame() || topAction.WasPressedThisFrame() || RB.WasPressedThisFrame()))
         {
             StartCoroutine(StartFocusWithDelay());
         }
-        else if (isFocusing && LB.IsPressed() && rightAction.WasReleasedThisFrame() || bottomAction.WasReleasedThisFrame() || leftAction.WasReleasedThisFrame() || topAction.WasReleasedThisFrame())
+        else if (isFocusing && LB.IsPressed() && rightAction.WasReleasedThisFrame() || bottomAction.WasReleasedThisFrame() || leftAction.WasReleasedThisFrame() || topAction.WasReleasedThisFrame() || RB.WasReleasedThisFrame())
         {
             castSpell();
         }
-        else if (!isGrounded || playerScript.moveDirection.x != 0 || inventory.activeSelf || (!rightAction.IsPressed() && !bottomAction.IsPressed() && !leftAction.IsPressed() && !topAction.IsPressed()))
+        else if (!isGrounded || playerScript.moveDirection.x != 0 || inventory.activeSelf || (!rightAction.IsPressed() && !bottomAction.IsPressed() && !leftAction.IsPressed() && !topAction.IsPressed() && !RB.IsPressed()))
         {
             isFocusing = false;
             textReduction.text = "";
@@ -141,32 +141,3 @@ public class PlayerMagicScript : MonoBehaviour
         }
     }
 }
-
-
-
-
-
-
-
-//void checkShouldFocus()
-//{
-//    if (isGrounded && playerScript.moveDirection.x == 0 && !inventory.activeSelf && LB.IsPressed() && (rightAction.WasPressedThisFrame() || bottomAction.WasPressedThisFrame() || leftAction.WasPressedThisFrame() || bottomAction.WasPressedThisFrame()))
-//    {
-//        isFocusing = true;
-//        selectedSpell = hotbarSlots[hotbarScript.SelectorIndex].getItem();
-//        if (selectedSpell != null)
-//        {
-//            cost = selectedSpell.cost;
-//            textReduction.text = "-" + cost;
-//        }
-//    }
-//    else if (isFocusing && rightAction.WasReleasedThisFrame() || bottomAction.WasReleasedThisFrame() || leftAction.WasReleasedThisFrame() || topAction.WasReleasedThisFrame())
-//    {
-//        castSpell();
-//    }
-//    else if (!isGrounded || (!rightAction.WasPressedThisFrame() && !bottomAction.WasPressedThisFrame() && !leftAction.WasPressedThisFrame() && !bottomAction.WasPressedThisFrame()) || playerScript.moveDirection.x != 0 || inventory.activeSelf)
-//    {
-//        isFocusing = false;
-//        textReduction.text = "";
-//    }
-//}
