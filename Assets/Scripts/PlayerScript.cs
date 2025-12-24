@@ -66,6 +66,7 @@ public class PlayerScript : MonoBehaviour
     private InputAction attackAction;
     private InputAction sprintAction;
     private InputAction moveAction;
+    private InputAction LB;
 
     [Header("Public references")]
 
@@ -93,6 +94,8 @@ public class PlayerScript : MonoBehaviour
         attackAction = InputSystem.actions.FindAction("Attack");
         sprintAction = InputSystem.actions.FindAction("Sprint");
         moveAction = InputSystem.actions.FindAction("Move");
+        LB = InputSystem.actions.FindAction("LB");
+
     }
 
     void Start()
@@ -119,12 +122,15 @@ public class PlayerScript : MonoBehaviour
         horizontal = moveDirection.x;
 
         // Movement
-        sprint();
+        if (!LB.IsPressed())
+        {
+            sprint();        
+            jump();
+        }
         capVelocity();
         checkIsGrounded();
         coyoteTime();
         jumpBuffer();
-        jump();
 
         // Animations
         updateAnimations();

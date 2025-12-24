@@ -10,12 +10,15 @@ public class PlayerAttackScript : MonoBehaviour
     private Animator animator;
 
     private InputAction attackAction;
+    private InputAction LB;
+
     public bool isAttacking = false;
     public bool canAttack = true;
 
     private void Awake()
     {
         attackAction = InputSystem.actions.FindAction("Attack");
+        LB = InputSystem.actions.FindAction("LB");
 
         animator = GetComponent<Animator>();
         playerSwordThrowingScript = GetComponent<PlayerSwordThrowingScript>();
@@ -63,7 +66,7 @@ public class PlayerAttackScript : MonoBehaviour
 
     void checkShouldAttack()
     {
-        if (attackAction.WasPressedThisFrame() && canAttack)
+        if (attackAction.WasPressedThisFrame() && !LB.IsPressed() && canAttack)
         {
             attack();
         }

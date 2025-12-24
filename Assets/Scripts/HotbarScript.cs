@@ -25,7 +25,7 @@ public class HotbarScript : MonoBehaviour
     [SerializeField] GameObject inventoryPanel;
     [SerializeField] GameObject spellSlotPrefab;
     [SerializeField] GameObject[] spellSlots;
-    [SerializeField] SpriteRenderer slotSelector;
+    public SpriteRenderer slotSelector;
     [SerializeField] int slotCount;
 
     private InputAction menuAction;
@@ -34,73 +34,86 @@ public class HotbarScript : MonoBehaviour
     private InputAction backAction;
     private InputAction LB;
     private InputAction RB;
-    private InputAction focusAction;
+    private InputAction rightAction;
+    private InputAction bottomAction;
+    private InputAction leftAction;
+    private InputAction topAction;
 
     private int selectorIndex = 0;
     public int SelectorIndex => selectorIndex;
     private int currentSlot = 0;
-    private int slotChangeAmount;
+    private int slotChangeIndex;
 
     private void Awake()
     {
         hotbarSlots = hotbarParent.GetComponentsInChildren<SpellSlotScript>();
         LB = InputSystem.actions.FindAction("LB");
         RB = InputSystem.actions.FindAction("RB");
-        focusAction = InputSystem.actions.FindAction("Focus");
-
-
+        rightAction = InputSystem.actions.FindAction("Focus");
+        bottomAction = InputSystem.actions.FindAction("Jump");
+        leftAction = InputSystem.actions.FindAction("Attack");
+        topAction = InputSystem.actions.FindAction("parry");
     }
 
     void Update()
     {
-        if (inventory.activeSelf)
-        {
-            slotSelector.enabled = false;
-        }
-        else
-        {
-            slotSelector.enabled = true;
-        }
-
         if (!inventory.activeSelf)
         {
             moveHotbarSlot();
         }
     }
 
-    void changeHotbarSlot(int currentSlot, int slotChangeAmount)
+    void changeHotbarSlot(int slotChangeIndex)
     {
-        slotSelector.transform.position = hotbarSlots[currentSlot + slotChangeAmount].transform.position;
-        selectorIndex = currentSlot + slotChangeAmount;
+        slotSelector.transform.position = hotbarSlots[slotChangeIndex].transform.position;
+        selectorIndex = slotChangeIndex;
     }
 
     void moveHotbarSlot()
     {
-        int limit = hotbarSlots.Length - 1;
-
-        if (RB.WasPressedThisFrame())
+        if (LB.IsPressed())
         {
-            if (selectorIndex == limit)
+            if (topAction.WasPressedThisFrame())
             {
                 selectorIndex = 0;
                 slotSelector.transform.position = hotbarSlots[0].transform.position;
-                return;
+                currentSlot = selectorIndex;
+
+                changeHotbarSlot(0);
+
             }
-            currentSlot = selectorIndex;
-            slotChangeAmount = 1;
-            changeHotbarSlot(currentSlot, slotChangeAmount);
-        }
-        else if (LB.WasPressedThisFrame())
-        {
-            if (selectorIndex == 0)
+            else if (rightAction.WasPressedThisFrame())
             {
-                selectorIndex = limit;
-                slotSelector.transform.position = hotbarSlots[limit].transform.position;
-                return;
+                selectorIndex = 1;
+                slotSelector.transform.position = hotbarSlots[1].transform.position;
+                currentSlot = selectorIndex;
+
+                changeHotbarSlot(1);
             }
-            currentSlot = selectorIndex;
-            slotChangeAmount = -1;
-            changeHotbarSlot(currentSlot, slotChangeAmount);
+            else if (bottomAction.WasPressedThisFrame())
+            {
+                selectorIndex = 2;
+                slotSelector.transform.position = hotbarSlots[2].transform.position;
+                currentSlot = selectorIndex;
+
+                changeHotbarSlot(2);
+            }
+            else if (leftAction.WasPressedThisFrame())
+            {
+                selectorIndex = 3;
+                slotSelector.transform.position = hotbarSlots[3].transform.position;
+                currentSlot = selectorIndex;
+
+                changeHotbarSlot(3);
+            }
+            else if (RB.WasPressedThisFrame())
+            {
+                selectorIndex = 4;
+                slotSelector.transform.position = hotbarSlots[4].transform.position;
+                currentSlot = selectorIndex;
+
+                changeHotbarSlot(4);
+            }
         }
     }
 
