@@ -44,7 +44,7 @@ public class PlayerMagicScript : MonoBehaviour
         rightAction = InputSystem.actions.FindAction("Focus");
         bottomAction = InputSystem.actions.FindAction("Jump");
         leftAction = InputSystem.actions.FindAction("Attack");
-        topAction = InputSystem.actions.FindAction("parry");
+        topAction = InputSystem.actions.FindAction("TopBotton");
 
         hotbarSlots = hotbarParent.GetComponentsInChildren<SpellSlotScript>();
     }
@@ -114,15 +114,15 @@ public class PlayerMagicScript : MonoBehaviour
 
     void checkShouldFocus()
     {
-        if (isGrounded && playerScript.moveDirection.x == 0 && !inventory.activeSelf && LB.IsPressed() && (rightAction.WasPressedThisFrame() || bottomAction.WasPressedThisFrame() || leftAction.WasPressedThisFrame() || topAction.WasPressedThisFrame() || RB.WasPressedThisFrame()))
+        if (isGrounded && playerScript.moveDirection.x == 0 && !inventory.activeSelf && LB.IsPressed() && (rightAction.WasPressedThisFrame() || bottomAction.WasPressedThisFrame() || leftAction.WasPressedThisFrame() || topAction.WasPressedThisFrame()))
         {
             StartCoroutine(StartFocusWithDelay());
         }
-        else if (isFocusing && LB.IsPressed() && rightAction.WasReleasedThisFrame() || bottomAction.WasReleasedThisFrame() || leftAction.WasReleasedThisFrame() || topAction.WasReleasedThisFrame() || RB.WasReleasedThisFrame())
+        else if (isFocusing && LB.IsPressed() && rightAction.WasReleasedThisFrame() || bottomAction.WasReleasedThisFrame() || leftAction.WasReleasedThisFrame() || topAction.WasReleasedThisFrame())
         {
             castSpell();
         }
-        else if (!isGrounded || playerScript.moveDirection.x != 0 || inventory.activeSelf || (!rightAction.IsPressed() && !bottomAction.IsPressed() && !leftAction.IsPressed() && !topAction.IsPressed() && !RB.IsPressed()))
+        else if (!isGrounded || playerScript.moveDirection.x != 0 || inventory.activeSelf || (!rightAction.IsPressed() && !bottomAction.IsPressed() && !leftAction.IsPressed() && !topAction.IsPressed()))
         {
             isFocusing = false;
             textReduction.text = "";

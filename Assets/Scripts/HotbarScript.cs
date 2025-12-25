@@ -31,7 +31,6 @@ public class HotbarScript : MonoBehaviour
     private InputAction menuAction;
     private InputAction DPadAction;
     private InputAction LB;
-    private InputAction RB;
     private InputAction rightAction;
     private InputAction bottomAction;
     private InputAction leftAction;
@@ -46,11 +45,10 @@ public class HotbarScript : MonoBehaviour
     {
         hotbarSlots = hotbarParent.GetComponentsInChildren<SpellSlotScript>();
         LB = InputSystem.actions.FindAction("LB");
-        RB = InputSystem.actions.FindAction("RB");
         rightAction = InputSystem.actions.FindAction("Focus");
         bottomAction = InputSystem.actions.FindAction("Jump");
         leftAction = InputSystem.actions.FindAction("Attack");
-        topAction = InputSystem.actions.FindAction("parry");
+        topAction = InputSystem.actions.FindAction("TopBotton");
     }
 
     void Update()
@@ -103,14 +101,6 @@ public class HotbarScript : MonoBehaviour
                 currentSlot = selectorIndex;
 
                 changeHotbarSlot(3);
-            }
-            else if (RB.WasPressedThisFrame())
-            {
-                selectorIndex = 4;
-                slotSelector.transform.position = hotbarSlots[4].transform.position;
-                currentSlot = selectorIndex;
-
-                changeHotbarSlot(4);
             }
         }
     }

@@ -192,9 +192,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""RB"",
+                    ""name"": ""TopBotton"",
                     ""type"": ""Button"",
-                    ""id"": ""24ac9fce-765f-46d2-89f8-4e73eb5378e0"",
+                    ""id"": ""b3faf5aa-5b79-4007-9cf7-1c278084024c"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -523,23 +523,23 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""e498d436-916d-4f45-8252-049ed33e2906"",
+                    ""id"": ""a082a983-d268-46d6-9632-9ab6ed161fe2"",
                     ""path"": ""<Gamepad>/rightShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""RB"",
+                    ""action"": ""Parry"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""a082a983-d268-46d6-9632-9ab6ed161fe2"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""id"": ""75b6abeb-deef-4391-9766-f424b2c63872"",
+                    ""path"": """",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Parry"",
+                    ""action"": ""TopBotton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1138,7 +1138,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Gameplay_Menu = m_Gameplay.FindAction("Menu", throwIfNotFound: true);
         m_Gameplay_DPad = m_Gameplay.FindAction("DPad", throwIfNotFound: true);
         m_Gameplay_LB = m_Gameplay.FindAction("LB", throwIfNotFound: true);
-        m_Gameplay_RB = m_Gameplay.FindAction("RB", throwIfNotFound: true);
+        m_Gameplay_TopBotton = m_Gameplay.FindAction("TopBotton", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1243,7 +1243,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Menu;
     private readonly InputAction m_Gameplay_DPad;
     private readonly InputAction m_Gameplay_LB;
-    private readonly InputAction m_Gameplay_RB;
+    private readonly InputAction m_Gameplay_TopBotton;
     /// <summary>
     /// Provides access to input actions defined in input action map "Gameplay".
     /// </summary>
@@ -1300,9 +1300,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @LB => m_Wrapper.m_Gameplay_LB;
         /// <summary>
-        /// Provides access to the underlying input action "Gameplay/RB".
+        /// Provides access to the underlying input action "Gameplay/TopBotton".
         /// </summary>
-        public InputAction @RB => m_Wrapper.m_Gameplay_RB;
+        public InputAction @TopBotton => m_Wrapper.m_Gameplay_TopBotton;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1362,9 +1362,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @LB.started += instance.OnLB;
             @LB.performed += instance.OnLB;
             @LB.canceled += instance.OnLB;
-            @RB.started += instance.OnRB;
-            @RB.performed += instance.OnRB;
-            @RB.canceled += instance.OnRB;
+            @TopBotton.started += instance.OnTopBotton;
+            @TopBotton.performed += instance.OnTopBotton;
+            @TopBotton.canceled += instance.OnTopBotton;
         }
 
         /// <summary>
@@ -1409,9 +1409,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @LB.started -= instance.OnLB;
             @LB.performed -= instance.OnLB;
             @LB.canceled -= instance.OnLB;
-            @RB.started -= instance.OnRB;
-            @RB.performed -= instance.OnRB;
-            @RB.canceled -= instance.OnRB;
+            @TopBotton.started -= instance.OnTopBotton;
+            @TopBotton.performed -= instance.OnTopBotton;
+            @TopBotton.canceled -= instance.OnTopBotton;
         }
 
         /// <summary>
@@ -1790,12 +1790,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnLB(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "RB" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "TopBotton" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnRB(InputAction.CallbackContext context);
+        void OnTopBotton(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

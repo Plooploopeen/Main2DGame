@@ -2,9 +2,12 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class PlayerHealthScript : MonoBehaviour, IDamageable
 {
+    private playerDefenceScript playerDefenceScript;
+
     public float health = 100;
     public float maxHealth = 100;
     public bool isKnockedBack;
@@ -18,6 +21,8 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
 
     void Awake()
     {
+        playerDefenceScript = GetComponent<playerDefenceScript>();
+
         SpriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
     }
@@ -34,6 +39,12 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
 
     public void takeDamage(float damage, Transform attackerTransform)
     {
+        if (playerDefenceScript.isParrying)
+        {
+            playerDefenceScript.onParrySuccess();
+            return;
+        }
+
         health -= damage;
 
         if (!isFlashing) StartCoroutine(FlashRed());

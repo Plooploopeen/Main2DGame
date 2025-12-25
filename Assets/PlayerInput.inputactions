@@ -106,9 +106,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "RB",
+                    "name": "TopBotton",
                     "type": "Button",
-                    "id": "24ac9fce-765f-46d2-89f8-4e73eb5378e0",
+                    "id": "b3faf5aa-5b79-4007-9cf7-1c278084024c",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -437,23 +437,23 @@
                 },
                 {
                     "name": "",
-                    "id": "e498d436-916d-4f45-8252-049ed33e2906",
+                    "id": "a082a983-d268-46d6-9632-9ab6ed161fe2",
                     "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "RB",
+                    "action": "Parry",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "a082a983-d268-46d6-9632-9ab6ed161fe2",
-                    "path": "<Gamepad>/buttonNorth",
+                    "id": "75b6abeb-deef-4391-9766-f424b2c63872",
+                    "path": "",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Parry",
+                    "action": "TopBotton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

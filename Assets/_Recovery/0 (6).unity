@@ -2533,8 +2533,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   isParrying: 0
-  parryTimeLimit: 0.3
-  parryCooldownAmount: 0.8
+  parryTimeLimit: 1
+  parryCooldownAmount: 1
 --- !u!1 &620845908
 GameObject:
   m_ObjectHideFlags: 0
