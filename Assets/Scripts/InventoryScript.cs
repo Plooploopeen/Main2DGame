@@ -156,8 +156,12 @@ public class InventoryScript : MonoBehaviour
 
     void changeSpellSlot(int currentSlot, int slotChangeAmount)
     {
-        slotSelector.transform.position = spellSlots[currentSlot + slotChangeAmount].transform.position;
-        selectorIndex = currentSlot + slotChangeAmount;
+        int newIndex = currentSlot + slotChangeAmount;
+
+        newIndex = Mathf.Clamp(newIndex, 0, spellSlots.Length - 1);
+
+        slotSelector.transform.position = spellSlots[newIndex].transform.position;
+        selectorIndex = newIndex;
     }
 
     void changeHotbarSlot (int newSlot)

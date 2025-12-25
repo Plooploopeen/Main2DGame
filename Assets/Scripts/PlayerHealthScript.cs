@@ -8,6 +8,7 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
 {
     private playerDefenceScript playerDefenceScript;
 
+    private Color original;
     public float health = 100;
     public float maxHealth = 100;
     public bool isKnockedBack;
@@ -16,20 +17,21 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
     [SerializeField] float knockbackForce;
     [SerializeField] float knockbackLength;
 
-    private SpriteRenderer SpriteRenderer;
+    private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb;
 
     void Awake()
     {
         playerDefenceScript = GetComponent<playerDefenceScript>();
 
-        SpriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
     }
 
     void Start()
     {
         health = maxHealth;
+        original = spriteRenderer.color;
     }
 
     void Update()
@@ -65,12 +67,10 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
     IEnumerator FlashRed()
     {
         isFlashing = true;
-        Color original = SpriteRenderer.color;
-        SpriteRenderer.color = Color.red;
+        spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(flashLength);
-        SpriteRenderer.color = original;
+        spriteRenderer.color = original;
         isFlashing = false;
-
     }
 
     IEnumerator ApplyKnockback(Vector2 direction)

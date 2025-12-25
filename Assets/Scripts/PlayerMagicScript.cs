@@ -13,12 +13,14 @@ public class PlayerMagicScript : MonoBehaviour
     [SerializeField] HotbarScript hotbarScript;
     Item selectedSpell;
     [SerializeField] Text textReduction;
+    private SpriteRenderer spriteRenderer;
 
     [SerializeField] GameObject inventory;
 
     public Transform hotbarParent;
     SpellSlotScript[] hotbarSlots;
 
+    private Color original;
     public float currentMP;
     public int maxMP;
     public float percentGain;
@@ -47,12 +49,14 @@ public class PlayerMagicScript : MonoBehaviour
         topAction = InputSystem.actions.FindAction("TopBotton");
 
         hotbarSlots = hotbarParent.GetComponentsInChildren<SpellSlotScript>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Start()
     {
         textReduction.text = "";
         currentMP = maxMP;
+        original = spriteRenderer.color;
     }
 
     void Update()
@@ -63,6 +67,7 @@ public class PlayerMagicScript : MonoBehaviour
         {
             focus();
             hotbarScript.slotSelector.enabled = true;
+            //spriteRenderer.color = Color.purple;
         }
         else
         {
@@ -118,7 +123,7 @@ public class PlayerMagicScript : MonoBehaviour
         {
             StartCoroutine(StartFocusWithDelay());
         }
-        else if (isFocusing && LB.IsPressed() && rightAction.WasReleasedThisFrame() || bottomAction.WasReleasedThisFrame() || leftAction.WasReleasedThisFrame() || topAction.WasReleasedThisFrame())
+        else if (isFocusing && LB.IsPressed() && (rightAction.WasReleasedThisFrame() || bottomAction.WasReleasedThisFrame() || leftAction.WasReleasedThisFrame() || topAction.WasReleasedThisFrame()))
         {
             castSpell();
         }
@@ -132,10 +137,10 @@ public class PlayerMagicScript : MonoBehaviour
     IEnumerator StartFocusWithDelay()
     {
         yield return null;
-        isFocusing = true;
         selectedSpell = hotbarSlots[hotbarScript.SelectorIndex].getItem();
         if (selectedSpell != null)
         {
+            isFocusing = true;
             cost = selectedSpell.cost;
             textReduction.text = "-" + cost;
         }
