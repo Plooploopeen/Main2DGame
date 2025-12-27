@@ -204,7 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
   maxHealth: 100
-  knockbackForce: 5
+  knockbackForce: 4
   flashLength: 0.2
   playerTransform: {fileID: 0}
 --- !u!114 &2331677266100722896
@@ -318,7 +318,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 809bee901f1d22c45a15ca580737d9a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HitBox
+  hitBoxCollider: {fileID: 3723637685708243202}
   damage: 10
+  hitEnemies: []
   targetLayers:
     serializedVersion: 2
     m_Bits: 8

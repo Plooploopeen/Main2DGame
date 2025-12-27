@@ -1,5 +1,4 @@
 using JetBrains.Annotations;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -9,9 +8,9 @@ public class TestEnemy : MonoBehaviour
     [Header("References")]
     [SerializeField] GameObject weaponGameObject;
     [SerializeField] BoxCollider2D weaponCollider;
-    [SerializeField] Transform playerTransform;
+    private Transform playerTransform;
 
-    public HitBox hitBoxScript;
+    private HitBox hitBoxScript;
 
     private Animator animator;
     private SpriteRenderer spriteRenderer;
@@ -32,6 +31,10 @@ public class TestEnemy : MonoBehaviour
     {
         weaponGameObject.SetActive(false);
         weaponCollider.enabled = false;
+        hitBoxScript = GetComponentInChildren<HitBox>();
+
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        playerTransform  = playerObject.transform;
     }
 
     void Update()

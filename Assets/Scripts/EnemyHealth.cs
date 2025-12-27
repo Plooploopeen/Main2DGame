@@ -13,7 +13,7 @@ public class NewMonoBehaviourScript : MonoBehaviour, IDamageable
     [SerializeField] float knockbackForce;
     [SerializeField] float flashLength;
 
-    [SerializeField] Transform playerTransform;
+    private Transform playerTransform;
 
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
@@ -27,6 +27,9 @@ public class NewMonoBehaviourScript : MonoBehaviour, IDamageable
     private void Start()
     {
         health = maxHealth;
+
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        playerTransform = playerObject.transform;
     }
 
     public void takeDamage(float damage, Transform attackerTransform)
