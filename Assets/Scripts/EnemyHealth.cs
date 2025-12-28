@@ -9,9 +9,11 @@ public class NewMonoBehaviourScript : MonoBehaviour, IDamageable
 {
     private float health;
     private bool isFlashing = false;
+    public bool isKnockedBack;
     [SerializeField] float maxHealth;
     [SerializeField] float knockbackForce;
     [SerializeField] float flashLength;
+    [SerializeField] float knockbackLength;
 
     private Transform playerTransform;
 
@@ -38,7 +40,7 @@ public class NewMonoBehaviourScript : MonoBehaviour, IDamageable
 
         if (!isFlashing) StartCoroutine(FlashRed());
 
-        applyKnockback(transform.position - attackerTransform.position);
+        StartCoroutine(ApplyKnockback(transform.position - attackerTransform.position));
 
         if (health <= 0)
         {
@@ -62,11 +64,14 @@ public class NewMonoBehaviourScript : MonoBehaviour, IDamageable
 
     }
 
-    void applyKnockback(Vector2 direction)
+    IEnumerator ApplyKnockback(Vector2 direction)
     {
+        isKnockedBack = true;
         direction.Normalize();
         direction.y = 1f;
         rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
+        yield return new WaitForSeconds(knockbackLength);
+        isKnockedBack = false;
     }
 
 }

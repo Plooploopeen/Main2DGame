@@ -55,7 +55,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 4f0348b542031f04c86757ec20fc73e8, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -204,9 +204,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 154c3ea3f3ea86246aea8bd612aea91b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
+  isKnockedBack: 0
   maxHealth: 100
   knockbackForce: 4
   flashLength: 0.2
+  knockbackLength: 0.3
 --- !u!114 &2331677266100722896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,6 +239,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d02177f79636ae145958700c6fd8c9d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  speed: 1
+  jumpRayLength: 0.34
+  jumpForce: -0.43
+  rayCastLength: 0.3
+  rayShiftLeftAmount: 0.12
+  rayShiftRightAmount: 0.12
 --- !u!1 &9042967618572574824
 GameObject:
   m_ObjectHideFlags: 0

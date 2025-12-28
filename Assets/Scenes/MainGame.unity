@@ -2347,7 +2347,7 @@ MonoBehaviour:
   maxHealth: 100
   isKnockedBack: 0
   flashLength: 0.2
-  knockbackForce: 1
+  knockbackForce: 2
   knockbackLength: 0.2
 --- !u!114 &616317165
 MonoBehaviour:
@@ -7649,6 +7649,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3093939490794246854, guid: 8ba996f003c51d24c93b4539b6e0c824, type: 3}
+      propertyPath: knockbackForce
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093939490794246854, guid: 8ba996f003c51d24c93b4539b6e0c824, type: 3}
+      propertyPath: knockbackLength
+      value: 3.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 3773315871138616431, guid: 8ba996f003c51d24c93b4539b6e0c824, type: 3}
+      propertyPath: speed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6689259691134145660, guid: 8ba996f003c51d24c93b4539b6e0c824, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.7887264
