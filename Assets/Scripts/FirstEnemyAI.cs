@@ -30,6 +30,7 @@ public class FirstEnemyAI : MonoBehaviour
     private bool hasSeenPlayer;
     private bool isFacingRight;
     private float patrolTime;
+    private float faceRight;
 
     [SerializeField] float rayCastLength;
     [SerializeField] float rayShiftLeftAmount;
@@ -39,7 +40,7 @@ public class FirstEnemyAI : MonoBehaviour
 
     private enum PatrolState { moveLeft, moveRight, standStill };
     private PatrolState patrolState = PatrolState.moveRight;
-    private PatrolState previousState;
+    private PatrolState nextState;
 
     private void Awake()
     {
@@ -60,12 +61,14 @@ public class FirstEnemyAI : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(hasSeenPlayer);
+
         checkIsGrounded();
-        
+        checkDirection();
+
         if (hasSeenPlayer)
         {
             chasePlayer();
-            facePlayer();
             checkAttack();
         }
         else
@@ -73,26 +76,26 @@ public class FirstEnemyAI : MonoBehaviour
             patrol();
             checkForPlayer();
         }
-        //// Debug visualization
-        //Vector2 enemyForward = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
-        //float drawDistance = detectionRange;
+        // Debug visualization
+        Vector2 enemyForward = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
+        float drawDistance = detectionRange;
 
-        //// Draw forward direction
-        //Debug.DrawRay(transform.position, enemyForward * drawDistance, Color.blue);
+        // Draw forward direction
+        Debug.DrawRay(transform.position, enemyForward * drawDistance, Color.blue);
 
-        //// Draw cone boundaries
-        //Vector2 leftBoundary = Quaternion.Euler(0, 0, detectionAngle) * enemyForward;
-        //Vector2 rightBoundary = Quaternion.Euler(0, 0, -detectionAngle) * enemyForward;
+        // Draw cone boundaries
+        Vector2 leftBoundary = Quaternion.Euler(0, 0, detectionAngle) * enemyForward;
+        Vector2 rightBoundary = Quaternion.Euler(0, 0, -detectionAngle) * enemyForward;
 
-        //Color coneColor = hasSeenPlayer ? Color.red : Color.green;
-        //Debug.DrawRay(transform.position, leftBoundary * drawDistance, coneColor);
-        //Debug.DrawRay(transform.position, rightBoundary * drawDistance, coneColor);
+        Color coneColor = hasSeenPlayer ? Color.red : Color.green;
+        Debug.DrawRay(transform.position, leftBoundary * drawDistance, coneColor);
+        Debug.DrawRay(transform.position, rightBoundary * drawDistance, coneColor);
 
-        //// Draw line to player
-        //if (playerTransform != null)
-        //{
-        //    Debug.DrawLine(transform.position, playerTransform.position, Color.yellow);
-        //}
+        // Draw line to player
+        if (playerTransform != null)
+        {
+            Debug.DrawLine(transform.position, playerTransform.position, Color.yellow);
+        }
     }
 
     void checkIsGrounded()
@@ -141,8 +144,6 @@ public class FirstEnemyAI : MonoBehaviour
     {
         patrolTime += Time.deltaTime;
 
-        Debug.Log(patrolState);
-
         if (patrolState == PatrolState.moveRight)
         {
             rb.linearVelocity = new Vector2(speed, rb.linearVelocity.y);
@@ -151,7 +152,7 @@ public class FirstEnemyAI : MonoBehaviour
             {
                 patrolTime = 0;
                 patrolState = PatrolState.standStill;
-                previousState = PatrolState.moveLeft;
+                nextState = PatrolState.moveLeft;
             }
         }
         else if (patrolState == PatrolState.moveLeft)
@@ -162,7 +163,7 @@ public class FirstEnemyAI : MonoBehaviour
             {
                 patrolTime = 0;
                 patrolState = PatrolState.standStill;
-                previousState = PatrolState.moveRight;
+                nextState = PatrolState.moveRight;
             }
         }
         else if (patrolState == PatrolState.standStill)
@@ -173,7 +174,7 @@ public class FirstEnemyAI : MonoBehaviour
             {
                 patrolTime = 0;
 
-                if (previousState == PatrolState.moveRight)
+                if (nextState == PatrolState.moveRight)
                 {
                     patrolState = PatrolState.moveRight;
                 }
@@ -213,28 +214,45 @@ public class FirstEnemyAI : MonoBehaviour
         }
     }
 
-    void facePlayer()
+    void checkDirection()
     {
-        float direction = Mathf.Sign(playerTransform.position.x - transform.position.x);
         float absScale = Mathf.Abs(transform.localScale.x);
 
-        if (direction > 0)
+        if (hasSeenPlayer)
         {
-            isFacingRight = true;
-            transform.localScale = new Vector3(absScale, absScale, absScale);
+            float direction = Mathf.Sign(playerTransform.position.x - transform.position.x);
+            if (direction > 0)
+            {
+                transform.localScale = new Vector3(absScale, absScale, absScale);
+                faceRight = 1;
+            }
+            else
+            {
+                transform.localScale = new Vector3(-absScale, absScale, absScale);
+                faceRight = -1;
+            }
         }
-        else if (direction < 0)
+        else
         {
-            isFacingRight = false;
-            transform.localScale = new Vector3(-absScale, absScale, absScale);
+            if (rb.linearVelocity.x > 0 && !enemyHealthScript.isKnockedBack && isGrounded)
+            {
+                transform.localScale = new Vector3(absScale, absScale, absScale);
+                faceRight = 1;
+            }
+            else if (!enemyHealthScript.isKnockedBack && isGrounded)
+            {
+                transform.localScale = new Vector3(-absScale, absScale, absScale);
+                faceRight = -1;
+            }
         }
     }
 
     void checkAttack()
     {
+        float absScale = Mathf.Abs(transform.localScale.x);
         float direction = Mathf.Sign(playerTransform.position.x - transform.position.x);
 
-        RaycastHit2D frontRay = Physics2D.Raycast(transform.position, Vector2.right * direction, frontRayLength, frontRayLayers);
+        RaycastHit2D frontRay = Physics2D.Raycast(transform.position, Vector2.right * faceRight, frontRayLength, frontRayLayers);
 
         Debug.DrawRay(transform.position, Vector2.right * direction * frontRayLength, Color.red);
 

@@ -2139,7 +2139,7 @@ Transform:
   m_GameObject: {fileID: 616317153}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.892, y: 0.521, z: 0}
+  m_LocalPosition: {x: -2.981, y: 0.521, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7673,7 +7673,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3773315871138616431, guid: 8ba996f003c51d24c93b4539b6e0c824, type: 3}
       propertyPath: jumpForce
-      value: 3
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 3773315871138616431, guid: 8ba996f003c51d24c93b4539b6e0c824, type: 3}
       propertyPath: moveDistance
@@ -7693,7 +7693,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3773315871138616431, guid: 8ba996f003c51d24c93b4539b6e0c824, type: 3}
       propertyPath: moveTimerLimit
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3773315871138616431, guid: 8ba996f003c51d24c93b4539b6e0c824, type: 3}
       propertyPath: waitTimerLimit
@@ -7713,7 +7713,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6689259691134145660, guid: 8ba996f003c51d24c93b4539b6e0c824, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.264
+      value: -2.462
       objectReference: {fileID: 0}
     - target: {fileID: 6689259691134145660, guid: 8ba996f003c51d24c93b4539b6e0c824, type: 3}
       propertyPath: m_LocalPosition.y
