@@ -66,6 +66,11 @@ public class FirstEnemyAI : MonoBehaviour
         checkIsGrounded();
         checkDirection();
 
+        if (enemyHealthScript.isKnockedBack)
+        {
+            return;
+        }
+
         if (hasSeenPlayer)
         {
             chasePlayer();
@@ -125,7 +130,7 @@ public class FirstEnemyAI : MonoBehaviour
         float direction = Mathf.Sign(playerTransform.position.x - transform.position.x);
         float distance = Mathf.Abs(Vector2.Distance(playerTransform.position, transform.position));
 
-        if (!enemyHealthScript.isKnockedBack && distance > moveDistance)
+        if (distance > moveDistance)
         {
             rb.linearVelocity = new Vector2(speed * direction, rb.linearVelocity.y);
         }
@@ -234,12 +239,12 @@ public class FirstEnemyAI : MonoBehaviour
         }
         else
         {
-            if (rb.linearVelocity.x > 0 && !enemyHealthScript.isKnockedBack && isGrounded)
+            if (rb.linearVelocity.x > 0 && isGrounded)
             {
                 transform.localScale = new Vector3(absScale, absScale, absScale);
                 faceRight = 1;
             }
-            else if (!enemyHealthScript.isKnockedBack && isGrounded)
+            else if (isGrounded)
             {
                 transform.localScale = new Vector3(-absScale, absScale, absScale);
                 faceRight = -1;

@@ -200,7 +200,7 @@ public class PlayerScript : MonoBehaviour
             }
         
         // Make jumps fast and falling slow
-        if (velocity.y < 0f)
+        if (rb.linearVelocity.y < 0f)
         {
             rb.gravityScale = fallMultipierSlow;
         }
@@ -214,9 +214,9 @@ public class PlayerScript : MonoBehaviour
 
     void capVelocity()
     {
-        if (velocity.y < -3)
+        if (rb.linearVelocity.y < -3)
         {
-            velocity.y = -3;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, -3);
         }
     }
 
@@ -242,6 +242,8 @@ public class PlayerScript : MonoBehaviour
 
     void jump()
     {
+        Debug.Log(isJumping);
+
         // Check if able to jump
         if (isGrounded && !isJumpCompleted &&
             timerJump < timerJumpLimit && timerCoyoteTime < timerCoyoteTimeLimit && !playerCombatScript.isAttacking)
@@ -261,7 +263,7 @@ public class PlayerScript : MonoBehaviour
         }
         
         // Check is the player is jumping
-        if (jumpAction.IsPressed() && (velocity.y > 0 || timerCoyoteTime < timerCoyoteTimeLimit) && !playerCombatScript.isAttacking)
+        if (jumpAction.IsPressed() && (rb.linearVelocity.y > 0 || timerCoyoteTime < timerCoyoteTimeLimit) && !playerCombatScript.isAttacking)
         {
             isJumping = true;
         }
@@ -381,6 +383,7 @@ public class PlayerScript : MonoBehaviour
         animator.SetBool("isFalling", isFalling);
         animator.SetBool("isAttacking", playerCombatScript.isAttacking);
         animator.SetBool("isSprinting", isSprinting);
+        animator.SetBool("isGrounded", isGrounded);
     }
     
     public void onIdleCompleted()
