@@ -29,10 +29,17 @@ public class FirstEnemyAI : MonoBehaviour
     [SerializeField] LayerMask frontRayLayers;
     private bool hasSeenPlayer;
     private bool isFacingRight;
+    private float patrolTime;
 
     [SerializeField] float rayCastLength;
     [SerializeField] float rayShiftLeftAmount;
     [SerializeField] float rayShiftRightAmount;
+    [SerializeField] float waitTimerLimit;
+    [SerializeField] float moveTimerLimit;
+
+    private enum PatrolState { moveLeft, moveRight, standStill };
+    private PatrolState patrolState = PatrolState.moveRight;
+    private PatrolState previousState;
 
     private void Awake()
     {
@@ -66,28 +73,26 @@ public class FirstEnemyAI : MonoBehaviour
             patrol();
             checkForPlayer();
         }
+        //// Debug visualization
+        //Vector2 enemyForward = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
+        //float drawDistance = detectionRange;
 
+        //// Draw forward direction
+        //Debug.DrawRay(transform.position, enemyForward * drawDistance, Color.blue);
 
-        // Debug visualization
-        Vector2 enemyForward = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
-        float drawDistance = detectionRange;
+        //// Draw cone boundaries
+        //Vector2 leftBoundary = Quaternion.Euler(0, 0, detectionAngle) * enemyForward;
+        //Vector2 rightBoundary = Quaternion.Euler(0, 0, -detectionAngle) * enemyForward;
 
-        // Draw forward direction
-        Debug.DrawRay(transform.position, enemyForward * drawDistance, Color.blue);
+        //Color coneColor = hasSeenPlayer ? Color.red : Color.green;
+        //Debug.DrawRay(transform.position, leftBoundary * drawDistance, coneColor);
+        //Debug.DrawRay(transform.position, rightBoundary * drawDistance, coneColor);
 
-        // Draw cone boundaries
-        Vector2 leftBoundary = Quaternion.Euler(0, 0, detectionAngle) * enemyForward;
-        Vector2 rightBoundary = Quaternion.Euler(0, 0, -detectionAngle) * enemyForward;
-
-        Color coneColor = hasSeenPlayer ? Color.red : Color.green;
-        Debug.DrawRay(transform.position, leftBoundary * drawDistance, coneColor);
-        Debug.DrawRay(transform.position, rightBoundary * drawDistance, coneColor);
-
-        // Draw line to player
-        if (playerTransform != null)
-        {
-            Debug.DrawLine(transform.position, playerTransform.position, Color.yellow);
-        }
+        //// Draw line to player
+        //if (playerTransform != null)
+        //{
+        //    Debug.DrawLine(transform.position, playerTransform.position, Color.yellow);
+        //}
     }
 
     void checkIsGrounded()
@@ -134,7 +139,50 @@ public class FirstEnemyAI : MonoBehaviour
 
     void patrol()
     {
+        patrolTime += Time.deltaTime;
 
+        Debug.Log(patrolState);
+
+        if (patrolState == PatrolState.moveRight)
+        {
+            rb.linearVelocity = new Vector2(speed, rb.linearVelocity.y);
+
+            if (patrolTime > moveTimerLimit)
+            {
+                patrolTime = 0;
+                patrolState = PatrolState.standStill;
+                previousState = PatrolState.moveLeft;
+            }
+        }
+        else if (patrolState == PatrolState.moveLeft)
+        {
+            rb.linearVelocity = new Vector2(-speed, rb.linearVelocity.y);
+
+            if (patrolTime > moveTimerLimit)
+            {
+                patrolTime = 0;
+                patrolState = PatrolState.standStill;
+                previousState = PatrolState.moveRight;
+            }
+        }
+        else if (patrolState == PatrolState.standStill)
+        {
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+
+            if (patrolTime > waitTimerLimit)
+            {
+                patrolTime = 0;
+
+                if (previousState == PatrolState.moveRight)
+                {
+                    patrolState = PatrolState.moveRight;
+                }
+                else
+                {
+                    patrolState = PatrolState.moveLeft;
+                }
+            }
+        }
     }
 
     void checkForPlayer()

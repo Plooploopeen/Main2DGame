@@ -7692,6 +7692,14 @@ PrefabInstance:
       value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 3773315871138616431, guid: 8ba996f003c51d24c93b4539b6e0c824, type: 3}
+      propertyPath: moveTimerLimit
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3773315871138616431, guid: 8ba996f003c51d24c93b4539b6e0c824, type: 3}
+      propertyPath: waitTimerLimit
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3773315871138616431, guid: 8ba996f003c51d24c93b4539b6e0c824, type: 3}
       propertyPath: weaponCollider
       value: 
       objectReference: {fileID: 1551756096}
@@ -7705,7 +7713,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6689259691134145660, guid: 8ba996f003c51d24c93b4539b6e0c824, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.7887264
+      value: -3.264
       objectReference: {fileID: 0}
     - target: {fileID: 6689259691134145660, guid: 8ba996f003c51d24c93b4539b6e0c824, type: 3}
       propertyPath: m_LocalPosition.y
