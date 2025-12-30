@@ -217,26 +217,31 @@ public class FirstEnemyAI : MonoBehaviour
 
         if (hasSeenPlayer)
         {
+            float horizontalDistance = Mathf.Abs(playerTransform.position.x - transform.position.x);
             float direction = Mathf.Sign(playerTransform.position.x - transform.position.x);
-            if (direction > 0)
+
+            if (horizontalDistance > 0.2f)
             {
-                transform.localScale = new Vector3(absScale, absScale, absScale);
-                faceRight = 1;
-            }
-            else
-            {
-                transform.localScale = new Vector3(-absScale, absScale, absScale);
-                faceRight = -1;
-            }
+                if (direction > 0)
+                {
+                    transform.localScale = new Vector3(absScale, absScale, absScale);
+                    faceRight = 1;
+                }
+                else
+                {
+                    transform.localScale = new Vector3(-absScale, absScale, absScale);
+                    faceRight = -1;
+                }
+            } 
         }
         else
         {
-            if (rb.linearVelocity.x > 0 && isGrounded)
+            if (rb.linearVelocity.x > 0.1f && isGrounded)
             {
                 transform.localScale = new Vector3(absScale, absScale, absScale);
                 faceRight = 1;
             }
-            else if (rb.linearVelocity.x < 0 && isGrounded)
+            else if (rb.linearVelocity.x < -0.1f && isGrounded)
             {
                 transform.localScale = new Vector3(-absScale, absScale, absScale);
                 faceRight = -1;
