@@ -61,8 +61,6 @@ public class FirstEnemyAI : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(hasSeenPlayer);
-
         checkIsGrounded();
         checkDirection();
 
@@ -95,12 +93,6 @@ public class FirstEnemyAI : MonoBehaviour
         Color coneColor = hasSeenPlayer ? Color.red : Color.green;
         Debug.DrawRay(transform.position, leftBoundary * drawDistance, coneColor);
         Debug.DrawRay(transform.position, rightBoundary * drawDistance, coneColor);
-
-        // Draw line to player
-        if (playerTransform != null)
-        {
-            Debug.DrawLine(transform.position, playerTransform.position, Color.yellow);
-        }
     }
 
     void checkIsGrounded()
@@ -244,7 +236,7 @@ public class FirstEnemyAI : MonoBehaviour
                 transform.localScale = new Vector3(absScale, absScale, absScale);
                 faceRight = 1;
             }
-            else if (isGrounded)
+            else if (rb.linearVelocity.x < 0 && isGrounded)
             {
                 transform.localScale = new Vector3(-absScale, absScale, absScale);
                 faceRight = -1;

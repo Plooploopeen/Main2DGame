@@ -77,6 +77,7 @@ public class PlayerScript : MonoBehaviour
     private Vector2 velocity;
     public Vector2 moveDirection;
     public float horizontal;
+    public bool isOnEnemy;
 
 
 
@@ -194,7 +195,7 @@ public class PlayerScript : MonoBehaviour
             spriteRenderer.flipX = true;
         }
 
-        if (!isMovingLeft && !isMovingRight && !playerHealthScript.isKnockedBack)
+        if (!isMovingLeft && !isMovingRight && !playerHealthScript.isKnockedBack && !isOnEnemy)
             {
                 velocity.x = 0;
             }
@@ -238,12 +239,29 @@ public class PlayerScript : MonoBehaviour
         isGrounded = (middleHit.collider != null && middleHit.collider.CompareTag("Jumpable")) ||
                      (leftHit.collider != null && leftHit.collider.CompareTag("Jumpable")) ||
                      (rightHit.collider != null && rightHit.collider.CompareTag("Jumpable"));
+
+        // if on a Hurtbox, move with it
+        isOnEnemy = (middleHit.collider != null && middleHit.collider.gameObject.layer == LayerMask.NameToLayer("Hurtbox"));
+
+        if (isOnEnemy)
+        {
+            //Debug.Log("Is on enemy: " + isOnEnemy + ". Collider is: " + middleHit.collider.name);
+            Rigidbody2D onEnemyRb = middleHit.collider.GetComponent<Rigidbody2D>();
+
+            if (onEnemyRb != null && !isMovingLeft && !isMovingRight)
+            {
+                rb.linearVelocity = new Vector2(onEnemyRb.linearVelocity.x, rb.linearVelocity.y);
+                Debug.Log("Enemy velocity: " + onEnemyRb.linearVelocity);
+            }
+            else
+            {
+                Debug.Log("Rb is null on: " + middleHit.collider.name);
+            }
+        }
     }
 
     void jump()
     {
-        Debug.Log(isJumping);
-
         // Check if able to jump
         if (isGrounded && !isJumpCompleted &&
             timerJump < timerJumpLimit && timerCoyoteTime < timerCoyoteTimeLimit && !playerCombatScript.isAttacking)
