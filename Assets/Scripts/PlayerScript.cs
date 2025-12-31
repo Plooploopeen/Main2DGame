@@ -78,6 +78,7 @@ public class PlayerScript : MonoBehaviour
     public Vector2 moveDirection;
     public float horizontal;
     public bool isOnEnemy;
+    public float scale;
 
 
 
@@ -121,6 +122,7 @@ public class PlayerScript : MonoBehaviour
     {
         moveDirection = moveAction.ReadValue<Vector2>();
         horizontal = moveDirection.x;
+        scale = transform.localScale.x;
 
         // Movement
         if (!LB.IsPressed())
@@ -183,14 +185,14 @@ public class PlayerScript : MonoBehaviour
         // Apply movement and face direction
         float absScale = Mathf.Abs(transform.localScale.x);
 
-        if (isMovingRight)
+        if (isMovingRight && !playerCombatScript.isAttacking)
         {
             velocity.x = moveSpeed;
 
             transform.localScale = new Vector3(absScale, absScale, absScale);
         }
 
-        if (isMovingLeft)
+        if (isMovingLeft && !playerCombatScript.isAttacking)
         {
             velocity.x = -moveSpeed;
 

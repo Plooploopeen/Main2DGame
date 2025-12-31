@@ -12,8 +12,8 @@ public class FirstEnemyAI : MonoBehaviour
     [SerializeField] float detectionRange;
     [SerializeField] float detectionAngle;
 
-    [SerializeField] GameObject weaponGameObject;
-    [SerializeField] BoxCollider2D weaponCollider;
+    GameObject weaponGameObject;
+    BoxCollider2D weaponCollider;
 
     private HitBox hitBoxScript;
 
@@ -47,8 +47,10 @@ public class FirstEnemyAI : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         enemyHealthScript = GetComponent<NewMonoBehaviourScript>();
         animator = GetComponent<Animator>();
-        hitBoxScript = weaponGameObject.GetComponent<HitBox>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        weaponGameObject = transform.Find("WeaponHitbox").gameObject;
+        weaponCollider = weaponGameObject.GetComponent<BoxCollider2D>();
+        hitBoxScript = weaponGameObject.GetComponent<HitBox>();
     }
     void Start()
     {

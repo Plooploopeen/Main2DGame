@@ -11,11 +11,11 @@ public class fireballScript : SpellBase
     {
         rb = GetComponent<Rigidbody2D>();
 
-        if (playerScript.spriteRenderer.flipX == false)
+        if (playerScript.scale > 0)
         {
             castRight = true;
         }
-        else
+        else if (playerScript.scale < 0)
         {
             castRight = false;
         }
