@@ -181,18 +181,20 @@ public class PlayerScript : MonoBehaviour
         }
 
         // Apply movement and face direction
+        float absScale = Mathf.Abs(transform.localScale.x);
+
         if (isMovingRight)
         {
             velocity.x = moveSpeed;
 
-            spriteRenderer.flipX = false;
+            transform.localScale = new Vector3(absScale, absScale, absScale);
         }
 
         if (isMovingLeft)
         {
             velocity.x = -moveSpeed;
 
-            spriteRenderer.flipX = true;
+            transform.localScale = new Vector3(-absScale, absScale, absScale);
         }
 
         if (!isMovingLeft && !isMovingRight && !playerHealthScript.isKnockedBack && !isOnEnemy)
