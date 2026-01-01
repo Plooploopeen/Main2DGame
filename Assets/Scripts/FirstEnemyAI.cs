@@ -141,7 +141,6 @@ public class FirstEnemyAI : MonoBehaviour
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             lastJumpTime = Time.time;
-            Debug.Log("Jump!");
         }
     }
 

@@ -255,11 +255,6 @@ public class PlayerScript : MonoBehaviour
             if (onEnemyRb != null && !isMovingLeft && !isMovingRight)
             {
                 rb.linearVelocity = new Vector2(onEnemyRb.linearVelocity.x, rb.linearVelocity.y);
-                Debug.Log("Enemy velocity: " + onEnemyRb.linearVelocity);
-            }
-            else
-            {
-                Debug.Log("Rb is null on: " + middleHit.collider.name);
             }
         }
     }
