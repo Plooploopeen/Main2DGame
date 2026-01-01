@@ -76,6 +76,7 @@ public class InventoryScript : MonoBehaviour
     {
         inventory.SetActive(false);
         StartCoroutine(ResetSelectorNextFrame());
+        selectedInventorySlotIndex = 0;
 
     }
 

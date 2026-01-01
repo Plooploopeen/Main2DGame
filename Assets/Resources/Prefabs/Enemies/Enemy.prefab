@@ -50,7 +50,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 5
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
@@ -205,7 +205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
   isKnockedBack: 0
   maxHealth: 50
-  knockbackForce: 6
+  knockbackForce: 2
   flashLength: 0.2
   knockbackLength: 0.3
 --- !u!114 &3773315871138616431
@@ -223,21 +223,23 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 1024
-  detectionRange: 3
+  detectionRange: 2
   detectionAngle: 30
   speed: 1
   jumpRayLength: 0.34
-  jumpForce: 0.6
+  jumpForce: 4
   moveDistance: 0.8
   frontRayLength: 0.45
   frontRayLayers:
     serializedVersion: 2
     m_Bits: 8
+  jumpCooldown: 0.5
   rayCastLength: 0.3
   rayShiftLeftAmount: 0.12
   rayShiftRightAmount: 0.12
   waitTimerLimit: 2
   moveTimerLimit: 1
+  jumpRayOffset: 0.2
 --- !u!1 &9042967618572574824
 GameObject:
   m_ObjectHideFlags: 0

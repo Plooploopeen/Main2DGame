@@ -31,12 +31,15 @@ public class FirstEnemyAI : MonoBehaviour
     private bool isFacingRight;
     private float patrolTime;
     private float faceRight;
+    private float lastJumpTime = 0f;
 
+    [SerializeField] float jumpCooldown;
     [SerializeField] float rayCastLength;
     [SerializeField] float rayShiftLeftAmount;
     [SerializeField] float rayShiftRightAmount;
     [SerializeField] float waitTimerLimit;
     [SerializeField] float moveTimerLimit;
+    [SerializeField] float jumpRayOffset;
 
     private enum PatrolState { moveLeft, moveRight, standStill };
     private PatrolState patrolState = PatrolState.moveRight;
@@ -130,12 +133,15 @@ public class FirstEnemyAI : MonoBehaviour
         }
 
         // use ray casts to jump
-        RaycastHit2D jumpRay = Physics2D.Raycast(transform.position, Vector2.right * direction, jumpRayLength, layerMask);
-        Debug.DrawRay(transform.position, Vector2.right * direction * jumpRayLength, Color.green);
+        Vector2 jumpRayPosition = (Vector2)transform.position + Vector2.down * jumpRayOffset;
+        RaycastHit2D jumpRay = Physics2D.Raycast(jumpRayPosition, Vector2.right * direction, jumpRayLength, layerMask);
+        Debug.DrawRay(jumpRayPosition, Vector2.right * direction * jumpRayLength, Color.green);
 
-        if (jumpRay.collider != null && isGrounded)
+        if (jumpRay.collider != null && isGrounded && Time.time >= lastJumpTime + jumpCooldown)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            lastJumpTime = Time.time;
+            Debug.Log("Jump!");
         }
     }
 
