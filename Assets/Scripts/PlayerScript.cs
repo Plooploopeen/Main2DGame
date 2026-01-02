@@ -148,7 +148,7 @@ public class PlayerScript : MonoBehaviour
             rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, decelRate * Time.fixedDeltaTime);
             animator.Play("Stop Sprinting Slide");
 
-            if (Mathf.Abs(rb.linearVelocity.x) < 0.5f)
+            if (Mathf.Abs(rb.linearVelocity.x) < 1.4f)
             {
 
                 rb.linearVelocity = Vector2.zero;
@@ -187,17 +187,23 @@ public class PlayerScript : MonoBehaviour
         // Apply movement and face direction
         float absScale = Mathf.Abs(transform.localScale.x);
 
-        if (isMovingRight && !playerCombatScript.isAttacking)
+        if (isMovingRight)
         {
             velocity.x = moveSpeed;
+        }
 
+        if (isMovingLeft)
+        {
+            velocity.x = -moveSpeed;
+        }
+
+        if (isMovingRight && !playerCombatScript.isAttacking)
+        {
             transform.localScale = new Vector3(absScale, absScale, absScale);
         }
 
         if (isMovingLeft && !playerCombatScript.isAttacking)
         {
-            velocity.x = -moveSpeed;
-
             transform.localScale = new Vector3(-absScale, absScale, absScale);
         }
 
@@ -221,9 +227,9 @@ public class PlayerScript : MonoBehaviour
 
     void capVelocity()
     {
-        if (rb.linearVelocity.y < -8.5f)
+        if (rb.linearVelocity.y < -10f)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, -8.5f);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, -10f);
         }
     }
 
