@@ -137,6 +137,8 @@ public class PlayerScript : MonoBehaviour
 
         // Animations
         updateAnimations();
+
+        Debug.Log(isGrounded);
     }
 
     void FixedUpdate()
@@ -219,9 +221,9 @@ public class PlayerScript : MonoBehaviour
 
     void capVelocity()
     {
-        if (rb.linearVelocity.y < -3)
+        if (rb.linearVelocity.y < -8.5f)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, -3);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, -8.5f);
         }
     }
 

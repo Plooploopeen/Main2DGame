@@ -99,17 +99,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.00019446015, y: 0.0009136051}
+  m_Offset: {x: 0.037545472, y: -0.0464935}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.26346153, y: 0.27576923}
+    oldSize: {x: 0.7453754, y: 0.7801959}
     newSize: {x: 0.16, y: 0.3}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.1377849, y: 0.28043285}
+  m_Size: {x: 0.38418496, y: 0.6988109}
   m_EdgeRadius: 0
 --- !u!212 &6089119943664593522
 SpriteRenderer:
@@ -205,9 +205,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
   isKnockedBack: 0
   maxHealth: 50
-  knockbackForce: 2
+  knockbackForce: 5
   flashLength: 0.2
-  knockbackLength: 0.3
+  knockbackLength: 0.5
 --- !u!114 &3773315871138616431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,23 +223,23 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 1024
-  detectionRange: 2
+  detectionRange: 5.66
   detectionAngle: 30
-  speed: 1
-  jumpRayLength: 0.34
-  jumpForce: 4
-  moveDistance: 0.8
-  frontRayLength: 0.45
+  speed: 2.83
+  jumpRayLength: 0.9622
+  jumpForce: 6
+  moveDistance: 2.264
+  frontRayLength: 1.2735
   frontRayLayers:
     serializedVersion: 2
     m_Bits: 8
   jumpCooldown: 0.5
-  rayCastLength: 0.3
-  rayShiftLeftAmount: 0.12
-  rayShiftRightAmount: 0.12
+  rayCastLength: 0.57
+  rayShiftLeftAmount: 0.3396
+  rayShiftRightAmount: 0.29
   waitTimerLimit: 2
   moveTimerLimit: 1
-  jumpRayOffset: 0.2
+  jumpRayOffset: 0.44
 --- !u!1 &9042967618572574824
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,7 +307,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.21059978, y: 0.01394704}
+  m_Offset: {x: 0.55, y: 0.05}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -317,7 +317,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.23291457, y: 0.124127716}
+  m_Size: {x: 0.7, y: 0.37}
   m_EdgeRadius: 0
 --- !u!114 &7253793814008008926
 MonoBehaviour:

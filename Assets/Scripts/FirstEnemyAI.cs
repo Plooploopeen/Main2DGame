@@ -227,7 +227,7 @@ public class FirstEnemyAI : MonoBehaviour
             float horizontalDistance = Mathf.Abs(playerTransform.position.x - transform.position.x);
             float direction = Mathf.Sign(playerTransform.position.x - transform.position.x);
 
-            if (horizontalDistance > 0.2f)
+            if (horizontalDistance > 0.566f)
             {
                 if (direction > 0)
                 {
@@ -243,12 +243,12 @@ public class FirstEnemyAI : MonoBehaviour
         }
         else
         {
-            if (rb.linearVelocity.x > 0.1f && isGrounded)
+            if (rb.linearVelocity.x > 0.283f && isGrounded)
             {
                 transform.localScale = new Vector3(absScale, absScale, absScale);
                 faceRight = 1;
             }
-            else if (rb.linearVelocity.x < -0.1f && isGrounded)
+            else if (rb.linearVelocity.x < -0.283f && isGrounded)
             {
                 transform.localScale = new Vector3(-absScale, absScale, absScale);
                 faceRight = -1;
