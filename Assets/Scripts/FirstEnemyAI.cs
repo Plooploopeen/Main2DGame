@@ -32,6 +32,7 @@ public class FirstEnemyAI : MonoBehaviour
     private float patrolTime;
     private float faceRight;
     private float lastJumpTime = 0f;
+    private Vector2 lastMoveDir;
 
     [SerializeField] float jumpCooldown;
     [SerializeField] float rayCastLength;
@@ -130,15 +131,21 @@ public class FirstEnemyAI : MonoBehaviour
         if (distance > moveDistance)
         {
             rb.linearVelocity = new Vector2(speed * direction, rb.linearVelocity.y);
+            lastMoveDir = rb.linearVelocity;
+        }
+        else
+        {
+            rb.linearVelocity = lastMoveDir;
         }
 
-        // use ray casts to jump
-        Vector2 jumpRayPosition = (Vector2)transform.position + Vector2.down * jumpRayOffset;
+            // use ray casts to jump
+            Vector2 jumpRayPosition = (Vector2)transform.position + Vector2.down * jumpRayOffset;
         RaycastHit2D jumpRay = Physics2D.Raycast(jumpRayPosition, Vector2.right * direction, jumpRayLength, layerMask);
         Debug.DrawRay(jumpRayPosition, Vector2.right * direction * jumpRayLength, Color.green);
 
         if (jumpRay.collider != null && isGrounded && Time.time >= lastJumpTime + jumpCooldown)
         {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             lastJumpTime = Time.time;
         }

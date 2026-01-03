@@ -398,7 +398,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         // Check if player just stopped moving while at running
-        if (moveAction.WasReleasedThisFrame() && Mathf.Abs(velocity.x) > walkSpeed && isGrounded)
+        if (moveAction.WasReleasedThisFrame() && Mathf.Abs(velocity.x) > walkSpeed && isGrounded && !playerCombatScript.isAttacking)
         {
             isSliding = true;
         }

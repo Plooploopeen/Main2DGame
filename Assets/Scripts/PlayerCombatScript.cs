@@ -66,7 +66,7 @@ public class PlayerAttackScript : MonoBehaviour
 
     void checkShouldAttack()
     {
-        if (attackAction.WasPressedThisFrame() && !LB.IsPressed() && canAttack)
+        if (attackAction.WasPressedThisFrame() && !LB.IsPressed() && canAttack && !animator.GetCurrentAnimatorStateInfo(0).IsName("Stop Sprinting Slide"))
         {
             attack();
         }

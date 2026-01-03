@@ -228,7 +228,7 @@ MonoBehaviour:
   speed: 2.83
   jumpRayLength: 0.9622
   jumpForce: 6
-  moveDistance: 2.264
+  moveDistance: 1.25
   frontRayLength: 1.2735
   frontRayLayers:
     serializedVersion: 2
