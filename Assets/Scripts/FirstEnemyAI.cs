@@ -127,28 +127,37 @@ public class FirstEnemyAI : MonoBehaviour
         // check direction and dont move if knocked back
         float direction = Mathf.Sign(playerTransform.position.x - transform.position.x);
         float distance = Mathf.Abs(Vector2.Distance(playerTransform.position, transform.position));
+        float horizontalDistance = playerTransform.position.x - transform.position.x;
 
-        if (distance > moveDistance)
+        if (Mathf.Abs(horizontalDistance) > 1f)
         {
-            rb.linearVelocity = new Vector2(speed * direction, rb.linearVelocity.y);
-            lastMoveDir = rb.linearVelocity;
-        }
-        else
-        {
-            rb.linearVelocity = lastMoveDir;
-        }
+            if (distance > moveDistance)
+            {
+                rb.linearVelocity = new Vector2(speed * direction, rb.linearVelocity.y);
+                lastMoveDir = rb.linearVelocity;
+            }
+            else
+            {
+                rb.linearVelocity = lastMoveDir;
+            }
 
             // use ray casts to jump
             Vector2 jumpRayPosition = (Vector2)transform.position + Vector2.down * jumpRayOffset;
-        RaycastHit2D jumpRay = Physics2D.Raycast(jumpRayPosition, Vector2.right * direction, jumpRayLength, layerMask);
-        Debug.DrawRay(jumpRayPosition, Vector2.right * direction * jumpRayLength, Color.green);
+            RaycastHit2D jumpRay = Physics2D.Raycast(jumpRayPosition, Vector2.right * direction, jumpRayLength, layerMask);
+            Debug.DrawRay(jumpRayPosition, Vector2.right * direction * jumpRayLength, Color.green);
 
-        if (jumpRay.collider != null && isGrounded && Time.time >= lastJumpTime + jumpCooldown)
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            lastJumpTime = Time.time;
+            if (jumpRay.collider != null && isGrounded && Time.time >= lastJumpTime + jumpCooldown)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
+                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                lastJumpTime = Time.time;
+            }
         }
+        else
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
+
     }
 
     void patrol()
