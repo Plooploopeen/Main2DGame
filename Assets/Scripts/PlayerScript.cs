@@ -137,8 +137,6 @@ public class PlayerScript : MonoBehaviour
 
         // Animations
         updateAnimations();
-
-        Debug.Log(isGrounded);
     }
 
     void FixedUpdate()
