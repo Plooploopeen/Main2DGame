@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using TMPro;
 using UnityEngine.InputSystem;
+using System.Linq;
 
 public class DialogueUI : MonoBehaviour
 {
@@ -11,12 +12,14 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private TMP_Text text;
     [SerializeField] private DialogueObject testDialogue;
 
+    private ResponseHandler responseHandler;
     private TypewriterEffect typewriterEffect;
 
     private void Start()
     {
+        responseHandler = GetComponent<ResponseHandler>();
+        typewriterEffect = GetComponent<TypewriterEffect>();   
         closeDialogueBox();
-        typewriterEffect = GetComponent<TypewriterEffect>();
         ShowDialogue(testDialogue);
     }
 
@@ -33,13 +36,24 @@ public class DialogueUI : MonoBehaviour
 
     private IEnumerator StepThroughDialogue(DialogueObject dialogueObject)
     {
-        foreach (string dialogue in dialogueObject.Dialogue)
+        for (int i = 0; i < dialogueObject.Dialogue.Length; i++)
         {
+            string dialogue = dialogueObject.Dialogue[i];
             yield return typewriterEffect.Run(dialogue, text);
+
+            if (i == dialogueObject.Dialogue.Length - 1 && dialogueObject.HasResponses) break;
+
             yield return new WaitUntil(() => rightAction.WasPressedThisFrame());
         }
 
-        closeDialogueBox();
+        if (dialogueObject.HasResponses)
+        {
+            responseHandler.ShowResponses(dialogueObject.Responses);
+        }
+        else
+        {
+            closeDialogueBox();
+        }
     }
 
     void closeDialogueBox()

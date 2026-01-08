@@ -10,16 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5afb05583109a18428e10c60d7884fdc, type: 3}
-  m_Name: Test
+  m_Name: No
   m_EditorClassIdentifier: Assembly-CSharp::DialogueObject
   dialogue:
-  - I am error
-  - This is MY second dialogue
-  - 'pick yes
-
-    or no'
-  responses:
-  - responseText: Yes
-    dialogueObject: {fileID: 11400000, guid: eb6e7c4e52076f64e9d0141e0ffdf5be, type: 2}
-  - responseText: No
-    dialogueObject: {fileID: 11400000, guid: 1a49872104840cc4ab112daee0e0912d, type: 2}
+  - You said no
