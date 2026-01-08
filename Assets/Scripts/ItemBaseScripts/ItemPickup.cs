@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class ItemPickup : Interactable
+public class ItemPickup : PickUpable
 {
     public Item item;
 
-    public override void interact()
+    public override void interactWithItem()
     {
-        base.interact();
+        base.interactWithItem();
 
         pickUp();
     }

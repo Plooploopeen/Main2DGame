@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 using TMPro;
 using UnityEngine.InputSystem;
-using System.Linq;
 
 public class DialogueUI : MonoBehaviour
 {
@@ -10,7 +9,8 @@ public class DialogueUI : MonoBehaviour
 
     [SerializeField] GameObject dialogueBox;
     [SerializeField] private TMP_Text text;
-    [SerializeField] private DialogueObject testDialogue;
+
+    public bool isOpen {  get; private set; }
 
     private ResponseHandler responseHandler;
     private TypewriterEffect typewriterEffect;
@@ -19,8 +19,8 @@ public class DialogueUI : MonoBehaviour
     {
         responseHandler = GetComponent<ResponseHandler>();
         typewriterEffect = GetComponent<TypewriterEffect>();   
+
         closeDialogueBox();
-        ShowDialogue(testDialogue);
     }
 
     private void Awake()
@@ -30,6 +30,7 @@ public class DialogueUI : MonoBehaviour
 
     public void ShowDialogue(DialogueObject dialogueObject)
     {
+        isOpen = true;
         dialogueBox.SetActive(true);
         StartCoroutine(StepThroughDialogue(dialogueObject));
     }
@@ -58,6 +59,7 @@ public class DialogueUI : MonoBehaviour
 
     void closeDialogueBox()
     {
+        isOpen = false;
         dialogueBox.SetActive(false);
         text.text = string.Empty;
     }

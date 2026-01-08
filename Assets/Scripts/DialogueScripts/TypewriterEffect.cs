@@ -6,7 +6,6 @@ using System;
 
 public class TypewriterEffect : MonoBehaviour
 {
-
     [SerializeField] float writingSpeed;
     public Coroutine Run(string textToType, TMP_Text text)
     {

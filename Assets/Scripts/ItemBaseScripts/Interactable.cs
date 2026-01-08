@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class Interactable : MonoBehaviour
+public class PickUpable : MonoBehaviour
 {
     public float radius = 3f;
 
     [SerializeField] Transform playerTransform;
 
-    private bool hasInteracted;
+    private bool hasPickedUp;
 
     private void OnDrawGizmosSelected()
     {
@@ -14,7 +14,7 @@ public class Interactable : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, radius);
     }
 
-    public virtual void interact()
+    public virtual void interactWithItem()
     {
 
     }
@@ -22,10 +22,10 @@ public class Interactable : MonoBehaviour
     private void Update()
     {
         float distance = Vector2.Distance(playerTransform.position, transform.position);
-        if (distance < radius &&  !hasInteracted)
+        if (distance < radius &&  !hasPickedUp)
         {
-            hasInteracted = true;
-            interact();
+            hasPickedUp = true;
+            interactWithItem();
         }
     }
 }

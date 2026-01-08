@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 public class playerDefenceScript : MonoBehaviour
 {
+    [SerializeField] DialogueUI dialogueUI;
     [SerializeField] InputActionAsset inputActions;
     private SpriteRenderer spriteRenderer;
 
@@ -33,6 +34,11 @@ public class playerDefenceScript : MonoBehaviour
 
     void Update()
     {
+        if (dialogueUI.isOpen)
+        {
+            return;
+        }
+
         if (parryAction.WasPressedThisFrame() && canParry)
         {
             startParry();

@@ -5,6 +5,7 @@ public class PlayerAttackScript : MonoBehaviour
 {
     [SerializeField] InputActionAsset inputActions;
     [SerializeField] GameObject weaponHitbox;
+    [SerializeField] DialogueUI dialogueUI;
     private PlayerSwordThrowingScript playerSwordThrowingScript;
 
     private Animator animator;
@@ -31,6 +32,11 @@ public class PlayerAttackScript : MonoBehaviour
 
     void Update()
     {
+        if (dialogueUI.isOpen)
+        {
+            return;
+        }
+
         if (!playerSwordThrowingScript.hasSword)
         {
             canAttack = false;

@@ -7,11 +7,13 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+
 public class PlayerScript : MonoBehaviour
 {
 
     [Header("References")]
     [SerializeField] InputActionAsset InputActions;
+    [SerializeField] DialogueUI dialogueUI;
     private PlayerScript playerScript;
     private Rigidbody2D rb;
     private Animator animator;
@@ -67,6 +69,7 @@ public class PlayerScript : MonoBehaviour
     private InputAction sprintAction;
     private InputAction moveAction;
     private InputAction LB;
+    private InputAction interactAction;
 
     [Header("Public references")]
 
@@ -79,6 +82,10 @@ public class PlayerScript : MonoBehaviour
     public float horizontal;
     public bool isOnEnemy;
     public float scale;
+
+    public DialogueUI DialogueUI => dialogueUI;
+
+    public IInteractable Interactable { get; set; }
 
 
 
@@ -97,6 +104,7 @@ public class PlayerScript : MonoBehaviour
         sprintAction = InputSystem.actions.FindAction("Sprint");
         moveAction = InputSystem.actions.FindAction("Move");
         LB = InputSystem.actions.FindAction("LB");
+        interactAction = InputSystem.actions.FindAction("Focus");
 
     }
 
@@ -119,7 +127,12 @@ public class PlayerScript : MonoBehaviour
     }
 
     void Update()
-    {
+    {       
+        if (dialogueUI.isOpen)
+        {
+            return;
+        }
+
         moveDirection = moveAction.ReadValue<Vector2>();
         horizontal = moveDirection.x;
         scale = transform.localScale.x;
@@ -137,6 +150,14 @@ public class PlayerScript : MonoBehaviour
 
         // Animations
         updateAnimations();
+
+        if (interactAction.WasPressedThisFrame())
+        {
+            if (Interactable != null)
+            {
+                Interactable.Interact(this);
+            }
+        }
     }
 
     void FixedUpdate()

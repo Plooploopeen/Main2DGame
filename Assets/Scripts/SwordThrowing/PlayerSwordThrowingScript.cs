@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerSwordThrowingScript : MonoBehaviour
 {
+    [SerializeField] DialogueUI dialogueUI;
     [SerializeField] Transform swordTransform;
     private PlayerSwordThrowingScript playerSwordThrowingScript;
     private GameObject swordPrefab;
@@ -46,6 +47,10 @@ public class PlayerSwordThrowingScript : MonoBehaviour
 
     void Update()
     {
+        if (dialogueUI.isOpen)
+        {
+            return;
+        }
 
         aim();
 
