@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: Test
   m_EditorClassIdentifier: Assembly-CSharp::DialogueObject
   dialogue:
-  - I am error
-  - This is MY second dialogue
+  - 'I am error.
+
+    Who are you?'
+  - 'This guy are sick...
+
+    Must have been the wind...'
   - 'pick yes
 
     or no'

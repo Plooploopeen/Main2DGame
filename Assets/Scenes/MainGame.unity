@@ -572,6 +572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53e5b4cf280d21c469a10e6873c51050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueActivator
+  dialogueObject: {fileID: 11400000, guid: c6916bd3da819e740b4372122ccaa35d, type: 2}
 --- !u!1 &158061218 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9136229560443524793, guid: c8fc00a6c1caad64783e7a396319b656, type: 3}
@@ -2344,8 +2345,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   InputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  dialogueUI: {fileID: 0}
-  spriteRenderer: {fileID: 0}
+  dialogueUI: {fileID: 713220473}
+  spriteRenderer: {fileID: 616317156}
   jumpForce: 9.905
   fallMultipierSlow: 1.698
   fallMultipierFast: 5.66
@@ -2493,6 +2494,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttackScript
   inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   weaponHitbox: {fileID: 1948448134}
+  dialogueUI: {fileID: 713220473}
   isAttacking: 0
   canAttack: 1
 --- !u!114 &616317166
@@ -2526,6 +2528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7046f0604cddae741a47f83574377dcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  dialogueUI: {fileID: 713220473}
   swordTransform: {fileID: 1084986281339720053, guid: 4428568ab09e49f4c90263c11c14386f, type: 3}
   swordInstance: {fileID: 0}
   swordRb: {fileID: 616317154}
@@ -2661,6 +2664,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a125205e822d8247a671a6a44829525, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  dialogueUI: {fileID: 713220473}
   inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   isParrying: 0
   parryTimeLimit: 0.3
