@@ -40,10 +40,14 @@ public class DialogueUI : MonoBehaviour
         for (int i = 0; i < dialogueObject.Dialogue.Length; i++)
         {
             string dialogue = dialogueObject.Dialogue[i];
-            yield return typewriterEffect.Run(dialogue, text);
+
+            yield return RunTypingEffect(dialogue);
+
+            text.text = dialogue;
 
             if (i == dialogueObject.Dialogue.Length - 1 && dialogueObject.HasResponses) break;
 
+            yield return null;
             yield return new WaitUntil(() => rightAction.WasPressedThisFrame());
         }
 
@@ -54,6 +58,21 @@ public class DialogueUI : MonoBehaviour
         else
         {
             closeDialogueBox();
+        }
+    }
+
+    private IEnumerator RunTypingEffect(string dialogue)
+    {
+        typewriterEffect.Run(dialogue, text);
+
+        while (typewriterEffect.isRunning)
+        {
+            yield return null;
+
+            if (rightAction.WasPressedThisFrame())
+            {
+                typewriterEffect.Stop();
+            }
         }
     }
 

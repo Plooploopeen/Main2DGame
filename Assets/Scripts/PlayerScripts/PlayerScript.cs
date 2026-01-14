@@ -151,7 +151,7 @@ public class PlayerScript : MonoBehaviour
         // Animations
         updateAnimations();
 
-        if (interactAction.WasPressedThisFrame())
+        if (interactAction.WasPressedThisFrame() && Mathf.Abs(rb.linearVelocity.x) < 0.1f)
         {
             if (Interactable != null)
             {

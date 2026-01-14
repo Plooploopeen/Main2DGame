@@ -2474,8 +2474,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7547eb3a24704e642967f4a520a49dd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthScript
-  health: 9999
-  maxHealth: 9999
+  health: 100
+  maxHealth: 100
   isKnockedBack: 0
   flashLength: 0.2
   knockbackForce: 4.89
