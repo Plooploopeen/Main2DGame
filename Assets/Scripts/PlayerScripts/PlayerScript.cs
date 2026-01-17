@@ -1,7 +1,9 @@
 using JetBrains.Annotations;
+using System.Collections;
 using TMPro;
 using Unity.Properties;
 using Unity.VisualScripting;
+using UnityEditor.Experimental;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -203,6 +205,13 @@ public class PlayerScript : MonoBehaviour
             isMovingLeft = false;
         }
 
+        // apply turning around animation
+        //if (moveAction.WasPressedThisFrame())
+        //{
+        //    animator.Play("TurnAround");
+        //    StartCoroutine(DelayToIdle());
+        //}
+
         // Apply movement and face direction
         float absScale = Mathf.Abs(transform.localScale.x);
 
@@ -381,6 +390,12 @@ public class PlayerScript : MonoBehaviour
 
     void sprint()
     {
+        //if (sprintAction.WasPressedThisFrame())
+        //{
+        //    animator.Play("WalkToSprint");
+        //    StartCoroutine(DelayToIdle());
+        //}
+
         if (sprintAction.IsPressed())
         {
             moveSpeed = sprintSpeed;
@@ -442,5 +457,12 @@ public class PlayerScript : MonoBehaviour
     {
         animator.Play("Idle");
     }
+
+    //IEnumerator DelayToIdle()
+    //{ 
+    //    yield return new WaitForSeconds(0.15f);
+    //    animator.Play("Idle");
+    //}
+
 }
 

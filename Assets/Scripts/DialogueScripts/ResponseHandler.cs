@@ -16,10 +16,12 @@ public class ResponseHandler : MonoBehaviour
     [SerializeField] GameObject selector;
 
     private DialogueUI dialogueUI;
-
+    private ResponseEvent[] responseEvents;
+    
     List<GameObject> tempResponseButtons = new List<GameObject>();
 
     private int selectedIndex = 0;
+    private int responseIndex;
     private bool isSelectingResponse;
     private Response[] selectedResponses;
 
@@ -35,6 +37,11 @@ public class ResponseHandler : MonoBehaviour
         selectedIndex = 0;
     }
 
+    public void AddResponseEvents(ResponseEvent[] responseEvents)
+    {
+        this.responseEvents = responseEvents;
+    }
+
     private void Update()
     {
         checkSelectorInput();
@@ -46,13 +53,16 @@ public class ResponseHandler : MonoBehaviour
 
         float responseBoxHeight = 0;
 
-        foreach (Response response in responses)
+        for (int i = 0; i < responses.Length; i++)
         {
+            Response response = responses[i];
+            responseIndex = i;
+
             GameObject responseButton = Instantiate(responseButtonTemplate.gameObject, responseContainer);
             responseButton.gameObject.SetActive(true);
 
             responseButton.GetComponent<TMP_Text>().text = response.ResponseText;
-            responseButton.GetComponent<Button>().onClick.AddListener(() => OnPickedResponse(response));
+            responseButton.GetComponent<Button>().onClick.AddListener(() => OnPickedResponse(response, responseIndex));
 
             tempResponseButtons.Add(responseButton);
 
@@ -73,7 +83,7 @@ public class ResponseHandler : MonoBehaviour
 
     }
 
-    private void OnPickedResponse(Response response)
+    private void OnPickedResponse(Response response, int responseIndex)
     {
         isSelectingResponse = false;
 
@@ -85,6 +95,11 @@ public class ResponseHandler : MonoBehaviour
         }
 
         tempResponseButtons.Clear();
+
+        if (responseEvents != null && responseIndex <= responseEvents.Length)
+        {
+            responseEvents[responseIndex].OnPickedResponse?.Invoke();
+        }
 
         dialogueUI.ShowDialogue(response.DialogueObject);
     }
@@ -147,7 +162,7 @@ public class ResponseHandler : MonoBehaviour
 
         Response selectedResponse = getResponseAtIndex(selectedIndex);
 
-        OnPickedResponse(selectedResponse);
+        OnPickedResponse(selectedResponse, selectedIndex);
     }
 
     Response getResponseAtIndex(int index)
