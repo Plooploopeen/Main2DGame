@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using TMPro;
 using UnityEngine.InputSystem;
+using System.Linq;
 
 public class DialogueUI : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class DialogueUI : MonoBehaviour
 
     [SerializeField] GameObject dialogueBox;
     [SerializeField] private TMP_Text text;
+
+    private DialogueLineEvent[] currentDialogueLineEvents;
 
     public bool isOpen {  get; private set; }
 
@@ -40,6 +43,10 @@ public class DialogueUI : MonoBehaviour
         responseHandler.AddResponseEvents(responseEvents);
     }
 
+    public void AddDialogueLineEvents(DialogueLineEvent[] dialogueLineEvents)
+    {
+        currentDialogueLineEvents = dialogueLineEvents;
+    }
     private IEnumerator StepThroughDialogue(DialogueObject dialogueObject)
     {
         for (int i = 0; i < dialogueObject.Dialogue.Length; i++)
@@ -54,6 +61,11 @@ public class DialogueUI : MonoBehaviour
 
             yield return null;
             yield return new WaitUntil(() => rightAction.WasPressedThisFrame());
+
+            if (currentDialogueLineEvents != null && i < currentDialogueLineEvents.Length)
+            {
+                currentDialogueLineEvents[i].OnDialogueLine?.Invoke();
+            }
         }
 
         if (dialogueObject.HasResponses)
@@ -62,6 +74,7 @@ public class DialogueUI : MonoBehaviour
         }
         else
         {
+            currentDialogueLineEvents = null;
             closeDialogueBox();
         }
     }
@@ -81,7 +94,7 @@ public class DialogueUI : MonoBehaviour
         }
     }
 
-    void closeDialogueBox()
+    public void closeDialogueBox()
     {
         isOpen = false;
         dialogueBox.SetActive(false);

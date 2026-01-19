@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueObject
   dialogue:
   - I'm done.
-  responses: []
+  responses:
+  - responseText: Okay
+    dialogueObject: {fileID: 0}

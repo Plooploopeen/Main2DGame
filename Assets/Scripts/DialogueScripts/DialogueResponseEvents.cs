@@ -5,10 +5,12 @@ public class DialogueResponseEvents : MonoBehaviour
 {
     [SerializeField] DialogueObject dialogueObject;
     [SerializeField] ResponseEvent[] events;
+    [SerializeField] DialogueLineEvent[] dialogueLineEvents;
 
     public DialogueObject DialogueObject => dialogueObject;
 
     public ResponseEvent[] Events => events;
+    public DialogueLineEvent[] DialogueLineEvents => dialogueLineEvents;
 
     public void OnValidate()
     {
@@ -37,5 +39,24 @@ public class DialogueResponseEvents : MonoBehaviour
 
                 events[i] = new ResponseEvent() { name = response.ResponseText };
             }
+
+
+        if (dialogueObject.Dialogue != null)
+        {
+            if (dialogueLineEvents == null ||  dialogueLineEvents.Length != dialogueObject.Dialogue.Length)
+            {
+                Array.Resize(ref dialogueLineEvents, dialogueObject.Dialogue.Length);
+            }
+
+            for (int i = 0; i < dialogueObject.Dialogue.Length; i++)
+            {
+                string dialogueLine = dialogueObject.Dialogue[i];
+
+                if (dialogueLineEvents[i] == null)
+                {
+                    dialogueLineEvents[i] = new DialogueLineEvent();
+                }
+            }
+        }
     }
 }
