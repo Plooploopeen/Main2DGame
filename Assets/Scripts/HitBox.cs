@@ -2,7 +2,7 @@ using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
-using TreeEditor;
+using System.Collections;
 
 public class HitBox : MonoBehaviour
 {
@@ -61,13 +61,23 @@ public class HitBox : MonoBehaviour
             if (transform.parent != null)
             {
                 target.takeDamage(damage, transform.parent.transform);
+                StartCoroutine(HitStop());
             }
             else
             {
                 target.takeDamage(damage, transform);
+                StartCoroutine(HitStop());
             }
                 hitEnemies.Add(collision);
         }
+    }
+
+    IEnumerator HitStop()
+    {
+        Debug.Log("Hitstop Activated");
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(0.06f);
+        Time.timeScale = 1f;
     }
 
     //private void OnDrawGizmos()
