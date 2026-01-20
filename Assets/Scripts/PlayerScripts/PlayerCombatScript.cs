@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerAttackScript : MonoBehaviour
 {
     [SerializeField] InputActionAsset inputActions;
-    [SerializeField] GameObject weaponHitbox;
+    [SerializeField] GameObject weaponGameObject;
     [SerializeField] DialogueUI dialogueUI;
     private PlayerSwordThrowingScript playerSwordThrowingScript;
 
@@ -27,7 +27,7 @@ public class PlayerAttackScript : MonoBehaviour
 
     void Start()
     {
-        weaponHitbox.SetActive(false);
+        weaponGameObject.SetActive(false);
     }
 
     void Update()
@@ -56,12 +56,15 @@ public class PlayerAttackScript : MonoBehaviour
 
     public void enableHitbox()
     {
-        weaponHitbox.SetActive(true);
+        weaponGameObject.SetActive(true);
+
+        HitBox hitBox = weaponGameObject.GetComponent<HitBox>();
+        hitBox.SetHitStop(0.06f);
     }
 
     public void disableHitbox()
     {
-        weaponHitbox.SetActive(false);
+        weaponGameObject.SetActive(false);
     }
 
     public void attackCompleted()

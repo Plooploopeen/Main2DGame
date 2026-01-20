@@ -156,8 +156,6 @@ public class ResponseHandler : MonoBehaviour
 
                     updateSelectorPosition();
                 }
-
-                Debug.Log(selectedIndex);
             }
         }
     }

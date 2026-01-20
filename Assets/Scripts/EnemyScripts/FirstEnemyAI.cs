@@ -291,6 +291,9 @@ public class FirstEnemyAI : MonoBehaviour
     {
         weaponGameObject.SetActive(true);
         weaponCollider.enabled = true;
+
+        HitBox hitBox = weaponGameObject.GetComponent<HitBox>();
+        hitBox.SetHitStop(0.01f);
     }
 
     public void disableHitbox()

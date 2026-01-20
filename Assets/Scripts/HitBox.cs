@@ -18,6 +18,7 @@ public class HitBox : MonoBehaviour
     [SerializeField] LayerMask targetLayers;
 
     private Transform selfRoot;
+    private float hitStopLength = 0;
 
     private void Awake()
     {
@@ -58,15 +59,15 @@ public class HitBox : MonoBehaviour
 
         if (target != null)
         {
+            StartCoroutine(HitStop());
+
             if (transform.parent != null)
             {
                 target.takeDamage(damage, transform.parent.transform);
-                StartCoroutine(HitStop());
             }
             else
             {
                 target.takeDamage(damage, transform);
-                StartCoroutine(HitStop());
             }
                 hitEnemies.Add(collision);
         }
@@ -74,10 +75,14 @@ public class HitBox : MonoBehaviour
 
     IEnumerator HitStop()
     {
-        Debug.Log("Hitstop Activated");
         Time.timeScale = 0f;
-        yield return new WaitForSecondsRealtime(0.06f);
+        yield return new WaitForSecondsRealtime(hitStopLength);
         Time.timeScale = 1f;
+    }
+
+    public void SetHitStop(float duration)
+    {
+        hitStopLength = duration;
     }
 
     //private void OnDrawGizmos()
