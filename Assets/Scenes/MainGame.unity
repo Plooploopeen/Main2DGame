@@ -593,7 +593,7 @@ MonoBehaviour:
     onPickedResponse:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: 12de6ca9936529043981943c0c601aad, type: 2}
+        - m_Target: {fileID: 11400000, guid: eb6e7c4e52076f64e9d0141e0ffdf5be, type: 2}
           m_TargetAssemblyTypeName: 
           m_MethodName: 
           m_Mode: 1
@@ -608,7 +608,19 @@ MonoBehaviour:
   - name: No
     onPickedResponse:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 1a49872104840cc4ab112daee0e0912d, type: 2}
+          m_TargetAssemblyTypeName: 
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   dialogueLineEvents:
   - dialogueText: 
     onDialogueLine:
@@ -2581,7 +2593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttackScript
   inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  weaponHitbox: {fileID: 1948448134}
+  weaponGameObject: {fileID: 1948448134}
   dialogueUI: {fileID: 713220473}
   isAttacking: 0
   canAttack: 1
