@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using Unity.VisualScripting;
 
 public class ResponseHandler : MonoBehaviour
 {
@@ -105,12 +106,52 @@ public class ResponseHandler : MonoBehaviour
         
         if (response.DialogueObject)
         {
-            dialogueUI.ShowDialogue(response.DialogueObject);
+            DialogueResponseEvents newDialogueEvents = FindDialogueEventsForObject(response.DialogueObject);
+
+            if (newDialogueEvents != null) // this part won't trigger
+            {
+                DialogueLineEvent[] branchEvents;
+
+                if (!string.IsNullOrEmpty(response.BranchName))
+                {
+                    //Debug.Log("string accepted");
+                    branchEvents = newDialogueEvents.GetEventsForBranch(response.BranchName);
+                }
+                else
+                {
+                    //Debug.Log("String empty");
+                    branchEvents = newDialogueEvents.DialogueLineEvents;
+                }
+                dialogueUI.AddDialogueLineEvents(branchEvents);
+                dialogueUI.AddResponseEvents(newDialogueEvents.Events);
+            }
+            else
+            {
+                Debug.Log("newDialogueEvents is null!");
+            }
+
+                dialogueUI.ShowDialogue(response.DialogueObject);
         }
         else
         {
             dialogueUI.closeDialogueBox();
         }
+    }
+
+    public DialogueResponseEvents FindDialogueEventsForObject(DialogueObject dialogueObject)
+    {
+        DialogueResponseEvents[] allDialogueEvents = GameObject.FindObjectsByType<DialogueResponseEvents>(FindObjectsSortMode.None);
+
+        foreach (DialogueResponseEvents dialogueEvent in allDialogueEvents)
+        {
+            if (dialogueEvent.DialogueObject == dialogueObject)
+            {
+                Debug.Log("dialogueEvent found");
+                return dialogueEvent;
+            }
+        }
+
+        return null;
     }
 
     void updateSelectorPosition()

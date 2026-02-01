@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class FirstEnemyAI : MonoBehaviour
 {
-    private NewMonoBehaviourScript enemyHealthScript;
+    private EnemyHealth enemyHealthScript;
 
     [SerializeField] LayerMask layerMask;
     private Rigidbody2D rb;
@@ -49,7 +49,7 @@ public class FirstEnemyAI : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        enemyHealthScript = GetComponent<NewMonoBehaviourScript>();
+        enemyHealthScript = GetComponent<EnemyHealth>();
         animator = GetComponent<Animator>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         weaponGameObject = transform.Find("WeaponHitbox").gameObject;

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 
 
-public class NewMonoBehaviourScript : MonoBehaviour, IDamageable
+public class EnemyHealth : MonoBehaviour, IDamageable
 {
     private float health;
     private bool isFlashing = false;

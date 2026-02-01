@@ -6,11 +6,26 @@ public class DialogueResponseEvents : MonoBehaviour
     [SerializeField] DialogueObject dialogueObject;
     [SerializeField] ResponseEvent[] events;
     [SerializeField] DialogueLineEvent[] dialogueLineEvents;
+    [SerializeField] DialogueBranch[] branches;
 
     public DialogueObject DialogueObject => dialogueObject;
 
     public ResponseEvent[] Events => events;
     public DialogueLineEvent[] DialogueLineEvents => dialogueLineEvents;
+    public DialogueBranch[] Branches => branches;
+
+    public DialogueLineEvent[] GetEventsForBranch(string branchName)
+    {
+        foreach (DialogueBranch branch in branches)
+        {
+            if (branch.BranchName == branchName)
+            {
+                return branch.lineEvents;
+            }
+        }
+
+        return dialogueLineEvents;
+    }
 
     public void OnValidate()
     {
