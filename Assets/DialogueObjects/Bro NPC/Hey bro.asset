@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5afb05583109a18428e10c60d7884fdc, type: 3}
+  m_Name: Hey bro
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueObject
+  dialogue:
+  - 'Hey bro. '
+  - 'I don''t really have anything special to tell you.
+
+    I''m just here to test
+    if multiple NPC''s work fine'
+  responses:
+  - responseText: OKAY!!!
+    dialogueObject: {fileID: 11400000, guid: 6a9b3d7da45c03d4eb0ef0548f5fba70, type: 2}
+    branchName: OKAY!!!
+  - responseText: ok...
+    dialogueObject: {fileID: 11400000, guid: 9c7dae4c218d60744bf12908023579a4, type: 2}
+    branchName: ok...

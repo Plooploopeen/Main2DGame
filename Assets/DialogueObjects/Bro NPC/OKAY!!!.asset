@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5afb05583109a18428e10c60d7884fdc, type: 3}
-  m_Name: Yes to other game expiriences
+  m_Name: OKAY!!!
   m_EditorClassIdentifier: Assembly-CSharp::DialogueObject
   dialogue:
-  - 'Great! Then just know all the basics are the same.
+  - '???
 
-    B is jump, Y is attack,
-    and + is inventory. '
-  - Go to the location and I will tell you about throwing your sword
+    I didn''t say anything THAT interesting...'
+  - 'Do you think i''m going to give you
+
+    ice cream or something?'
   responses: []
