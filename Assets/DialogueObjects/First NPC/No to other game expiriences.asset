@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: No to other game expiriences
   m_EditorClassIdentifier: Assembly-CSharp::DialogueObject
   dialogue:
-  - Dang it. Now I have to explain how the game works.
-  - "B is jump, Y is attack, and RT is sprint. \nThere is no dash."
+  - "Dang it. Now I have to explain \nhow the game works.\nYou know what? i don't
+    feel like it."
+  - 'Just move on. You''ll figure it out. '
   responses: []

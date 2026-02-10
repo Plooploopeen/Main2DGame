@@ -17,7 +17,7 @@ MonoBehaviour:
   - 'I don''t really have anything special to tell you.
 
     I''m just here to test
-    if multiple NPC''s work fine'
+    if multiple NPC''s work fine.'
   responses:
   - responseText: OKAY!!!
     dialogueObject: {fileID: 11400000, guid: 6a9b3d7da45c03d4eb0ef0548f5fba70, type: 2}
