@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: OKAY!!!
   m_EditorClassIdentifier: Assembly-CSharp::DialogueObject
   dialogue:
-  - '???
+  - sentence: '???
 
-    I didn''t say anything THAT interesting...'
-  - 'Do you think i''m going to give you
+      I didn''t say anything interesting.
 
-    ice cream or something?'
+      Why are you
+      so exited?'
+    speakerName: Bro
+  - sentence: Do you think i'm going to give you ice cream or something?
+    speakerName: Bro
   responses: []

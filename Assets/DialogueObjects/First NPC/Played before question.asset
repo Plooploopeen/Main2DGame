@@ -22,6 +22,19 @@ MonoBehaviour:
       becuase name are HARD
       to think of!'
     speakerName: NPC 1
+  - sentence: I wonder what my name is...
+    speakerName: Player
+  - sentence: Who knows?
+    speakerName: NPC 1
+  - sentence: 'Way to make things akward Mr.
+
+      ...
+
+      I''ll just call you
+      random guy'
+    speakerName: Player
+  - sentence: Anyways...Have you played this game before?
+    speakerName: Random Guy
   responses:
   - responseText: Yes
     dialogueObject: {fileID: 11400000, guid: eb6e7c4e52076f64e9d0141e0ffdf5be, type: 2}

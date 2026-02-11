@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: ok...
   m_EditorClassIdentifier: Assembly-CSharp::DialogueObject
   dialogue:
-  - 'You sound so depressed.
+  - sentence: 'Now i''m sad.
 
-    Now i''m sad.
-
-    Please leave me alone to cry
-    in peace.'
+      Please leave me alone to cry in peace'
+    speakerName: Bro
   responses: []

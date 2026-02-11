@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Hey bro
   m_EditorClassIdentifier: Assembly-CSharp::DialogueObject
   dialogue:
-  - 'Hey bro. '
-  - 'I don''t really have anything special to tell you.
+  - sentence: Hey bro.
+    speakerName: Bro
+  - sentence: 'I don''t actually do anything.
 
-    I''m just here to test
-    if multiple NPC''s work fine.'
+      I''m just here so there''s not
+      just one NPC'
+    speakerName: Bro
   responses:
   - responseText: OKAY!!!
     dialogueObject: {fileID: 11400000, guid: 6a9b3d7da45c03d4eb0ef0548f5fba70, type: 2}

@@ -13,10 +13,14 @@ MonoBehaviour:
   m_Name: Yes to other game expiriences
   m_EditorClassIdentifier: Assembly-CSharp::DialogueObject
   dialogue:
-  - 'Great!
+  - sentence: 'Great!
 
-    Then I''ll just stop talking'
-  - ...
-  - ...
-  - ...
+      I''ll just stop talking then'
+    speakerName: Random Guy
+  - sentence: ...
+    speakerName: Random Guy
+  - sentence: ...
+    speakerName: Random Guy
+  - sentence: ...
+    speakerName: Random Guy
   responses: []

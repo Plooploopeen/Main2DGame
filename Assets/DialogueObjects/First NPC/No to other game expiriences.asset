@@ -13,7 +13,13 @@ MonoBehaviour:
   m_Name: No to other game expiriences
   m_EditorClassIdentifier: Assembly-CSharp::DialogueObject
   dialogue:
-  - "Dang it. Now I have to explain \nhow the game works.\nYou know what? i don't
-    feel like it."
-  - 'Just move on. You''ll figure it out. '
+  - sentence: "Dang it. \nNow I have to explain how the game works"
+    speakerName: Random Guy
+  - sentence: 'You know what?
+
+      I don''t feel like it.
+
+      you''ll figure
+      it out'
+    speakerName: Random Guy
   responses: []
