@@ -3,6 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine.InputSystem;
 using System.Linq;
+using UnityEngine.UI;
 
 public class DialogueUI : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class DialogueUI : MonoBehaviour
 
     [SerializeField] GameObject dialogueBox;
     [SerializeField] private TMP_Text text;
+    [SerializeField] TMP_Text speakerName;
 
     private DialogueLineEvent[] currentDialogueLineEvents;
 
@@ -51,7 +53,9 @@ public class DialogueUI : MonoBehaviour
     {
         for (int i = 0; i < dialogueObject.Dialogue.Length; i++)
         {
-            string dialogue = dialogueObject.Dialogue[i];
+            speakerName.text = dialogueObject.Dialogue[i].speakerName;
+
+            string dialogue = dialogueObject.Dialogue[i].sentence;
 
             yield return RunTypingEffect(dialogue);
 

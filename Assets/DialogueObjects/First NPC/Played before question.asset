@@ -13,9 +13,15 @@ MonoBehaviour:
   m_Name: Played before question
   m_EditorClassIdentifier: Assembly-CSharp::DialogueObject
   dialogue:
-  - "HI! I'll be teaching you about \nthe mechanics in this game."
-  - Just remember that this game is still in the first few months of development.
-  - Have you played this game before?
+  - sentence: 'HI!
+
+      Welcome to [ENTER NAME HERE]'
+    speakerName: NPC 1
+  - sentence: 'A game where nothing is given a name
+
+      becuase name are HARD
+      to think of!'
+    speakerName: NPC 1
   responses:
   - responseText: Yes
     dialogueObject: {fileID: 11400000, guid: eb6e7c4e52076f64e9d0141e0ffdf5be, type: 2}

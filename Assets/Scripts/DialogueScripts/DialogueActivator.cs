@@ -1,9 +1,12 @@
 using UnityEngine;
+using TMPro;
 
 public class DialogueActivator : MonoBehaviour, IInteractable
 {
 
     [SerializeField] DialogueObject dialogueObject;
+
+    [SerializeField] TMP_Text speakerName;
 
     public void UpdateDialogueObject(DialogueObject dialogueObject)
     {
@@ -38,6 +41,9 @@ public class DialogueActivator : MonoBehaviour, IInteractable
             {
                 playerScript.DialogueUI.AddResponseEvents(responseEvents.Events);
                 playerScript.DialogueUI.AddDialogueLineEvents(responseEvents.DialogueLineEvents);
+
+                speakerName.text = responseEvents.DialogueObject.Dialogue[0].speakerName;
+
                 break;
             }
         }

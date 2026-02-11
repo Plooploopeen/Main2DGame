@@ -5,10 +5,10 @@ using UnityEngine.Events;
 
 public class DialogueObject : ScriptableObject
 {
-    [SerializeField][TextArea] private string[] dialogue;
+    [SerializeField] private Dialogue[] dialogue;
     [SerializeField] Response[] responses;
 
-    public string[] Dialogue => dialogue;
+    public Dialogue[] Dialogue => dialogue;
 
     public bool HasResponses => Responses != null && Responses.Length > 0;
     public Response[] Responses => responses;

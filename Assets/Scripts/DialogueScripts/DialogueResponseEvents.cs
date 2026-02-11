@@ -65,7 +65,7 @@ public class DialogueResponseEvents : MonoBehaviour
 
             for (int i = 0; i < dialogueObject.Dialogue.Length; i++)
             {
-                string dialogueLine = dialogueObject.Dialogue[i];
+                string dialogueLine = dialogueObject.Dialogue[i].sentence;
 
                 if (dialogueLineEvents[i] == null)
                 {

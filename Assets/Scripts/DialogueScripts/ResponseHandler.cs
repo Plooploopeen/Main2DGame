@@ -146,7 +146,6 @@ public class ResponseHandler : MonoBehaviour
         {
             if (dialogueEvent.DialogueObject == dialogueObject)
             {
-                Debug.Log("dialogueEvent found");
                 return dialogueEvent;
             }
         }
