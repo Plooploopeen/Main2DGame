@@ -1,4 +1,5 @@
 using NUnit.Framework.Internal.Commands;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using Unity.Mathematics;
 using UnityEngine;
@@ -27,6 +28,7 @@ public class swordScript : MonoBehaviour
     private Vector2 currentScale;
     private quaternion currentRotation;
     private bool isStuckInHurtbox = false;
+    private bool gravityOn;
 
     void Start()
     {
@@ -48,8 +50,6 @@ public class swordScript : MonoBehaviour
             }
         }
 
-        bool gravityOn = false;
-
         // stop flying if sword is too far away from player
         if (Vector2.Distance(playerSwordThrowingScript.swordInstance.transform.position, playerTransform.position) > maxDistance)
         {
@@ -57,11 +57,6 @@ public class swordScript : MonoBehaviour
             playerSwordThrowingScript.swordRb.freezeRotation = false;
             playerSwordThrowingScript.swordRb.excludeLayers &= ~playerSwordThrowingScript.playerLayer;
             gravityOn = true;
-        }
-
-        if (gravityOn)
-        {
-            bounceCount = 0;
         }
 
         if (isStuckInHurtbox)
@@ -86,7 +81,7 @@ public class swordScript : MonoBehaviour
 
     public void bounce(Collision2D collision)
     {
-
+        if (gravityOn) return;
 
         bounceCount++;
 
