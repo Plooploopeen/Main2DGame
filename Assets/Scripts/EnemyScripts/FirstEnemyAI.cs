@@ -153,7 +153,7 @@ public class FirstEnemyAI : MonoBehaviour
                 lastJumpTime = Time.time;
             }
         }
-        else
+        else if (isGrounded)
         {
             rb.linearVelocity = Vector2.zero;
         }

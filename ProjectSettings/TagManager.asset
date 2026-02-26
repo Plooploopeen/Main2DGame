@@ -39,7 +39,7 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: SwordStuck
+  - name: Behind
     uniqueID: 3503171693
     locked: 0
   - name: Default
