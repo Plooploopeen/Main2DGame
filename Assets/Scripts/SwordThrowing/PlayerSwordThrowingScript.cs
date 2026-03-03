@@ -31,6 +31,11 @@ public class PlayerSwordThrowingScript : MonoBehaviour
     public LayerMask playerLayer;
     [SerializeField] float lineLength;
 
+    [System.NonSerialized]
+    public float throwTime;
+
+    [SerializeField] float throwTimeMinimum;
+
 
     private void Awake()
     {
@@ -47,6 +52,9 @@ public class PlayerSwordThrowingScript : MonoBehaviour
 
     void Update()
     {
+        throwTime += Time.deltaTime;
+
+
         if (dialogueUI.isOpen)
         {
             return;
@@ -54,7 +62,7 @@ public class PlayerSwordThrowingScript : MonoBehaviour
 
         aim();
 
-        if (aimAction.IsPressed() && throwAction.WasPerformedThisFrame() && canThrow)
+        if (aimAction.IsPressed() && throwAction.WasPerformedThisFrame() && canThrow && throwTime >= throwTimeMinimum)
         {
             spawnSword();
         }

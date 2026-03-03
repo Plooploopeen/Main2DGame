@@ -145,6 +145,8 @@ public class swordScript : MonoBehaviour
 
     void pickUpSword()
     {
+        playerSwordThrowingScript.throwTime = 0;
+        bounceCount = 0;
         Destroy(playerSwordThrowingScript.swordInstance);
         playerSwordThrowingScript.canThrow = true;
         playerSwordThrowingScript.hasSword = true;
