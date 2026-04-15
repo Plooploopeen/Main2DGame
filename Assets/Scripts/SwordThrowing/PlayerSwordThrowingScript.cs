@@ -13,9 +13,10 @@ public class PlayerSwordThrowingScript : MonoBehaviour
 
 
     private InputAction aimAction;
-    private InputAction throwAction;
+    private InputAction LT;
     public GameObject swordInstance;
     public Rigidbody2D swordRb;
+    private swordScript swordScript;
 
     private LineRenderer lineRenderer;
 
@@ -30,6 +31,7 @@ public class PlayerSwordThrowingScript : MonoBehaviour
     public Vector2 velocity;
     public LayerMask playerLayer;
     [SerializeField] float lineLength;
+    [SerializeField] float pickUpDistance;
 
     [System.NonSerialized]
     public float throwTime;
@@ -40,7 +42,7 @@ public class PlayerSwordThrowingScript : MonoBehaviour
     private void Awake()
     {
         aimAction = InputSystem.actions.FindAction("Aim");
-        throwAction = InputSystem.actions.FindAction("Throw");
+        LT = InputSystem.actions.FindAction("Throw");
         lineRenderer = GetComponent<LineRenderer>();
         playerSwordThrowingScript = GetComponent<PlayerSwordThrowingScript>();
         swordPrefab = Resources.Load<GameObject>("Prefabs/ThrownSword");
@@ -62,7 +64,15 @@ public class PlayerSwordThrowingScript : MonoBehaviour
 
         aim();
 
-        if (aimAction.IsPressed() && throwAction.WasPerformedThisFrame() && canThrow && throwTime >= throwTimeMinimum)
+        if (swordInstance != null)
+        {
+            if (LT.WasPressedThisFrame() && !canThrow && Vector2.Distance(swordInstance.transform.position, transform.position) <= pickUpDistance)
+            {
+                swordScript.pickUpSword();
+            }
+        }
+
+        if (aimAction.IsPressed() && LT.WasPerformedThisFrame() && canThrow && throwTime >= throwTimeMinimum)
         {
             spawnSword();
         }
@@ -112,7 +122,7 @@ public class PlayerSwordThrowingScript : MonoBehaviour
             swordInstance = Instantiate(swordPrefab, startPoint, Quaternion.identity);
 
             // initialize sword script
-            swordScript swordScript = swordInstance.GetComponent<swordScript>();
+            swordScript = swordInstance.GetComponent<swordScript>();
             swordScript.Initialize(playerSwordThrowingScript);
 
             // compute direction
@@ -133,11 +143,10 @@ public class PlayerSwordThrowingScript : MonoBehaviour
             isSwordFlying = true;
             swordRb = swordInstance.GetComponent<Rigidbody2D>();
 
-            // stop collison with player when thrown
-            playerSwordThrowingScript.swordRb.excludeLayers = playerLayer;
-
             swordTransform = swordInstance.transform;
             velocity = aimDirection.normalized * speed;
             swordRb.linearVelocity = velocity;
+
+            Physics2D.IgnoreCollision(swordInstance.GetComponent<Collider2D>(), GetComponent<Collider2D>(), true);
     }
 }

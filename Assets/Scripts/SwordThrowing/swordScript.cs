@@ -115,11 +115,6 @@ public class swordScript : MonoBehaviour
             return;
         }
 
-        if (bounceCount == 1)
-        {
-            playerSwordThrowingScript.swordRb.excludeLayers &= ~playerSwordThrowingScript.playerLayer;
-        }
-
         var firstContact = collision.contacts[0].normal;
         currentVelocity = playerSwordThrowingScript.velocity;
         Vector2 newVelocity = Vector2.Reflect(currentVelocity, firstContact);
@@ -143,7 +138,7 @@ public class swordScript : MonoBehaviour
 
     }
 
-    void pickUpSword()
+    public void pickUpSword()
     {
         playerSwordThrowingScript.throwTime = 0;
         bounceCount = 0;
