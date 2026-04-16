@@ -118,15 +118,15 @@ public class PlayerSwordThrowingScript : MonoBehaviour
 
     void spawnSword()
     {
+            // compute direction
+            Vector2 dir = (endPoint - startPoint).normalized;
+
             // spawn the sword
             swordInstance = Instantiate(swordPrefab, startPoint, Quaternion.identity);
 
             // initialize sword script
             swordScript = swordInstance.GetComponent<swordScript>();
             swordScript.Initialize(playerSwordThrowingScript);
-
-            // compute direction
-            Vector2 dir = (endPoint - startPoint).normalized;
 
             // convert direction to angle
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;

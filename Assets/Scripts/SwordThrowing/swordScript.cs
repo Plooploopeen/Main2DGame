@@ -2,6 +2,7 @@ using NUnit.Framework.Internal.Commands;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -24,6 +25,7 @@ public class swordScript : MonoBehaviour
     [SerializeField] int bounceCountLimit;
     [SerializeField] LayerMask excludedLayers;
     private Transform playerTransform;
+    private Collider2D enemyStuckInCollider;
 
     private Vector2 currentScale;
     private quaternion currentRotation;
@@ -53,16 +55,26 @@ public class swordScript : MonoBehaviour
         // stop flying if sword is too far away from player
         if (Vector2.Distance(playerSwordThrowingScript.swordInstance.transform.position, playerTransform.position) > maxDistance)
         {
-            playerSwordThrowingScript.swordRb.gravityScale = 0.5f;
-            playerSwordThrowingScript.swordRb.freezeRotation = false;
-            playerSwordThrowingScript.swordRb.excludeLayers &= ~playerSwordThrowingScript.playerLayer;
             gravityOn = true;
         }
 
         if (isStuckInHurtbox)
         {
-            playerSwordThrowingScript.swordInstance.transform.localScale = currentScale;
-            playerSwordThrowingScript.swordInstance.transform.rotation = currentRotation;
+            if (Physics2D.IsTouching(playerSwordThrowingScript.swordInstance.GetComponent<Collider2D>(), enemyStuckInCollider))
+            {
+                playerSwordThrowingScript.swordInstance.transform.localScale = currentScale;
+                playerSwordThrowingScript.swordInstance.transform.rotation = currentRotation;
+            }
+            else
+            {
+                gravityOn = true;
+            }
+        }
+
+        if (gravityOn)
+        {
+            playerSwordThrowingScript.swordRb.gravityScale = 0.5f;
+            playerSwordThrowingScript.swordRb.freezeRotation = false;
         }
     }
 
@@ -99,6 +111,8 @@ public class swordScript : MonoBehaviour
             // set parent to stuck object. layer, remove this if statement and figure out scale problems so it can move with ground
             if (collision.gameObject.layer == LayerMask.NameToLayer("Hurtbox"))
             {
+
+                enemyStuckInCollider = collision.gameObject.GetComponent<Collider2D>();
  
                 playerSwordThrowingScript.swordInstance.transform.SetParent(collision.transform, true);
                 currentScale = playerSwordThrowingScript.swordInstance.transform.localScale;

@@ -2852,7 +2852,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   lineLength: 2.264
-  throwTimeMinimum: 0
+  pickUpDistance: 1.5
+  throwTimeMinimum: 2
 --- !u!120 &616317168
 LineRenderer:
   serializedVersion: 2
