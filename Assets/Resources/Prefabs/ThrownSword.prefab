@@ -179,7 +179,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 712035800519618848, guid: f50c4376281d89446a93674b6c38422f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -280,10 +280,10 @@ MonoBehaviour:
   playerSwordThrowingScript: {fileID: 0}
   isStuck: 0
   maxDistance: 12.735
-  swordStuckSnapDistance: 0.021201413
+  swordStuckSnapDistance: 0.3
   stabAmount: 0.7
-  stuckSpeed: 0.001
-  bounceCountLimit: 5
+  stuckSpeed: 0.05
+  bounceCountLimit: 2
   excludedLayers:
     serializedVersion: 2
     m_Bits: 1152

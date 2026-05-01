@@ -26,6 +26,7 @@ public class swordScript : MonoBehaviour
     [SerializeField] LayerMask excludedLayers;
     private Transform playerTransform;
     private Collider2D enemyStuckInCollider;
+    private Vector2 stuckOffset;
 
     private Vector2 currentScale;
     private quaternion currentRotation;
@@ -41,11 +42,19 @@ public class swordScript : MonoBehaviour
     {
         if (bounceCount >= bounceCountLimit && !isStuck)
         {
-            playerSwordThrowingScript.swordInstance.transform.position = Vector2.Lerp(playerSwordThrowingScript.swordInstance.transform.position, stuckPosition, stuckSpeed);
+            playerSwordThrowingScript.swordRb.bodyType = RigidbodyType2D.Kinematic;
+
+            if (enemyStuckInCollider != null)
+            {
+                playerSwordThrowingScript.swordInstance.transform.position = Vector2.Lerp(playerSwordThrowingScript.swordInstance.transform.position, (Vector2)enemyStuckInCollider.transform.position + stuckOffset, stuckSpeed);
+            }
+            else
+            {
+                playerSwordThrowingScript.swordInstance.transform.position = Vector2.Lerp(playerSwordThrowingScript.swordInstance.transform.position, stuckPosition, stuckSpeed);
+            }
 
             if (Vector2.Distance(playerSwordThrowingScript.swordInstance.transform.position, stuckPosition) < swordStuckSnapDistance)
             {
-                playerSwordThrowingScript.swordRb.bodyType = RigidbodyType2D.Kinematic;
                 playerSwordThrowingScript.swordRb.linearVelocity = Vector2.zero;
                 playerSwordThrowingScript.velocity = Vector2.zero;
                 isStuck = true;
@@ -53,22 +62,9 @@ public class swordScript : MonoBehaviour
         }
 
         // stop flying if sword is too far away from player
-        if (Vector2.Distance(playerSwordThrowingScript.swordInstance.transform.position, playerTransform.position) > maxDistance)
+        if (Vector2.Distance(playerSwordThrowingScript.swordInstance.transform.position, playerTransform.position) > maxDistance && !isStuck)
         {
             gravityOn = true;
-        }
-
-        if (isStuckInHurtbox)
-        {
-            if (Physics2D.IsTouching(playerSwordThrowingScript.swordInstance.GetComponent<Collider2D>(), enemyStuckInCollider))
-            {
-                playerSwordThrowingScript.swordInstance.transform.localScale = currentScale;
-                playerSwordThrowingScript.swordInstance.transform.rotation = currentRotation;
-            }
-            else
-            {
-                gravityOn = true;
-            }
         }
 
         if (gravityOn)
@@ -94,6 +90,7 @@ public class swordScript : MonoBehaviour
     public void bounce(Collision2D collision)
     {
         if (gravityOn) return;
+        if (isStuck) return;
 
         bounceCount++;
 
@@ -104,11 +101,17 @@ public class swordScript : MonoBehaviour
             playerSwordThrowingScript.swordRb.excludeLayers = excludedLayers;
             playerSwordThrowingScript.swordRb.linearVelocity = playerSwordThrowingScript.velocity;
             stuckPosition = playerSwordThrowingScript.swordInstance.transform.position + (Vector3)(playerSwordThrowingScript.velocity.normalized * stabAmount);
+            if (enemyStuckInCollider != null)
+            {
+                stuckOffset = stuckPosition - (Vector2)enemyStuckInCollider.transform.position;
+            }
+
+            // make stuck position based on the enemy's position if it hit one
 
             // make sword drawn behind ground
-            spriteRenderer.sortingLayerName = "SwordStuck";
+            spriteRenderer.sortingLayerName = "Behind";
 
-            // set parent to stuck object. layer, remove this if statement and figure out scale problems so it can move with ground
+            // set parent to stuck object layer, remove this if statement and figure out scale problems so it can move with ground
             if (collision.gameObject.layer == LayerMask.NameToLayer("Hurtbox"))
             {
 
@@ -120,10 +123,19 @@ public class swordScript : MonoBehaviour
                 isStuckInHurtbox = true;
 
 
+
                 // gain mp if last hit collides with an enemy
                 float gain = playerMagicScript.percentGain * playerMagicScript.maxMP;
                 playerMagicScript.currentMP += gain;
 
+                Collider2D[] allColliders = FindObjectsByType<Collider2D>(FindObjectsSortMode.None);
+                foreach (Collider2D collider in allColliders)
+                {
+                    if (!collider.CompareTag("Player"))
+                    {
+                        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collider, true);
+                    }
+                }
             }
 
             return;
@@ -160,5 +172,14 @@ public class swordScript : MonoBehaviour
         playerSwordThrowingScript.canThrow = true;
         playerSwordThrowingScript.hasSword = true;
 
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (enemyStuckInCollider != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere((Vector2)enemyStuckInCollider.transform.position + stuckOffset, 0.2f);
+        }
     }
 }
