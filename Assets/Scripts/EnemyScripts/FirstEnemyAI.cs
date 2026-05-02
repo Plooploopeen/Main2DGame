@@ -107,7 +107,7 @@ public class FirstEnemyAI : MonoBehaviour
         Vector2 leftRayPosition = (Vector2)transform.position + Vector2.left * rayShiftLeftAmount;
         Vector2 rightRayPosition = (Vector2)transform.position + Vector2.right * rayShiftRightAmount;
 
-        int jumplayerMask = ~LayerMask.GetMask("Hurtbox");
+        int jumplayerMask = LayerMask.GetMask("Ground");
 
         RaycastHit2D middleHit = Physics2D.Raycast(transform.position, Vector2.down, rayCastLength, jumplayerMask);
         RaycastHit2D leftHit = Physics2D.Raycast(leftRayPosition, Vector2.down, rayCastLength, jumplayerMask);

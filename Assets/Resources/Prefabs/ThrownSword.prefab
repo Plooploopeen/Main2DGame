@@ -283,7 +283,7 @@ MonoBehaviour:
   swordStuckSnapDistance: 0.3
   stabAmount: 0.7
   stuckSpeed: 0.05
-  bounceCountLimit: 2
+  bounceCountLimit: 4
   excludedLayers:
     serializedVersion: 2
     m_Bits: 1152

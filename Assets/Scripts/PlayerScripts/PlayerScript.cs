@@ -266,7 +266,7 @@ public class PlayerScript : MonoBehaviour
         Vector2 leftRayPosition = (Vector2)transform.position + Vector2.left * rayShiftLeftAmount;
         Vector2 rightRayPosition = (Vector2)transform.position + Vector2.right * rayShiftRightAmount;
 
-        int layerMask = ~LayerMask.GetMask("Player");
+        int layerMask = LayerMask.GetMask("Ground", "Hurtbox");
 
         RaycastHit2D middleHit = Physics2D.Raycast(transform.position, Vector2.down, rayCastLength, layerMask);
         RaycastHit2D leftHit = Physics2D.Raycast(leftRayPosition, Vector2.down, rayCastLength, layerMask);
@@ -457,12 +457,5 @@ public class PlayerScript : MonoBehaviour
     {
         animator.Play("Idle");
     }
-
-    //IEnumerator DelayToIdle()
-    //{ 
-    //    yield return new WaitForSeconds(0.15f);
-    //    animator.Play("Idle");
-    //}
-
 }
 

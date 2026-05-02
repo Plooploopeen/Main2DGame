@@ -223,7 +223,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 1024
-  detectionRange: 0
+  detectionRange: 6
   detectionAngle: 30
   speed: 2.83
   jumpRayLength: 0.9622
