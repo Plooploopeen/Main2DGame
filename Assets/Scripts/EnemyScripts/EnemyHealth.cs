@@ -19,7 +19,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
-
+    
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -50,11 +50,30 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     public void die()
     {
-        Destroy(gameObject);
+        if (GameObject.FindGameObjectWithTag("Sword") == null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            GameObject swordObject = GameObject.FindGameObjectWithTag("Sword");
+            swordScript swordScript = swordObject.GetComponent<swordScript>();
+
+            GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+            PlayerSwordThrowingScript playerSwordThrowingScript = playerObject.GetComponent<PlayerSwordThrowingScript>();
+
+            if (swordScript.enemyStuckInCollider != null && swordScript.playerSwordThrowingScript.swordInstance.transform.parent == gameObject.transform)
+            {
+                playerSwordThrowingScript.swordInstance.transform.SetParent(null);
+                Destroy(gameObject);
+                swordScript.GravityOn = true;
+                swordScript.EnableAllCollision();
+            }
+        }
     }
 
     IEnumerator FlashRed()
-    {
+    {   
         isFlashing = true;
         Color original = spriteRenderer.color;
         spriteRenderer.color = Color.red;
@@ -73,5 +92,4 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         yield return new WaitForSeconds(knockbackLength);
         isKnockedBack = false;
     }
-
 }

@@ -25,13 +25,13 @@ public class swordScript : MonoBehaviour
     [SerializeField] int bounceCountLimit;
     [SerializeField] LayerMask excludedLayers;
     private Transform playerTransform;
-    private Collider2D enemyStuckInCollider;
+    public Collider2D enemyStuckInCollider;
     private Vector2 stuckOffset;
 
     private Vector2 currentScale;
     private quaternion currentRotation;
     private bool isStuckInHurtbox = false;
-    private bool gravityOn;
+    public bool GravityOn;
 
     void Start()
     {
@@ -64,11 +64,12 @@ public class swordScript : MonoBehaviour
         // stop flying if sword is too far away from player
         if (Vector2.Distance(playerSwordThrowingScript.swordInstance.transform.position, playerTransform.position) > maxDistance && !isStuck)
         {
-            gravityOn = true;
+            GravityOn = true;
         }
 
-        if (gravityOn)
+        if (GravityOn)
         {
+            playerSwordThrowingScript.swordRb.bodyType = RigidbodyType2D.Dynamic;
             playerSwordThrowingScript.swordRb.gravityScale = 0.5f;
             playerSwordThrowingScript.swordRb.freezeRotation = false;
         }
@@ -89,7 +90,7 @@ public class swordScript : MonoBehaviour
 
     public void bounce(Collision2D collision)
     {
-        if (gravityOn) return;
+        if (GravityOn) return;
         if (isStuck) return;
 
         bounceCount++;
@@ -105,8 +106,6 @@ public class swordScript : MonoBehaviour
             {
                 stuckOffset = stuckPosition - (Vector2)enemyStuckInCollider.transform.position;
             }
-
-            // make stuck position based on the enemy's position if it hit one
 
             // make sword drawn behind ground
             spriteRenderer.sortingLayerName = "Behind";
@@ -173,6 +172,21 @@ public class swordScript : MonoBehaviour
         playerSwordThrowingScript.hasSword = true;
 
     }
+
+    public void EnableAllCollision()
+    {
+        playerSwordThrowingScript.swordRb.excludeLayers = 0;
+
+        Collider2D[] allColliders = FindObjectsByType<Collider2D>(FindObjectsSortMode.None);
+        foreach (Collider2D collider in allColliders)
+        {
+            if (collider.gameObject != playerSwordThrowingScript.gameObject)
+            {
+                Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collider, false);
+            }
+        }
+    }
+
 
     private void OnDrawGizmos()
     {

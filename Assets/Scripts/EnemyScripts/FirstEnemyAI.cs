@@ -259,12 +259,12 @@ public class FirstEnemyAI : MonoBehaviour
         }
         else
         {
-            if (rb.linearVelocity.x > 0.283f && isGrounded)
+            if (rb.linearVelocity.x > 0.283f) // Removed isGrounded becuase of problems
             {
                 transform.localScale = new Vector3(absScale, absScale, absScale);
                 faceRight = 1;
             }
-            else if (rb.linearVelocity.x < -0.283f && isGrounded)
+            else if (rb.linearVelocity.x < -0.283f) // Removed isGrounded becuase of problems
             {
                 transform.localScale = new Vector3(-absScale, absScale, absScale);
                 faceRight = -1;
