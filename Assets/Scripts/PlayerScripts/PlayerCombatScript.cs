@@ -32,6 +32,11 @@ public class PlayerAttackScript : MonoBehaviour
 
     void Update()
     {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && animator.GetBool("attackQueued"))
+        {
+            animator.SetBool("attackQueued", false);
+        }
+
         if (dialogueUI.isOpen)
         {
             return;
@@ -45,13 +50,19 @@ public class PlayerAttackScript : MonoBehaviour
         {
             canAttack = true;
         }
+
+        if (isAttacking && attackAction.WasPressedThisFrame())
+        {
+            AttackQueued();
+        }
+
         checkShouldAttack();
     }
 
     void attack()
     {
         isAttacking = true;
-        animator.Play("Attacks.TestAttack");
+        animator.Play("Attacks.basicAttack1");
     }
 
     public void enableHitbox()
@@ -70,7 +81,6 @@ public class PlayerAttackScript : MonoBehaviour
     public void attackCompleted()
     {
         isAttacking = false;
-        animator.Play("Idle");
     }
 
     void checkShouldAttack()
@@ -79,5 +89,15 @@ public class PlayerAttackScript : MonoBehaviour
         {
             attack();
         }
+    }
+
+    public void AttackQueued()
+    {
+        animator.SetBool("attackQueued", true);
+    }
+
+    public void EndAttackQueued()
+    {
+        animator.SetBool("attackQueued", false);
     }
 }

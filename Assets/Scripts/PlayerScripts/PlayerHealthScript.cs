@@ -41,7 +41,7 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
 
     public void takeDamage(float damage, Transform attackerTransform)
     {
-        if (playerDefenceScript.isParrying)
+        if (playerDefenceScript.IsParrying)
         {
             playerDefenceScript.onParrySuccess();
             return;

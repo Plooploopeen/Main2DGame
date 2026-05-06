@@ -21,6 +21,7 @@ public class PlayerScript : MonoBehaviour
     private Animator animator;
     private PlayerAttackScript playerCombatScript;
     private PlayerHealthScript playerHealthScript;
+    private playerDefenceScript playerDefenceScript;
     public SpriteRenderer spriteRenderer;
 
     [Header("Jump Settings")]
@@ -97,6 +98,8 @@ public class PlayerScript : MonoBehaviour
         playerCombatScript = GetComponent<PlayerAttackScript>();
         playerHealthScript = GetComponent<PlayerHealthScript>();
         playerCombatScript = GetComponent<PlayerAttackScript>();
+        playerDefenceScript = GetComponent<playerDefenceScript>();
+
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -443,6 +446,7 @@ public class PlayerScript : MonoBehaviour
         animator.SetBool("isAttacking", playerCombatScript.isAttacking);
         animator.SetBool("isSprinting", isSprinting);
         animator.SetBool("isGrounded", isGrounded);
+        animator.SetBool("isParrying", playerDefenceScript.IsParrying);
     }
     
     public void onIdleCompleted()

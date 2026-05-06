@@ -7,6 +7,7 @@ public class playerDefenceScript : MonoBehaviour
     [SerializeField] DialogueUI dialogueUI;
     [SerializeField] InputActionAsset inputActions;
     private SpriteRenderer spriteRenderer;
+    private Animator animator;
 
     PlayerMagicScript playerMagicScript;
 
@@ -14,7 +15,7 @@ public class playerDefenceScript : MonoBehaviour
 
     private Color original;
     private bool canParry = true;
-    public bool isParrying;
+    public bool IsParrying;
     private float parryTime = 0;
     [SerializeField] float parryTimeLimit;
     [SerializeField] float parryCooldownAmount;
@@ -22,6 +23,7 @@ public class playerDefenceScript : MonoBehaviour
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
 
         parryAction = InputSystem.actions.FindAction("Parry");
 
@@ -39,12 +41,12 @@ public class playerDefenceScript : MonoBehaviour
             return;
         }
 
-        if (parryAction.WasPressedThisFrame() && canParry)
+        if (parryAction.WasPressedThisFrame() && canParry && !IsParrying)
         {
             startParry();
         }
 
-        if (isParrying)
+        if (IsParrying)
         {
             parryTime += Time.deltaTime;
 
@@ -54,25 +56,29 @@ public class playerDefenceScript : MonoBehaviour
 
     void startParry()
     {
-        isParrying = true;
-        StartCoroutine(Flashpink());
+        IsParrying = true;
+        //StartCoroutine(Flashpink());
 
     }
 
     void endParry()
     {
         StartCoroutine(ParryCooldown());
-        isParrying = false;
+        IsParrying = false;
         parryTime = 0;
+
+        animator.SetTrigger("parryEnd");
     }
 
     public void onParrySuccess()
     {
-        isParrying = false;
+        IsParrying = false;
         parryTime = 0;
         float gain = playerMagicScript.percentGain * playerMagicScript.maxMP;
         playerMagicScript.currentMP += gain;
-        StartCoroutine(Flashgold());
+        //StartCoroutine(Flashgold());
+
+        animator.SetTrigger("parrySuccess");
     }
 
     IEnumerator ParryCooldown()
@@ -82,19 +88,19 @@ public class playerDefenceScript : MonoBehaviour
         canParry = true;
     }
 
-    IEnumerator Flashpink()
-    {
-        Debug.Log("Flash pink");
-        spriteRenderer.color = Color.pink;
-        yield return new WaitForSeconds(parryTimeLimit);
-        spriteRenderer.color = original;
-    }
+    //IEnumerator Flashpink()
+    //{
+    //    Debug.Log("Flash pink");
+    //    spriteRenderer.color = Color.pink;
+    //    yield return new WaitForSeconds(parryTimeLimit);
+    //    spriteRenderer.color = original;
+    //}
 
-    IEnumerator Flashgold()
-    {
-        Debug.Log("Flash gold");
-        spriteRenderer.color = Color.gold;
-        yield return new WaitForSeconds(parryTimeLimit);
-        spriteRenderer.color = original;
-    }
+    //IEnumerator Flashgold()
+    //{
+    //    Debug.Log("Flash gold");
+    //    spriteRenderer.color = Color.gold;
+    //    yield return new WaitForSeconds(parryTimeLimit);
+    //    spriteRenderer.color = original;
+    //}
 }
