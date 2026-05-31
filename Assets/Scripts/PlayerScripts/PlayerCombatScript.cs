@@ -15,6 +15,7 @@ public class PlayerAttackScript : MonoBehaviour
 
     public bool isAttacking = false;
     public bool canAttack = true;
+    private bool IsLastAttack;
 
     private void Awake()
     {
@@ -80,12 +81,18 @@ public class PlayerAttackScript : MonoBehaviour
 
     public void attackCompleted()
     {
-        isAttacking = false;
+        Debug.Log("attackQueued: " + animator.GetBool("attackQueued") + " | IsLastAttack: " + IsLastAttack);
+        if (animator.GetBool("attackQueued") == false || IsLastAttack)
+        {
+            isAttacking = false;
+            IsLastAttack = false;
+        }
+        animator.SetBool("attackQueued", false);
     }
 
     void checkShouldAttack()
     {
-        if (attackAction.WasPressedThisFrame() && !LB.IsPressed() && canAttack && !animator.GetCurrentAnimatorStateInfo(0).IsName("Stop Sprinting Slide"))
+        if (attackAction.WasPressedThisFrame() && !LB.IsPressed() && canAttack && !animator.GetCurrentAnimatorStateInfo(0).IsName("Stop Sprinting Slide") && !isAttacking)
         {
             attack();
         }
@@ -99,5 +106,15 @@ public class PlayerAttackScript : MonoBehaviour
     public void EndAttackQueued()
     {
         animator.SetBool("attackQueued", false);
+    }
+
+    public void EnableIsLastAttack()
+    {
+        IsLastAttack = true;
+    }
+
+    public void DisableIsLastAttack()
+    {
+        IsLastAttack = false;
     }
 }
