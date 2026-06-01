@@ -33,9 +33,9 @@ public class PlayerAttackScript : MonoBehaviour
 
     void Update()
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && animator.GetBool("attackQueued"))
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
-            animator.SetBool("attackQueued", false);
+            isAttacking = false;
         }
 
         if (dialogueUI.isOpen)
@@ -54,7 +54,7 @@ public class PlayerAttackScript : MonoBehaviour
 
         if (isAttacking && attackAction.WasPressedThisFrame())
         {
-            AttackQueued();
+            animator.SetTrigger("attackPressed");
         }
 
         checkShouldAttack();
@@ -64,6 +64,7 @@ public class PlayerAttackScript : MonoBehaviour
     {
         isAttacking = true;
         animator.Play("Attacks.basicAttack1");
+        Debug.Log("trigger set");
     }
 
     public void enableHitbox()
@@ -79,42 +80,11 @@ public class PlayerAttackScript : MonoBehaviour
         weaponGameObject.SetActive(false);
     }
 
-    public void attackCompleted()
-    {
-        Debug.Log("attackQueued: " + animator.GetBool("attackQueued") + " | IsLastAttack: " + IsLastAttack);
-        if (animator.GetBool("attackQueued") == false || IsLastAttack)
-        {
-            isAttacking = false;
-            IsLastAttack = false;
-        }
-        animator.SetBool("attackQueued", false);
-    }
-
     void checkShouldAttack()
     {
         if (attackAction.WasPressedThisFrame() && !LB.IsPressed() && canAttack && !animator.GetCurrentAnimatorStateInfo(0).IsName("Stop Sprinting Slide") && !isAttacking)
         {
             attack();
         }
-    }
-
-    public void AttackQueued()
-    {
-        animator.SetBool("attackQueued", true);
-    }
-
-    public void EndAttackQueued()
-    {
-        animator.SetBool("attackQueued", false);
-    }
-
-    public void EnableIsLastAttack()
-    {
-        IsLastAttack = true;
-    }
-
-    public void DisableIsLastAttack()
-    {
-        IsLastAttack = false;
     }
 }
