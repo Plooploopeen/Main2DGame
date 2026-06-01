@@ -71,10 +71,6 @@ public class PlayerAttackScript : MonoBehaviour
 
     public void enableHitbox()
     {
-        weaponGameObject.SetActive(true);
-
-        swordHitBoxScript.SetHitStop(0.06f);
-
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attacks.basicAttack3"))
         {
             swordHitBoxScript.SetDamage(baseDamage * 3);
@@ -82,12 +78,23 @@ public class PlayerAttackScript : MonoBehaviour
         else
         {
             swordHitBoxScript.SetDamage(baseDamage);
+
         }
+
+        weaponGameObject.SetActive(true);
+
+        swordHitBoxScript.SetHitStop(0.06f);
     }
 
     public void disableHitbox()
     {
         weaponGameObject.SetActive(false);
+        swordHitBoxScript.SetDamage(baseDamage);
+    }
+
+    public void ClearAttackTrigger()
+    {
+        animator.ResetTrigger("attackPressed");
     }
 
     void checkShouldAttack()
