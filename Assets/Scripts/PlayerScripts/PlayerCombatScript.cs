@@ -6,8 +6,8 @@ public class PlayerAttackScript : MonoBehaviour
     [SerializeField] InputActionAsset inputActions;
     [SerializeField] GameObject weaponGameObject;
     [SerializeField] DialogueUI dialogueUI;
+    [SerializeField] HitBox swordHitBoxScript;
     private PlayerSwordThrowingScript playerSwordThrowingScript;
-
     private Animator animator;
 
     private InputAction attackAction;
@@ -15,6 +15,7 @@ public class PlayerAttackScript : MonoBehaviour
 
     public bool isAttacking = false;
     public bool canAttack = true;
+    [SerializeField] float baseDamage;
     private bool IsLastAttack;
 
     private void Awake()
@@ -24,6 +25,8 @@ public class PlayerAttackScript : MonoBehaviour
 
         animator = GetComponent<Animator>();
         playerSwordThrowingScript = GetComponent<PlayerSwordThrowingScript>();
+
+
     }
 
     void Start()
@@ -64,15 +67,22 @@ public class PlayerAttackScript : MonoBehaviour
     {
         isAttacking = true;
         animator.Play("Attacks.basicAttack1");
-        Debug.Log("trigger set");
     }
 
     public void enableHitbox()
     {
         weaponGameObject.SetActive(true);
 
-        HitBox hitBox = weaponGameObject.GetComponent<HitBox>();
-        hitBox.SetHitStop(0.06f);
+        swordHitBoxScript.SetHitStop(0.06f);
+
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attacks.basicAttack3"))
+        {
+            swordHitBoxScript.SetDamage(baseDamage * 3);
+        }
+        else
+        {
+            swordHitBoxScript.SetDamage(baseDamage);
+        }
     }
 
     public void disableHitbox()

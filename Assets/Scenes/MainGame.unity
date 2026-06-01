@@ -6782,7 +6782,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.4, y: 1.9666667}
+    oldSize: {x: 1, y: 1.9047619}
     newSize: {x: 0.44, y: 0.81}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -6823,8 +6823,10 @@ MonoBehaviour:
   inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   weaponGameObject: {fileID: 1948448134}
   dialogueUI: {fileID: 713220473}
+  swordHitBoxScript: {fileID: 1948448136}
   isAttacking: 0
   canAttack: 1
+  baseDamage: 10
 --- !u!114 &616317166
 MonoBehaviour:
   m_ObjectHideFlags: 0

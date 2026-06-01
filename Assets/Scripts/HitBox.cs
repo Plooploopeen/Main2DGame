@@ -9,7 +9,7 @@ public class HitBox : MonoBehaviour
 
     [SerializeField] BoxCollider2D hitBoxCollider;
 
-    [SerializeField] float damage;
+    public float damage;
 
     public List<Collider2D> hitEnemies = new List<Collider2D>();
 
@@ -83,6 +83,11 @@ public class HitBox : MonoBehaviour
     public void SetHitStop(float duration)
     {
         hitStopLength = duration;
+    }
+
+    public void SetDamage(float newDamage)
+    {
+        damage = newDamage;
     }
 
     //private void OnDrawGizmos()
