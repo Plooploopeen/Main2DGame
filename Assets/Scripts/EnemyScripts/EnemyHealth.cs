@@ -34,11 +34,6 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         playerTransform = playerObject.transform;
     }
 
-    private void Update()
-    {
-        Debug.Log(health);
-    }
-
     public void takeDamage(float damage, Transform attackerTransform)
     {
         health -= damage;

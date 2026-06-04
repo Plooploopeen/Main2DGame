@@ -43,7 +43,7 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
     {
         if (playerDefenceScript.IsParrying)
         {
-            playerDefenceScript.onParrySuccess();
+            playerDefenceScript.onParrySuccess(attackerTransform);
             return;
         }
 

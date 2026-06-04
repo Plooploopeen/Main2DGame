@@ -228,20 +228,20 @@ public class PlayerScript : MonoBehaviour
             velocity.x = -moveSpeed;
         }
 
-        if (isMovingRight && !playerCombatScript.isAttacking)
+        if (isMovingRight && !playerCombatScript.isAttacking && !playerDefenceScript.IsParrying && !playerDefenceScript.justFinishedParry)
         {
             transform.localScale = new Vector3(absScale, absScale, absScale);
         }
 
-        if (isMovingLeft && !playerCombatScript.isAttacking)
+        if (isMovingLeft && !playerCombatScript.isAttacking && !playerDefenceScript.IsParrying && !playerDefenceScript.justFinishedParry)
         {
             transform.localScale = new Vector3(-absScale, absScale, absScale);
         }
 
         if (!isMovingLeft && !isMovingRight && !playerHealthScript.isKnockedBack && !isOnEnemy)
-            {
+        {
                 velocity.x = 0;
-            }
+        }
         
         // Make jumps fast and falling slow
         if (rb.linearVelocity.y < 0f)
@@ -408,6 +408,20 @@ public class PlayerScript : MonoBehaviour
         {
             moveSpeed = walkSpeed;
             isSprinting = false;
+        }
+    }
+
+    public void FaceTowards(Transform TargetTransform)
+    {
+        float absScale = Mathf.Abs(transform.localScale.x);
+
+        if (TargetTransform.position.x > transform.position.x)
+        {
+            transform.localScale = new Vector3(absScale, absScale, absScale);
+        }
+        else
+        {
+            transform.localScale = new Vector3(-absScale, absScale, absScale);
         }
     }
 

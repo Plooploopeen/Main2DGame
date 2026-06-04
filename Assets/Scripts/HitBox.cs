@@ -3,9 +3,11 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class HitBox : MonoBehaviour
 {
+    playerDefenceScript playerDefenceScript;
 
     [SerializeField] BoxCollider2D hitBoxCollider;
 
@@ -23,6 +25,7 @@ public class HitBox : MonoBehaviour
     private void Awake()
     {
         selfRoot = transform.root;
+        playerDefenceScript = GameObject.FindGameObjectWithTag("Player").GetComponent<playerDefenceScript>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -75,9 +78,17 @@ public class HitBox : MonoBehaviour
 
     IEnumerator HitStop()
     {
-        Time.timeScale = 0f;
-        yield return new WaitForSecondsRealtime(hitStopLength);
-        Time.timeScale = 1f;
+        if (playerDefenceScript.IsParrying)
+        {
+            yield return null;
+        }
+        else
+        {
+            Time.timeScale = 0f;
+            yield return new WaitForSecondsRealtime(hitStopLength);
+            Time.timeScale = 1f;
+        }
+
     }
 
     public void SetHitStop(float duration)
