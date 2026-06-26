@@ -87,18 +87,16 @@ public class playerDefenceScript : MonoBehaviour
 
         if (justParried)
         {
-            StartCoroutine(ParrySlowDownTime(0.01f, 2f));
-
-            Debug.Log("perfect parry");
+            StartCoroutine(ParrySlowDownTime(0.3f, 0.5f));
 
             float gain = playerMagicScript.percentGain * playerMagicScript.maxMP;
             playerMagicScript.currentMP += gain;
-            //StartCoroutine(Flashgold());
+
+            StartCoroutine(Flashgold());
         }
         else
         {
             StartCoroutine(ParrySlowDownTime(0.4f, 0.25f));
-            Debug.Log("normal parry");
         }
 
         animator.SetTrigger("parrySuccess");
@@ -140,11 +138,11 @@ public class playerDefenceScript : MonoBehaviour
     //    spriteRenderer.color = original;
     //}
 
-    //IEnumerator Flashgold()
-    //{
-    //    Debug.Log("Flash gold");
-    //    spriteRenderer.color = Color.gold;
-    //    yield return new WaitForSeconds(parryTimeLimit);
-    //    spriteRenderer.color = original;
-    //}
+    IEnumerator Flashgold()
+    {
+        Debug.Log("Flash gold");
+        spriteRenderer.color = Color.gold;
+        yield return new WaitForSecondsRealtime(0.6f);
+        spriteRenderer.color = original;
+    }
 }

@@ -49,7 +49,7 @@ public class PlayerSwordThrowingScript : MonoBehaviour
     }
     void Start()
     {
-
+        throwTime = 2f;
     }
 
     void Update()

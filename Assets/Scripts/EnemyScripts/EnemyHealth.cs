@@ -52,24 +52,27 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     {
         if (GameObject.FindGameObjectWithTag("Sword") == null)
         {
-            Destroy(gameObject);
+            Debug.Log("sword null");
         }
         else
         {
+            Debug.Log("sword stuck");
             GameObject swordObject = GameObject.FindGameObjectWithTag("Sword");
             swordScript swordScript = swordObject.GetComponent<swordScript>();
 
             GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
             PlayerSwordThrowingScript playerSwordThrowingScript = playerObject.GetComponent<PlayerSwordThrowingScript>();
 
-            if (swordScript.enemyStuckInCollider != null && swordScript.playerSwordThrowingScript.swordInstance.transform.parent == gameObject.transform)
+            if (swordScript.enemyStuckInCollider != null && swordScript.enemyStuckInCollider == GetComponent<Collider2D>())
             {
-                playerSwordThrowingScript.swordInstance.transform.SetParent(null);
-                Destroy(gameObject);
+                Debug.Log("sword varified as stuck");
+                swordObject.transform.SetParent(null);
+                swordScript.enemyStuckInCollider = null;
                 swordScript.GravityOn = true;
                 swordScript.EnableAllCollision();
             }
         }
+        Destroy(gameObject);
     }
 
     IEnumerator FlashRed()
