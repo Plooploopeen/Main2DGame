@@ -39,7 +39,7 @@ public class InventoryScript : MonoBehaviour
     [SerializeField] int slotCount;
 
     private InputAction menuAction;
-    private InputAction DPadAction;
+    private InputAction navigateAction;
     private InputAction acceptAction;
     private InputAction backAction;
 
@@ -56,7 +56,7 @@ public class InventoryScript : MonoBehaviour
     private void Awake()
     {
         menuAction = InputSystem.actions.FindAction("Menu");
-        DPadAction = InputSystem.actions.FindAction("Navigate");
+        navigateAction = InputSystem.actions.FindAction("Navigate");
         acceptAction = InputSystem.actions.FindAction("Accept");
         backAction = InputSystem.actions.FindAction("Back");
 
@@ -90,7 +90,7 @@ public class InventoryScript : MonoBehaviour
             isInHotbar = false;
         }
         
-        if (inventory.activeSelf && DPadAction.WasPressedThisFrame() && isInInventory)
+        if (inventory.activeSelf && navigateAction.WasPressedThisFrame() && isInInventory)
         {
             moveInventorySlot();
         }
@@ -100,7 +100,7 @@ public class InventoryScript : MonoBehaviour
             toggleMenu();
         }
 
-        if (DPadAction.WasPressedThisFrame() && isInHotbar)
+        if (navigateAction.WasPressedThisFrame() && isInHotbar)
         {
             moveHotbarSlot();
         }
@@ -174,7 +174,7 @@ public class InventoryScript : MonoBehaviour
 
     void moveInventorySlot()
     {
-        Vector2 DPadDirection = DPadAction.ReadValue<Vector2>();
+        Vector2 DPadDirection = navigateAction.ReadValue<Vector2>();
 
             if (DPadDirection.x > 0)
             {
@@ -204,7 +204,7 @@ public class InventoryScript : MonoBehaviour
 
     void moveHotbarSlot()
     {
-        Vector2 DPadDirection = DPadAction.ReadValue<Vector2>();
+        Vector2 DPadDirection = navigateAction.ReadValue<Vector2>();
         
         if (DPadDirection.x > 0)
         {

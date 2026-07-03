@@ -7,7 +7,9 @@ using UnityEngine.UI;
 
 public class DialogueUI : MonoBehaviour
 {
-    private InputAction rightAction;
+    [SerializeField] InputActionAsset inputActions;
+
+    private InputAction acceptAction;
 
     [SerializeField] GameObject dialogueBox;
     [SerializeField] private TMP_Text text;
@@ -30,13 +32,17 @@ public class DialogueUI : MonoBehaviour
 
     private void Awake()
     {
-        rightAction = InputSystem.actions.FindAction("Focus");
+        acceptAction = InputSystem.actions.FindAction("Accept");
     }
 
     public void ShowDialogue(DialogueObject dialogueObject)
     {
         isOpen = true;
         dialogueBox.SetActive(true);
+
+        inputActions.FindActionMap("Gameplay").Disable();
+        inputActions.FindActionMap("UI").Enable();
+
         StartCoroutine(StepThroughDialogue(dialogueObject));
     }
 
@@ -64,7 +70,7 @@ public class DialogueUI : MonoBehaviour
             if (i == dialogueObject.Dialogue.Length - 1 && dialogueObject.HasResponses) break;
 
             yield return null;
-            yield return new WaitUntil(() => rightAction.WasPressedThisFrame());
+            yield return new WaitUntil(() => acceptAction.WasPressedThisFrame());
 
             if (currentDialogueLineEvents != null && i < currentDialogueLineEvents.Length)
             {
@@ -91,7 +97,7 @@ public class DialogueUI : MonoBehaviour
         {
             yield return null;
 
-            if (rightAction.WasPressedThisFrame())
+            if (acceptAction.WasPressedThisFrame())
             {
                 typewriterEffect.Stop();
             }
@@ -103,5 +109,7 @@ public class DialogueUI : MonoBehaviour
         isOpen = false;
         dialogueBox.SetActive(false);
         text.text = string.Empty;
+        inputActions.FindActionMap("Gameplay").Enable();
+        inputActions.FindActionMap("UI").Disable();
     }
 }

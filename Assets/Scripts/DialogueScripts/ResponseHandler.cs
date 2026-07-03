@@ -8,7 +8,7 @@ using Unity.VisualScripting;
 
 public class ResponseHandler : MonoBehaviour
 {
-    private InputAction DPadAction;
+    private InputAction navigateAction;
     private InputAction acceptAction;
 
     [SerializeField] RectTransform responseBox;
@@ -28,8 +28,8 @@ public class ResponseHandler : MonoBehaviour
 
     private void Awake()
     {
-        DPadAction = InputSystem.actions.FindAction("DPad");
-        acceptAction = InputSystem.actions.FindAction("Focus");
+        navigateAction = InputSystem.actions.FindAction("Navigate");
+        acceptAction = InputSystem.actions.FindAction("Accept");
     }
 
     private void Start()
@@ -165,14 +165,14 @@ public class ResponseHandler : MonoBehaviour
     {
         if (selector != null)
         {
-            Vector2 DPadDirection = DPadAction.ReadValue<Vector2>();
+            Vector2 DPadDirection = navigateAction.ReadValue<Vector2>();
 
             if (acceptAction.WasPressedThisFrame())
             {
                 confirmSelection();
             }
 
-            if (DPadAction.WasPressedThisFrame())
+            if (navigateAction.WasPressedThisFrame())
             {
                 if (DPadDirection.y < 0)
                 {
