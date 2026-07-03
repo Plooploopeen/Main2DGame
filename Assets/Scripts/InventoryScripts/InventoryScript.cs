@@ -136,13 +136,6 @@ public class InventoryScript : MonoBehaviour
 
     }
 
-
-
-    private void OnEnable()
-    {
-        StartCoroutine(ResetSelectorNextFrame());
-    }
-
     private void OnDisable()
     {
         
@@ -151,8 +144,8 @@ public class InventoryScript : MonoBehaviour
     IEnumerator ResetSelectorNextFrame()
     {
         yield return null;
-        slotSelector.transform.position = spellSlots[0].transform.position;
         selectorIndex = 0;
+        slotSelector.transform.position = spellSlots[0].transform.position;
     }
 
     void changeSpellSlot(int currentSlot, int slotChangeAmount)
@@ -234,6 +227,8 @@ public class InventoryScript : MonoBehaviour
 
             inputActions.FindActionMap("Gameplay").Disable();
             inputActions.FindActionMap("UI").Enable();
+
+            StartCoroutine(ResetSelectorNextFrame());
         }
         else if (!inventory.activeSelf) 
         {
