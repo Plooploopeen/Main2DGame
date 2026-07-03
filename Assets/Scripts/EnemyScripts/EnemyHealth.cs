@@ -52,7 +52,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     {
         if (GameObject.FindGameObjectWithTag("Sword") == null)
         {
-            Debug.Log("sword null");
+            
         }
         else
         {

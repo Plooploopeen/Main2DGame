@@ -56,9 +56,9 @@ public class InventoryScript : MonoBehaviour
     private void Awake()
     {
         menuAction = InputSystem.actions.FindAction("Menu");
-        DPadAction = InputSystem.actions.FindAction("DPad");
-        acceptAction = InputSystem.actions.FindAction("Focus");
-        backAction = InputSystem.actions.FindAction("Jump");
+        DPadAction = InputSystem.actions.FindAction("Navigate");
+        acceptAction = InputSystem.actions.FindAction("Accept");
+        backAction = InputSystem.actions.FindAction("Back");
 
         inventorySlots = inventoryParent.GetComponentsInChildren<SpellSlotScript>();
         hotbarSlots = hotbarParent.GetComponentsInChildren<SpellSlotScript>();
@@ -228,8 +228,20 @@ public class InventoryScript : MonoBehaviour
     {
         inventory.SetActive(!inventory.activeSelf);
 
-        if (inventory.activeSelf) { Time.timeScale = 0f; }
-        else if (!inventory.activeSelf) { Time.timeScale = 1f; }
+        if (inventory.activeSelf) 
+        { 
+            Time.timeScale = 0f;
+
+            inputActions.FindActionMap("Gameplay").Disable();
+            inputActions.FindActionMap("UI").Enable();
+        }
+        else if (!inventory.activeSelf) 
+        {
+            Time.timeScale = 1f;
+
+            inputActions.FindActionMap("Gameplay").Enable();
+            inputActions.FindActionMap("UI").Disable();
+        }
     }
 
     void moveToHotbar()
