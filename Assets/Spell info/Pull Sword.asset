@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7038ac390ce351e44b5ed8ca8d8cb1e9, type: 3}
-  m_Name: Sword Sharpener
+  m_Name: Pull Sword
   m_EditorClassIdentifier: Assembly-CSharp::Item
   name: Sword Sharpener
   icon: {fileID: 712035800519618848, guid: f50c4376281d89446a93674b6c38422f, type: 3}
