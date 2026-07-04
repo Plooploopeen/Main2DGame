@@ -7740,6 +7740,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7137f39b9902e3340b468f8394e4acf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueUI
+  inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   dialogueBox: {fileID: 2056991643}
   text: {fileID: 1387614226}
   speakerName: {fileID: 956311700}
@@ -12242,7 +12243,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 351, y: 133, z: -26916.934}
-  m_LocalScale: {x: 209.4, y: 209.4, z: 209.4}
+  m_LocalScale: {x: 251.28, y: 251.28, z: 251.28}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 530874021}
@@ -13537,7 +13538,7 @@ Transform:
   m_GameObject: {fileID: 1074942515}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.54, y: 1.2020001, z: 4.6718583}
+  m_LocalPosition: {x: 1.065, y: 1.38, z: 4.6718583}
   m_LocalScale: {x: 1.6516176, y: 1.651618, z: 1.3763477}
   m_ConstrainProportionsScale: 0
   m_Children: []

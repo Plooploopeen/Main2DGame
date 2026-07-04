@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72b8a3d4c62e89a49b43c1149520c1af, type: 3}
   m_Name: IceBlast
   m_EditorClassIdentifier: Assembly-CSharp::SpellDataScript
-  spellName: IceBlast
-  spellSprite: {fileID: -389556799766694118, guid: d9d77c3e3a1814d4fb8bebc827ade6ef, type: 3}
+  spellName: Pull Sword
+  spellIcon: {fileID: 0}
   spellDamage: 15
-  spellMpCost: 8
+  spellMpCost: 4
   spellPrefab: {fileID: 0}

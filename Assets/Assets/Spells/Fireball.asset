@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fireball
   m_EditorClassIdentifier: Assembly-CSharp::SpellDataScript
   spellName: Fireball
-  spellSprite: {fileID: -2316861450084954638, guid: 3b34b9aedebdf7f48ba7d2c407900e81, type: 3}
+  spellIcon: {fileID: 0}
   spellDamage: 50
   spellMpCost: 6
-  spellPrefab: {fileID: 0}
+  spellPrefab: {fileID: 5946078661519353354, guid: 733e2c073ab1991498f3c1395a972d81, type: 3}
