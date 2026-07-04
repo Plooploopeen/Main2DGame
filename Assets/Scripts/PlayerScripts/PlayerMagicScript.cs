@@ -11,7 +11,7 @@ public class PlayerMagicScript : MonoBehaviour
 {
     PlayerScript playerScript;
     [SerializeField] HotbarScript hotbarScript;
-    Item selectedSpell;
+    Spell selectedSpell;
     [SerializeField] Text textReduction;
     private SpriteRenderer spriteRenderer;
 
@@ -106,7 +106,7 @@ public class PlayerMagicScript : MonoBehaviour
             else {return;}
 
 
-            GameObject spellInstance = Instantiate(selectedSpell.itemPrefab, transform.position, Quaternion.identity);
+            GameObject spellInstance = Instantiate(selectedSpell.spellPrefab, transform.position, Quaternion.identity);
 
             SpellBase spellScript = spellInstance.GetComponent<SpellBase>();
 

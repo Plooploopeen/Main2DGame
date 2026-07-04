@@ -20,13 +20,13 @@ public class InventoryScript : MonoBehaviour
     public Transform inventoryParent;
     public Transform hotbarParent;
 
-    public List<Item> items = new List<Item>();
+    public List<Spell> items = new List<Spell>();
 
     [SerializeField] InputActionAsset inputActions;
 
     private List<SpellSlotScript> createdSlotScripts = new List<SpellSlotScript>();
-    private Item selectedItem;
-    private Item replacedItem;
+    private Spell selectedItem;
+    private Spell replacedItem;
 
     SpellSlotScript[] inventorySlots;
     public SpellSlotScript[] hotbarSlots;
@@ -296,7 +296,7 @@ public class InventoryScript : MonoBehaviour
                 // cycle through inventory slots after moved one in inventory and move them back one
                 for (int i = selectedInventorySlotIndex + 1; i < slotCount; i++)
                 {
-                    Item movedItem = inventorySlots[i].getItem();
+                    Spell movedItem = inventorySlots[i].getItem();
                     if (movedItem != null)
                     {
                         inventorySlots[i - 1].addItem(movedItem);
@@ -327,14 +327,14 @@ public class InventoryScript : MonoBehaviour
 
     //---------item manager------------//
 
-    public bool Add(Item item)
+    public bool Add(Spell spell)
     {
         if (items.Count >= slotCount)
         {
             return false;
         }
 
-        items.Add(item);
+        items.Add(spell);
 
         if (onItemChangedCallback  != null)
         {
@@ -344,9 +344,9 @@ public class InventoryScript : MonoBehaviour
         return true;
     }
 
-    public void remove(Item item)
+    public void remove(Spell spell)
     {
-        items.Remove(item);
+        items.Remove(spell);
 
         if (onItemChangedCallback != null)
         {
@@ -361,10 +361,10 @@ public class InventoryScript : MonoBehaviour
         {
             if (hotbarSlots[selectorIndex].getItem() != null)
             {
-                Item movedItem = hotbarSlots[selectorIndex].getItem();
+                Spell movedSpell = hotbarSlots[selectorIndex].getItem();
 
-                inventorySlots[selectedInventorySlotIndex].addItem(movedItem);
-                items.Add(movedItem);
+                inventorySlots[selectedInventorySlotIndex].addItem(movedSpell);
+                items.Add(movedSpell);
 
                 hotbarSlots[selectorIndex].clearSlot();
                 

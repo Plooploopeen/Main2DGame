@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ItemPickup : PickUpable
 {
-    public Item item;
+    public Spell item;
 
     public override void interactWithItem()
     {

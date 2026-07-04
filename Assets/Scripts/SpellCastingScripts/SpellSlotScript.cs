@@ -5,13 +5,13 @@ public class SpellSlotScript : MonoBehaviour
 {
     public Image icon;
 
-    Item item;
+    Spell spell;
 
-    public void addItem(Item newItem)
+    public void addItem(Spell newItem)
     {
-        item = newItem;
+        spell = newItem;
         icon.enabled = true;
-        icon.sprite = item.icon;
+        icon.sprite = spell.icon;
 
         if (icon.sprite == null)
         {
@@ -21,22 +21,22 @@ public class SpellSlotScript : MonoBehaviour
 
     public void clearSlot()
     {
-        item = null;
+        spell = null;
         icon.sprite = null;
         icon.enabled = false;
     }
 
     public void useItem()
     {
-        if (item != null)
+        if (spell != null)
         {
-            item.use();
+            spell.use();
         }
     }
 
-    public Item getItem()
+    public Spell getItem()
     {
-        return item;
+        return spell;
     }
 }
 
