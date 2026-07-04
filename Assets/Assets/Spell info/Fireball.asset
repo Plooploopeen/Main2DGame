@@ -16,4 +16,4 @@ MonoBehaviour:
   icon: {fileID: -1467145966076287226, guid: 31c4abdb807d6fe428ed22c76eb5d29c, type: 3}
   cost: 10
   decreaseCostAmount: 2
-  itemPrefab: {fileID: 5946078661519353354, guid: 733e2c073ab1991498f3c1395a972d81, type: 3}
+  spellPrefab: {fileID: 5946078661519353354, guid: 733e2c073ab1991498f3c1395a972d81, type: 3}

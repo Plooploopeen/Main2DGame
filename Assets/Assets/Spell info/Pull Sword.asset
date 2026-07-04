@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7038ac390ce351e44b5ed8ca8d8cb1e9, type: 3}
   m_Name: Pull Sword
   m_EditorClassIdentifier: Assembly-CSharp::Item
-  name: Sword Sharpener
+  name: Pull Sword
   icon: {fileID: 712035800519618848, guid: f50c4376281d89446a93674b6c38422f, type: 3}
-  cost: 7
+  cost: 4
   decreaseCostAmount: 1
+  spellPrefab: {fileID: 8494340410367356020, guid: f1c13bf281396f840a839c1e66c44059, type: 3}
