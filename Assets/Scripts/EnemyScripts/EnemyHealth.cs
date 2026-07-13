@@ -7,6 +7,8 @@ using TMPro;
 
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
+    FirstEnemyAI firstEnemyAIScript;
+
     private float health;
     private bool isFlashing = false;
     public bool isKnockedBack;
@@ -22,6 +24,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     
     private void Awake()
     {
+        firstEnemyAIScript = GetComponent<FirstEnemyAI>();
+
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
     }
@@ -41,6 +45,10 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         if (!isFlashing) StartCoroutine(FlashRed());
 
         StartCoroutine(ApplyKnockback(transform.position - attackerTransform.position));
+
+        // this makes the enemy notice me if I damage it. I might have to change this later if I add an outside source of damage, like fall damage or
+        // enemy friendly fire
+        firstEnemyAIScript.hasSeenPlayer = true;
 
         if (health <= 0)
         {

@@ -27,7 +27,7 @@ public class FirstEnemyAI : MonoBehaviour
     [SerializeField] float moveDistance;
     [SerializeField] float frontRayLength;
     [SerializeField] LayerMask frontRayLayers;
-    private bool hasSeenPlayer;
+    public bool hasSeenPlayer;
     private bool isFacingRight;
     private float patrolTime;
     private float faceRight;
@@ -228,7 +228,7 @@ public class FirstEnemyAI : MonoBehaviour
         int layermask = ~LayerMask.GetMask("Hurtbox");
         RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToPlayer, detectionRange, layermask);
 
-        if (hit.collider != null && hit.collider.CompareTag("Player"))
+        if ((hit.collider != null && hit.collider.CompareTag("Player")))
         {
             hasSeenPlayer = true;
         }

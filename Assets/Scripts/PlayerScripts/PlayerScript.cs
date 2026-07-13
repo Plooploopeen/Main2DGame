@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.Properties;
 using Unity.VisualScripting;
@@ -60,6 +61,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] float walkSpeed;
     [SerializeField] float sprintSpeed;
     [SerializeField] float decelRate;
+    [SerializeField] bool focusedMoveSpeed;
     private bool isSliding;
     private bool isMoving;
     private bool isFalling;
