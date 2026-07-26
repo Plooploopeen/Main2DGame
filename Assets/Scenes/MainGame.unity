@@ -6687,6 +6687,7 @@ MonoBehaviour:
   walkSpeed: 4.245
   sprintSpeed: 8.49
   decelRate: 5
+  focusedSpeed: 2
   moveDirection: {x: 0, y: 0}
   horizontal: 0
   isOnEnemy: 0

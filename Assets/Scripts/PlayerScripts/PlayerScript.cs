@@ -61,7 +61,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] float walkSpeed;
     [SerializeField] float sprintSpeed;
     [SerializeField] float decelRate;
-    [SerializeField] bool focusedMoveSpeed;
+    [SerializeField] float focusedSpeed;
     private bool isSliding;
     private bool isMoving;
     private bool isFalling;
@@ -146,8 +146,7 @@ public class PlayerScript : MonoBehaviour
 
         // Movement
         if (!LB.IsPressed())
-        {
-            sprint();        
+        {      
             jump();
         }
         capVelocity();
@@ -218,16 +217,57 @@ public class PlayerScript : MonoBehaviour
         //}
 
         // Apply movement and face direction
+
         float absScale = Mathf.Abs(transform.localScale.x);
 
         if (isMovingRight)
         {
+            {
+                if (sprintAction.IsPressed() && !playerCombatScript.isAttacking)
+                {
+                    moveSpeed = sprintSpeed;
+                    isSprinting = true;
+                    Debug.Log("Sprinting right");
+                }
+                else if (!sprintAction.IsPressed() && !playerCombatScript.isAttacking)
+                {
+                    moveSpeed = walkSpeed;
+                    isSprinting = false;
+                    Debug.Log("walking right");
+                }
+                else if (playerCombatScript.isAttacking)
+                {
+                    moveSpeed = focusedSpeed;
+                    isSprinting = false;
+                    Debug.Log("focused moving right");
+                }
+            }
+
             velocity.x = moveSpeed;
         }
 
         if (isMovingLeft)
         {
-            velocity.x = -moveSpeed;
+            if (sprintAction.IsPressed() && !playerCombatScript.isAttacking)
+            {
+                moveSpeed = -sprintSpeed;
+                isSprinting = true;
+                Debug.Log("Sprinting left");
+            }
+            else if (!sprintAction.IsPressed() && !playerCombatScript.isAttacking)
+            {
+                moveSpeed = -walkSpeed;
+                isSprinting = false;
+                Debug.Log("walking left");
+            }
+            else if (playerCombatScript.isAttacking)
+            {
+                moveSpeed = -focusedSpeed;
+                isSprinting = false;
+                Debug.Log("focused moving left");
+            }
+
+            velocity.x = moveSpeed;
         }
 
         if (isMovingRight && !playerCombatScript.isAttacking && !playerDefenceScript.IsParrying && !playerDefenceScript.justFinishedParry)
@@ -393,26 +433,26 @@ public class PlayerScript : MonoBehaviour
 
     }
 
-    void sprint()
-    {
-        //if (sprintAction.WasPressedThisFrame())
-        //{
-        //    animator.Play("WalkToSprint");
-        //    StartCoroutine(DelayToIdle());
-        //}
+    //void sprint()
+    //{
+    //    //if (sprintAction.WasPressedThisFrame())
+    //    //{
+    //    //    animator.Play("WalkToSprint");
+    //    //    StartCoroutine(DelayToIdle());
+    //    //}
 
-        if (sprintAction.IsPressed() && !playerCombatScript.isAttacking)
-        {
-            moveSpeed = sprintSpeed;
-            isSprinting = true;
-        }
-        else if (!sprintAction.IsPressed())
-        {
-            // this line will mess things up
-            moveSpeed = walkSpeed;
-            isSprinting = false;
-        }
-    }
+    //    if (sprintAction.IsPressed() && !playerCombatScript.isAttacking)
+    //    {
+    //        moveSpeed = sprintSpeed;
+    //        isSprinting = true;
+    //    }
+    //    else if (!sprintAction.IsPressed())
+    //    {
+    //        // this line will mess things up
+    //        moveSpeed = walkSpeed;
+    //        isSprinting = false;
+    //    }
+    //}
 
     public void FaceTowards(Transform TargetTransform)
     {
