@@ -401,13 +401,14 @@ public class PlayerScript : MonoBehaviour
         //    StartCoroutine(DelayToIdle());
         //}
 
-        if (sprintAction.IsPressed())
+        if (sprintAction.IsPressed() && !playerCombatScript.isAttacking)
         {
             moveSpeed = sprintSpeed;
             isSprinting = true;
         }
         else if (!sprintAction.IsPressed())
         {
+            // this line will mess things up
             moveSpeed = walkSpeed;
             isSprinting = false;
         }

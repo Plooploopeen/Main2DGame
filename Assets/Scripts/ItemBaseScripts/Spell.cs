@@ -8,6 +8,7 @@ public class Spell : ScriptableObject
     public int cost;
     public int decreaseCostAmount;
     public GameObject spellPrefab;
+    public int minimumCost;
 
     public virtual void use()
     {

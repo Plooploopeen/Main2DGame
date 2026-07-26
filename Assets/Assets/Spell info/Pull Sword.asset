@@ -17,3 +17,4 @@ MonoBehaviour:
   cost: 4
   decreaseCostAmount: 1
   spellPrefab: {fileID: 8494340410367356020, guid: f1c13bf281396f840a839c1e66c44059, type: 3}
+  minimumCost: 2

@@ -88,7 +88,7 @@ public class PlayerMagicScript : MonoBehaviour
             if (focusTime >= interval && selectedSpell != null)
             {
                 focusTime -= interval;
-                if (cost <= 0) { return;}
+                if (cost <= 0 || cost <= selectedSpell.minimumCost) { return;}
                 cost -= selectedSpell.decreaseCostAmount;
                 textReduction.text = "-" + cost;
                 
@@ -119,7 +119,7 @@ public class PlayerMagicScript : MonoBehaviour
 
     void checkShouldFocus()
     {
-        if (isGrounded && playerScript.moveDirection.x == 0 && !inventory.activeSelf && LB.IsPressed() && (rightAction.WasPressedThisFrame() || bottomAction.WasPressedThisFrame() || leftAction.WasPressedThisFrame() || topAction.WasPressedThisFrame()))
+        if (isGrounded && !inventory.activeSelf && LB.IsPressed() && (rightAction.WasPressedThisFrame() || bottomAction.WasPressedThisFrame() || leftAction.WasPressedThisFrame() || topAction.WasPressedThisFrame()))
         {
             StartCoroutine(StartFocusWithDelay());
         }
@@ -127,7 +127,7 @@ public class PlayerMagicScript : MonoBehaviour
         {
             castSpell();
         }
-        else if (!isGrounded || playerScript.moveDirection.x != 0 || inventory.activeSelf || (!rightAction.IsPressed() && !bottomAction.IsPressed() && !leftAction.IsPressed() && !topAction.IsPressed()))
+        else if (!isGrounded || inventory.activeSelf || (!rightAction.IsPressed() && !bottomAction.IsPressed() && !leftAction.IsPressed() && !topAction.IsPressed()))
         {
             isFocusing = false;
             textReduction.text = "";
