@@ -190,6 +190,8 @@ public class PlayerScript : MonoBehaviour
 
     void movePlayer()
     {
+        float absScale = Mathf.Abs(transform.localScale.x);
+
         // Check player movement input
         if (moveDirection.x > 0.4 && !playerHealthScript.isKnockedBack)
         {
@@ -209,38 +211,25 @@ public class PlayerScript : MonoBehaviour
             isMovingLeft = false;
         }
 
-        // apply turning around animation
-        //if (moveAction.WasPressedThisFrame())
-        //{
-        //    animator.Play("TurnAround");
-        //    StartCoroutine(DelayToIdle());
-        //}
-
-        // Apply movement and face direction
-
-        float absScale = Mathf.Abs(transform.localScale.x);
-
         if (isMovingRight)
         {
+            if (sprintAction.IsPressed() && (!playerCombatScript.isAttacking || (playerCombatScript.isAttacking && !isGrounded)))
             {
-                if (sprintAction.IsPressed() && !playerCombatScript.isAttacking)
-                {
-                    moveSpeed = sprintSpeed;
-                    isSprinting = true;
-                    Debug.Log("Sprinting right");
-                }
-                else if (!sprintAction.IsPressed() && !playerCombatScript.isAttacking)
-                {
-                    moveSpeed = walkSpeed;
-                    isSprinting = false;
-                    Debug.Log("walking right");
-                }
-                else if (playerCombatScript.isAttacking)
-                {
-                    moveSpeed = focusedSpeed;
-                    isSprinting = false;
-                    Debug.Log("focused moving right");
-                }
+                moveSpeed = sprintSpeed;
+                isSprinting = true;
+                Debug.Log("Sprinting right");
+            }
+            else if (!sprintAction.IsPressed() && (!playerCombatScript.isAttacking || (playerCombatScript.isAttacking && !isGrounded)))
+            {
+                moveSpeed = walkSpeed;
+                isSprinting = false;
+                Debug.Log("walking right");
+            }
+            else if (playerCombatScript.isAttacking && isGrounded)
+            {
+                moveSpeed = focusedSpeed;
+                isSprinting = false;
+                Debug.Log("focused moving right");
             }
 
             velocity.x = moveSpeed;
@@ -248,13 +237,13 @@ public class PlayerScript : MonoBehaviour
 
         if (isMovingLeft)
         {
-            if (sprintAction.IsPressed() && !playerCombatScript.isAttacking)
+            if (sprintAction.IsPressed() && (!playerCombatScript.isAttacking || (playerCombatScript.isAttacking && !isGrounded)))
             {
                 moveSpeed = -sprintSpeed;
                 isSprinting = true;
                 Debug.Log("Sprinting left");
             }
-            else if (!sprintAction.IsPressed() && !playerCombatScript.isAttacking)
+            else if (!sprintAction.IsPressed() && (!playerCombatScript.isAttacking || (playerCombatScript.isAttacking && !isGrounded)))
             {
                 moveSpeed = -walkSpeed;
                 isSprinting = false;
@@ -295,8 +284,6 @@ public class PlayerScript : MonoBehaviour
             rb.gravityScale = fallMultipierFast;
         }   
     }
-
-    //Velocity cap
 
     void capVelocity()
     {
