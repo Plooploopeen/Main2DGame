@@ -64,7 +64,6 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         }
         else
         {
-            Debug.Log("sword stuck");
             GameObject swordObject = GameObject.FindGameObjectWithTag("Sword");
             swordScript swordScript = swordObject.GetComponent<swordScript>();
 
