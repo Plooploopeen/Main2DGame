@@ -51,6 +51,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] float topRayShiftAmount;
     [SerializeField] float bottomRayShiftAmount;
     [SerializeField] float vaultRayLength;
+    public bool isVaulting;
 
     [Header("IsGrounded")]
     [SerializeField] float rayCastLength;
@@ -223,19 +224,16 @@ public class PlayerScript : MonoBehaviour
             {
                 moveSpeed = sprintSpeed;
                 isSprinting = true;
-                Debug.Log("Sprinting right");
             }
             else if (!sprintAction.IsPressed() && (!playerCombatScript.isAttacking || (playerCombatScript.isAttacking && !isGrounded)))
             {
                 moveSpeed = walkSpeed;
                 isSprinting = false;
-                Debug.Log("walking right");
             }
             else if (playerCombatScript.isAttacking && isGrounded)
             {
                 moveSpeed = focusedSpeed;
                 isSprinting = false;
-                Debug.Log("focused moving right");
             }
 
             velocity.x = moveSpeed;
@@ -247,19 +245,16 @@ public class PlayerScript : MonoBehaviour
             {
                 moveSpeed = -sprintSpeed;
                 isSprinting = true;
-                Debug.Log("Sprinting left");
             }
             else if (!sprintAction.IsPressed() && (!playerCombatScript.isAttacking || (playerCombatScript.isAttacking && !isGrounded)))
             {
                 moveSpeed = -walkSpeed;
                 isSprinting = false;
-                Debug.Log("walking left");
             }
             else if (playerCombatScript.isAttacking)
             {
                 moveSpeed = -focusedSpeed;
                 isSprinting = false;
-                Debug.Log("focused moving left");
             }
 
             velocity.x = moveSpeed;
@@ -452,6 +447,18 @@ public class PlayerScript : MonoBehaviour
 
         Debug.DrawRay(topVaultRayPosition, Vector2.right * vaultRayLength * scale, Color.green);
         Debug.DrawRay(bottomVaultRayPosition, Vector2.right * vaultRayLength * scale, Color.green);
+
+        if (topVaultRay.collider == null && bottomVaultRay.collider != null && jumpAction.IsPressed() && !isGrounded && !isVaulting)
+        {
+            Debug.Log("Vault");
+            isVaulting = true;
+            animator.SetTrigger("Vault");
+        }
+    }
+
+    public void OnVaultEnd()
+    {
+        isVaulting = false;
     }
 
     void updateAnimations()

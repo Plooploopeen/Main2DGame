@@ -6731,7 +6731,8 @@ MonoBehaviour:
   timerJumpBufferLimit: 0.15
   topRayShiftAmount: 0.99
   bottomRayShiftAmount: -0.31
-  vaultRayLength: 1
+  vaultRayLength: 0.6
+  isVaulting: 0
   rayCastLength: 1.05
   rayShiftLeftAmount: 0.36
   rayShiftRightAmount: 0.31
@@ -14175,7 +14176,7 @@ Transform:
   m_GameObject: {fileID: 1281282230}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.96, y: 11.25, z: 0}
+  m_LocalPosition: {x: -32.66, y: 2.37, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
