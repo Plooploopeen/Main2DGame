@@ -46,7 +46,7 @@ public class playerDefenceScript : MonoBehaviour
             return;
         }
 
-        if (parryAction.WasPressedThisFrame() && canParry && !IsParrying)
+        if (parryAction.WasPressedThisFrame() && canParry && !IsParrying && !GetComponent<PlayerAttackScript>().isAttacking)
         {
             startParry();
         }

@@ -47,6 +47,10 @@ public class PlayerScript : MonoBehaviour
 
     private float timerJumpBuffer;
 
+    [Header("Vault")]
+    [SerializeField] float topRayShiftAmount;
+    [SerializeField] float bottomRayShiftAmount;
+    [SerializeField] float vaultRayLength;
 
     [Header("IsGrounded")]
     [SerializeField] float rayCastLength;
@@ -62,6 +66,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] float sprintSpeed;
     [SerializeField] float decelRate;
     [SerializeField] float focusedSpeed;
+
     private bool isSliding;
     private bool isMoving;
     private bool isFalling;
@@ -153,6 +158,7 @@ public class PlayerScript : MonoBehaviour
         checkIsGrounded();
         coyoteTime();
         jumpBuffer();
+        vault();
 
         // Animations
         updateAnimations();
@@ -420,27 +426,6 @@ public class PlayerScript : MonoBehaviour
 
     }
 
-    //void sprint()
-    //{
-    //    //if (sprintAction.WasPressedThisFrame())
-    //    //{
-    //    //    animator.Play("WalkToSprint");
-    //    //    StartCoroutine(DelayToIdle());
-    //    //}
-
-    //    if (sprintAction.IsPressed() && !playerCombatScript.isAttacking)
-    //    {
-    //        moveSpeed = sprintSpeed;
-    //        isSprinting = true;
-    //    }
-    //    else if (!sprintAction.IsPressed())
-    //    {
-    //        // this line will mess things up
-    //        moveSpeed = walkSpeed;
-    //        isSprinting = false;
-    //    }
-    //}
-
     public void FaceTowards(Transform TargetTransform)
     {
         float absScale = Mathf.Abs(transform.localScale.x);
@@ -453,6 +438,20 @@ public class PlayerScript : MonoBehaviour
         {
             transform.localScale = new Vector3(-absScale, absScale, absScale);
         }
+    }
+
+    void vault()
+    {
+        Vector2 topVaultRayPosition = (Vector2)transform.position + Vector2.up * topRayShiftAmount;
+        Vector2 bottomVaultRayPosition = (Vector2)transform.position + Vector2.down * bottomRayShiftAmount;
+
+        int layerMask = LayerMask.GetMask("Ground");
+
+        RaycastHit2D topVaultRay = Physics2D.Raycast(topVaultRayPosition, Vector2.right * scale, vaultRayLength, layerMask);
+        RaycastHit2D bottomVaultRay = Physics2D.Raycast(bottomVaultRayPosition, Vector2.right * scale, vaultRayLength, layerMask );
+
+        Debug.DrawRay(topVaultRayPosition, Vector2.right * vaultRayLength * scale, Color.green);
+        Debug.DrawRay(bottomVaultRayPosition, Vector2.right * vaultRayLength * scale, Color.green);
     }
 
     void updateAnimations()
