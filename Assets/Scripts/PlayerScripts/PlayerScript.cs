@@ -448,7 +448,7 @@ public class PlayerScript : MonoBehaviour
         Debug.DrawRay(topVaultRayPosition, Vector2.right * vaultRayLength * scale, Color.green);
         Debug.DrawRay(bottomVaultRayPosition, Vector2.right * vaultRayLength * scale, Color.green);
 
-        if (topVaultRay.collider == null && bottomVaultRay.collider != null && jumpAction.IsPressed() && !isGrounded && !isVaulting)
+        if (topVaultRay.collider == null && bottomVaultRay.collider != null && jumpAction.IsPressed() && !isGrounded && isVaulting == false)
         {
             Debug.Log("Vault");
             isVaulting = true;
@@ -475,7 +475,7 @@ public class PlayerScript : MonoBehaviour
         }
 
 
-        if (!isGrounded && velocity.y < 0)
+        if (!isGrounded && velocity.y < 0 && !isVaulting)
         {
             isFalling = true;
         }
