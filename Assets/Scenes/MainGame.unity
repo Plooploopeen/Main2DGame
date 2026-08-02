@@ -6729,9 +6729,13 @@ MonoBehaviour:
   timerJumpLimit: 0.15
   timerCoyoteTimeLimit: 0.15
   timerJumpBufferLimit: 0.15
-  topRayShiftAmount: 0.99
-  bottomRayShiftAmount: -0.31
+  topRayShiftAmount: 0.67
+  bottomRayShiftAmount: -0.3
   vaultRayLength: 0.5
+  vaultUpSpeed: 3
+  vaultOverSpeed: 4
+  playerHeight: 1
+  vaultOverDistance: 1
   isVaulting: 0
   rayCastLength: 1.05
   rayShiftLeftAmount: 0.36

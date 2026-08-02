@@ -51,7 +51,8 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] float topRayShiftAmount;
     [SerializeField] float bottomRayShiftAmount;
     [SerializeField] float vaultRayLength;
-    [SerializeField] float vaultSpeed;
+    [SerializeField] float vaultUpSpeed;
+    [SerializeField] float vaultOverSpeed;
     [SerializeField] float playerHeight;
     [SerializeField] float vaultOverDistance;
     public bool isVaulting;
@@ -146,10 +147,7 @@ public class PlayerScript : MonoBehaviour
 
     void Update()
     {       
-        if (dialogueUI.isOpen)
-        {
-            return;
-        }
+        if (dialogueUI.isOpen || isVaulting) return;
 
         moveDirection = moveAction.ReadValue<Vector2>();
         horizontal = moveDirection.x;
@@ -180,6 +178,8 @@ public class PlayerScript : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (isVaulting) return;
+
         if (isSliding)
         {
             rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, decelRate * Time.fixedDeltaTime);
@@ -465,11 +465,30 @@ public class PlayerScript : MonoBehaviour
             Debug.DrawRay(aboveLedgePosition, Vector2.down * 2f, Color.green);
 
             targetDestination = new Vector2(bottomVaultRay.point.x + (scale * vaultOverDistance), ledgeTopRay.point.y + playerHeight);
+
+            StartCoroutine(VaultMovement());
+        }
+    }
+
+    IEnumerator VaultMovement()
+    {
+        Vector2 upTarget;
+        Vector2 overTarget;
+
+        upTarget = new Vector2(transform.position.x, targetDestination.y);
+        overTarget = new Vector2(targetDestination.x, targetDestination.y);
+
+        while (Vector2.Distance(transform.position, upTarget) > 0.2f)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, upTarget, vaultUpSpeed * Time.deltaTime);
+            yield return null;
         }
 
-        if (isVaulting == true)
+        Debug.Log("Starting over phase");
+        while    (Vector2.Distance(transform.position, overTarget) > 0.2f)
         {
-            transform.position = Vector2.MoveTowards(transform.position, targetDestination, vaultSpeed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, overTarget, vaultOverSpeed * Time.deltaTime);
+            yield return null;
         }
     }
 
