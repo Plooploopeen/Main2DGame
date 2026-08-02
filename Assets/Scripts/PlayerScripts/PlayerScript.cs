@@ -453,12 +453,21 @@ public class PlayerScript : MonoBehaviour
             Debug.Log("Vault");
             isVaulting = true;
             animator.SetTrigger("Vault");
+            InputActions.FindActionMap("Gameplay").Disable();
+        }
+
+        if (isVaulting == true)
+        {
+            Vector2 aboveLedgePosition = new Vector2(bottomVaultRay.point.x + (scale * 0.5f), topVaultRayPosition.y);
+            RaycastHit2D ledgeTopRay = Physics2D.Raycast(aboveLedgePosition, Vector2.down, 2f, layerMask);
+            Debug.DrawRay(aboveLedgePosition, Vector2.down * 2f, Color.green);
         }
     }
 
     public void OnVaultEnd()
     {
         isVaulting = false;
+        InputActions.FindActionMap("Gameplay").Enable();
     }
 
     void updateAnimations()

@@ -6731,7 +6731,7 @@ MonoBehaviour:
   timerJumpBufferLimit: 0.15
   topRayShiftAmount: 0.99
   bottomRayShiftAmount: -0.31
-  vaultRayLength: 0.6
+  vaultRayLength: 0.5
   isVaulting: 0
   rayCastLength: 1.05
   rayShiftLeftAmount: 0.36
