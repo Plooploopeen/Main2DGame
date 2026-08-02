@@ -51,7 +51,12 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] float topRayShiftAmount;
     [SerializeField] float bottomRayShiftAmount;
     [SerializeField] float vaultRayLength;
+    [SerializeField] float vaultSpeed;
+    [SerializeField] float playerHeight;
+    [SerializeField] float vaultOverDistance;
     public bool isVaulting;
+    private Vector2 targetDestination;
+
 
     [Header("IsGrounded")]
     [SerializeField] float rayCastLength;
@@ -454,13 +459,17 @@ public class PlayerScript : MonoBehaviour
             isVaulting = true;
             animator.SetTrigger("Vault");
             InputActions.FindActionMap("Gameplay").Disable();
+
+            Vector2 aboveLedgePosition = new Vector2(bottomVaultRay.point.x + (scale * 0.5f), topVaultRayPosition.y);
+            RaycastHit2D ledgeTopRay = Physics2D.Raycast(aboveLedgePosition, Vector2.down, 2f, layerMask);
+            Debug.DrawRay(aboveLedgePosition, Vector2.down * 2f, Color.green);
+
+            targetDestination = new Vector2(bottomVaultRay.point.x + (scale * vaultOverDistance), ledgeTopRay.point.y + playerHeight);
         }
 
         if (isVaulting == true)
         {
-            Vector2 aboveLedgePosition = new Vector2(bottomVaultRay.point.x + (scale * 0.5f), topVaultRayPosition.y);
-            RaycastHit2D ledgeTopRay = Physics2D.Raycast(aboveLedgePosition, Vector2.down, 2f, layerMask);
-            Debug.DrawRay(aboveLedgePosition, Vector2.down * 2f, Color.green);
+            transform.position = Vector2.MoveTowards(transform.position, targetDestination, vaultSpeed * Time.deltaTime);
         }
     }
 
