@@ -455,7 +455,6 @@ public class PlayerScript : MonoBehaviour
 
         if (topVaultRay.collider == null && bottomVaultRay.collider != null && jumpAction.IsPressed() && !isGrounded && isVaulting == false)
         {
-            Debug.Log("Vault");
             isVaulting = true;
             animator.SetTrigger("Vault");
             InputActions.FindActionMap("Gameplay").Disable();
@@ -484,7 +483,6 @@ public class PlayerScript : MonoBehaviour
             yield return null;
         }
 
-        Debug.Log("Starting over phase");
         while    (Vector2.Distance(transform.position, overTarget) > 0.2f)
         {
             transform.position = Vector2.MoveTowards(transform.position, overTarget, vaultOverSpeed * Time.deltaTime);

@@ -39,8 +39,8 @@ public class pullSwordScript : SpellBase
     {
         {
             // move sword towards player
-            Vector2 directon = (playerSwordThrowingScript.GetComponent<Transform>().position - playerSwordThrowingScript.swordInstance.transform.position).normalized;
-            playerSwordThrowingScript.swordRb.linearVelocity = directon * pullSpeed;
+            Vector2 directon = (playerSwordThrowingScript.GetComponent<Transform>().position - playerSwordThrowingScript.swordInstance.transform.position);
+            playerSwordThrowingScript.swordRb.linearVelocity = (directon / 2) * pullSpeed;
 
             // if sword is close enough to player, pick it up
             if (Vector2.Distance(playerSwordThrowingScript.transform.position, playerSwordThrowingScript.swordInstance.transform.position) < pickUpDistance)

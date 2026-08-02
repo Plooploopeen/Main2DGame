@@ -32,6 +32,7 @@ public class PlayerAttackScript : MonoBehaviour
     void Start()
     {
         weaponGameObject.SetActive(false);
+        isAttacking = false;
     }
 
     void Update()
