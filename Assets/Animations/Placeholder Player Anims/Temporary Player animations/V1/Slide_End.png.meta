@@ -112,12 +112,12 @@ TextureImporter:
       name: Slide_End_0
       rect:
         serializedVersion: 2
-        x: 64
-        y: 31
-        width: 46
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 65
+        y: 32
+        width: 44
+        height: 45
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -134,12 +134,12 @@ TextureImporter:
       name: Slide_End_1
       rect:
         serializedVersion: 2
-        x: 268
-        y: 31
-        width: 34
-        height: 59
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 269
+        y: 32
+        width: 32
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -156,12 +156,12 @@ TextureImporter:
       name: Slide_End_2
       rect:
         serializedVersion: 2
-        x: 460
-        y: 31
-        width: 41
-        height: 60
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 461
+        y: 32
+        width: 39
+        height: 58
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -178,12 +178,12 @@ TextureImporter:
       name: Slide_End_3
       rect:
         serializedVersion: 2
-        x: 652
-        y: 31
-        width: 44
-        height: 60
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 653
+        y: 32
+        width: 42
+        height: 58
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -200,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 0c79efd2481c60e4cb1d0493621f5d93
     internalID: 0
     vertices: []
     indices: 
@@ -208,7 +208,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Slide_End_0: 503944801281405649
       Slide_End_1: -6226644870279302130

@@ -112,12 +112,12 @@ TextureImporter:
       name: Slide_Loop_0
       rect:
         serializedVersion: 2
-        x: 64
-        y: 31
-        width: 54
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 65
+        y: 32
+        width: 52
+        height: 34
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -134,12 +134,12 @@ TextureImporter:
       name: Slide_Loop_1
       rect:
         serializedVersion: 2
-        x: 256
-        y: 31
-        width: 54
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 257
+        y: 32
+        width: 52
+        height: 35
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -156,12 +156,12 @@ TextureImporter:
       name: Slide_Loop_2
       rect:
         serializedVersion: 2
-        x: 448
-        y: 31
-        width: 54
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 449
+        y: 32
+        width: 52
+        height: 34
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -178,12 +178,12 @@ TextureImporter:
       name: Slide_Loop_3
       rect:
         serializedVersion: 2
-        x: 640
-        y: 31
-        width: 54
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 641
+        y: 32
+        width: 52
+        height: 34
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -200,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: ffd12153581ea5847a9699c3ca6601ed
     internalID: 0
     vertices: []
     indices: 
@@ -208,7 +208,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Slide_Loop_0: 6552166320815463782
       Slide_Loop_1: -1009310364905357957
