@@ -24,7 +24,7 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
     {
         playerDefenceScript = GetComponent<playerDefenceScript>();
 
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
     }
 
