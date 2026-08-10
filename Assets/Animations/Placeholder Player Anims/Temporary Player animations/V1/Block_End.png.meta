@@ -109,12 +109,12 @@ TextureImporter:
       name: Block_End_0
       rect:
         serializedVersion: 2
-        x: 79
-        y: 31
-        width: 34
-        height: 62
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 80
+        y: 32
+        width: 32
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -131,12 +131,12 @@ TextureImporter:
       name: Block_End_1
       rect:
         serializedVersion: 2
-        x: 268
-        y: 31
-        width: 46
-        height: 60
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 269
+        y: 32
+        width: 44
+        height: 58
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -153,12 +153,12 @@ TextureImporter:
       name: Block_End_2
       rect:
         serializedVersion: 2
-        x: 460
-        y: 31
-        width: 46
-        height: 60
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 461
+        y: 32
+        width: 44
+        height: 58
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -175,7 +175,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: d8555ae0947470b419648fd64a9ffa3e
     internalID: 0
     vertices: []
     indices: 
@@ -183,7 +183,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Block_End_0: -148732565662522485
       Block_End_1: -8202248617776268900

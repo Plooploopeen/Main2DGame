@@ -112,12 +112,12 @@ TextureImporter:
       name: Air_Jump_0
       rect:
         serializedVersion: 2
-        x: 76
-        y: 32
-        width: 45
-        height: 62
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 77
+        y: 33
+        width: 43
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -134,12 +134,12 @@ TextureImporter:
       name: Air_Jump_1
       rect:
         serializedVersion: 2
-        x: 268
-        y: 32
-        width: 45
-        height: 62
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 269
+        y: 33
+        width: 43
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -156,12 +156,12 @@ TextureImporter:
       name: Air_Jump_2
       rect:
         serializedVersion: 2
-        x: 460
-        y: 32
-        width: 45
-        height: 62
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 461
+        y: 33
+        width: 43
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -178,12 +178,12 @@ TextureImporter:
       name: Air_Jump_3
       rect:
         serializedVersion: 2
-        x: 652
-        y: 32
-        width: 45
-        height: 62
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 653
+        y: 33
+        width: 43
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -200,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 941f5c3ff1b17724c87a91d928b7cd83
     internalID: 0
     vertices: []
     indices: 
@@ -208,7 +208,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Air_Jump_0: -2000331265951087650
       Air_Jump_1: -1865284620058274512

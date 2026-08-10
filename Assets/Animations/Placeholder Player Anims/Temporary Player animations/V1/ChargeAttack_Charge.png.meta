@@ -130,12 +130,12 @@ TextureImporter:
       name: ChargeAttack_Charge_0
       rect:
         serializedVersion: 2
-        x: 75
-        y: 31
-        width: 45
-        height: 60
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 76
+        y: 32
+        width: 43
+        height: 58
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -152,12 +152,12 @@ TextureImporter:
       name: ChargeAttack_Charge_1
       rect:
         serializedVersion: 2
-        x: 266
-        y: 31
-        width: 45
-        height: 60
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 267
+        y: 32
+        width: 43
+        height: 58
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -174,12 +174,12 @@ TextureImporter:
       name: ChargeAttack_Charge_2
       rect:
         serializedVersion: 2
-        x: 456
-        y: 31
-        width: 40
-        height: 61
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 457
+        y: 32
+        width: 38
+        height: 59
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -196,12 +196,12 @@ TextureImporter:
       name: ChargeAttack_Charge_3
       rect:
         serializedVersion: 2
-        x: 647
-        y: 31
-        width: 40
-        height: 61
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 648
+        y: 32
+        width: 38
+        height: 59
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -218,12 +218,12 @@ TextureImporter:
       name: ChargeAttack_Charge_4
       rect:
         serializedVersion: 2
-        x: 816
-        y: 31
-        width: 66
-        height: 60
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 817
+        y: 32
+        width: 64
+        height: 58
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -240,12 +240,12 @@ TextureImporter:
       name: ChargeAttack_Charge_5
       rect:
         serializedVersion: 2
-        x: 1003
-        y: 31
-        width: 72
-        height: 59
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 1004
+        y: 32
+        width: 70
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -262,12 +262,12 @@ TextureImporter:
       name: ChargeAttack_Charge_6
       rect:
         serializedVersion: 2
-        x: 1194
-        y: 31
-        width: 73
-        height: 59
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 1195
+        y: 32
+        width: 71
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -284,12 +284,12 @@ TextureImporter:
       name: ChargeAttack_Charge_7
       rect:
         serializedVersion: 2
-        x: 1387
-        y: 31
-        width: 72
-        height: 59
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 1388
+        y: 32
+        width: 70
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -306,12 +306,12 @@ TextureImporter:
       name: ChargeAttack_Charge_8
       rect:
         serializedVersion: 2
-        x: 1580
-        y: 31
-        width: 71
-        height: 59
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 1581
+        y: 32
+        width: 69
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -328,12 +328,12 @@ TextureImporter:
       name: ChargeAttack_Charge_9
       rect:
         serializedVersion: 2
-        x: 1776
-        y: 31
-        width: 68
-        height: 60
-      alignment: 9
-      pivot: {x: 0.44, y: 0.5}
+        x: 1777
+        y: 32
+        width: 66
+        height: 58
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -358,7 +358,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       ChargeAttack_Charge_0: 3357863845062262676
       ChargeAttack_Charge_1: -5785162668829206851
