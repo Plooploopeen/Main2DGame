@@ -26,7 +26,7 @@ public class playerDefenceScript : MonoBehaviour
 
     private void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         animator = GetComponent<Animator>();
 
         parryAction = InputSystem.actions.FindAction("Parry");
