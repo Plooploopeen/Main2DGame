@@ -51,7 +51,7 @@ public class FirstEnemyAI : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         enemyHealthScript = GetComponent<EnemyHealth>();
         animator = GetComponent<Animator>();
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         weaponGameObject = transform.Find("WeaponHitbox").gameObject;
         weaponCollider = weaponGameObject.GetComponent<BoxCollider2D>();
         hitBoxScript = weaponGameObject.GetComponent<HitBox>();
