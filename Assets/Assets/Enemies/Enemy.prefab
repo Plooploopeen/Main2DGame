@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 2315450653378228879}
   - component: {fileID: 3093939490794246854}
   - component: {fileID: 3773315871138616431}
+  - component: {fileID: 2606433787767536204}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Jumpable
@@ -273,6 +274,18 @@ MonoBehaviour:
   waitTimerLimit: 2
   moveTimerLimit: 1
   jumpRayOffset: 0.44
+--- !u!114 &2606433787767536204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7204941544634686352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 852bed49dbb1d4c4dbc11afe750f7598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &9042967618572574824
 GameObject:
   m_ObjectHideFlags: 0
