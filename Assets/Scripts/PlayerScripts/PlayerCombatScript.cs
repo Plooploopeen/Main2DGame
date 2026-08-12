@@ -82,7 +82,7 @@ public class PlayerAttackScript : MonoBehaviour
 
         }
 
-        weaponGameObject.SetActive(true);
+        weaponGameObject.SetActive(true); //this line
 
         swordHitBoxScript.SetHitStop(0.06f);
     }

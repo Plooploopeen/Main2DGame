@@ -26,7 +26,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     {
         firstEnemyAIScript = GetComponent<FirstEnemyAI>();
 
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
     }
 
