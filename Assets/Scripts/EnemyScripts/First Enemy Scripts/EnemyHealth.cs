@@ -7,6 +7,7 @@ using TMPro;
 
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
+    EnemyData data;
     FirstEnemyAI firstEnemyAIScript;
 
     private float health;
@@ -17,17 +18,15 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     [SerializeField] float flashLength;
     [SerializeField] float knockbackLength;
 
-    private Transform playerTransform;
-
-    private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     
     private void Awake()
     {
+        data = GetComponent<EnemyData>();
+
         firstEnemyAIScript = GetComponent<FirstEnemyAI>();
 
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Start()
@@ -35,7 +34,6 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         health = maxHealth;
 
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-        playerTransform = playerObject.transform;
     }
 
     public void takeDamage(float damage, Transform attackerTransform)
@@ -48,7 +46,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
         // this makes the enemy notice me if I damage it. I might have to change this later if I add an outside source of damage, like fall damage or
         // enemy friendly fire
-        firstEnemyAIScript.hasSeenPlayer = true;
+        data.hasSeenPlayer = true;
 
         if (health <= 0)
         {
@@ -98,7 +96,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         isKnockedBack = true;
         direction.Normalize();
         direction.y = 1f;
-        rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
+        data.rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
         yield return new WaitForSeconds(knockbackLength);
         isKnockedBack = false;
     }

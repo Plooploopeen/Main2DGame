@@ -103,8 +103,12 @@ GameObject:
   - component: {fileID: 7210264347992062451}
   - component: {fileID: 2315450653378228879}
   - component: {fileID: 3093939490794246854}
-  - component: {fileID: 3773315871138616431}
+  - component: {fileID: 341298590141705178}
   - component: {fileID: 2606433787767536204}
+  - component: {fileID: 3717405070096842161}
+  - component: {fileID: 2700944681790013465}
+  - component: {fileID: 4071492607050140768}
+  - component: {fileID: 3219762249800956657}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Jumpable
@@ -241,7 +245,7 @@ MonoBehaviour:
   knockbackForce: 2
   flashLength: 0.2
   knockbackLength: 0.5
---- !u!114 &3773315871138616431
+--- !u!114 &341298590141705178
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -250,30 +254,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7204941544634686352}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d02177f79636ae145958700c6fd8c9d7, type: 3}
+  m_Script: {fileID: 11500000, guid: f165fd57fb7a82f439392889fe4160fa, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 1024
-  detectionRange: 6
-  detectionAngle: 30
-  speed: 2.83
-  jumpRayLength: 0.9622
-  jumpForce: 6
-  moveDistance: 1.25
-  frontRayLength: 1.2735
-  frontRayLayers:
-    serializedVersion: 2
-    m_Bits: 8
-  hasSeenPlayer: 0
-  jumpCooldown: 0.5
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   rayCastLength: 0.57
   rayShiftLeftAmount: 0.3396
   rayShiftRightAmount: 0.29
-  waitTimerLimit: 2
-  moveTimerLimit: 1
-  jumpRayOffset: 0.44
 --- !u!114 &2606433787767536204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,6 +272,72 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 852bed49dbb1d4c4dbc11afe750f7598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+--- !u!114 &3717405070096842161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7204941544634686352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c896b7429e01bea4ea02e6a262b0a020, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  speed: 2.83
+  moveTimerLimit: 1
+  waitTimerLimit: 2
+--- !u!114 &2700944681790013465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7204941544634686352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d0d646697531f4448fb27193956840f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  frontRayLength: 1.2735
+  frontRayLayers:
+    serializedVersion: 2
+    m_Bits: 8
+--- !u!114 &4071492607050140768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7204941544634686352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7deed5b53fa7f1848897aeb314020d48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  speed: 2.83
+  moveDistance: 1.25
+  jumpRayOffset: 0.44
+  jumpRayLength: 0.9622
+  jumpForce: 6
+  jumpCooldown: 0.5
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1024
+--- !u!114 &3219762249800956657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7204941544634686352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b44d0ceb36a54843bcd21470c7fa072, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  detectionRange: 6
+  detectionAngle: 30
 --- !u!1 &9042967618572574824
 GameObject:
   m_ObjectHideFlags: 0
