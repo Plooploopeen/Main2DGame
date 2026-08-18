@@ -31,6 +31,8 @@ public class FirstEnemyBrain : MonoBehaviour
 
     private void Update()
     {
+        if (enemyHealthScript.isKnockedBack) return;
+
         vision.Execute();
 
         currentBehavior?.Execute();
@@ -54,6 +56,7 @@ public class FirstEnemyBrain : MonoBehaviour
 
     void setBehavior (IEnemyBehavior newBehavior)
     {
+        if (enemyHealthScript.isKnockedBack) return;
         if (currentBehavior  == newBehavior) return;
         currentBehavior?.Exit();
         currentBehavior = newBehavior;

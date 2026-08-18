@@ -13,6 +13,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     private float health;
     private bool isFlashing = false;
     public bool isKnockedBack;
+    private bool hasLanded;
     [SerializeField] float maxHealth;
     [SerializeField] float knockbackForce;
     [SerializeField] float flashLength;
@@ -36,17 +37,31 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
     }
 
+    private void Update()
+    {
+        if (isKnockedBack && !data.isGrounded)
+        {
+            hasLanded = false;
+        }
+
+        if (data.isGrounded && !hasLanded && isKnockedBack)
+        {
+            isKnockedBack = false;
+            hasLanded = true;
+        }
+    }
+
     public void takeDamage(float damage, Transform attackerTransform)
     {
         health -= damage;
 
         if (!isFlashing) StartCoroutine(FlashRed());
 
-        StartCoroutine(ApplyKnockback(transform.position - attackerTransform.position));
-
         // this makes the enemy notice me if I damage it. I might have to change this later if I add an outside source of damage, like fall damage or
         // enemy friendly fire
         data.hasSeenPlayer = true;
+
+        applyKnockback(transform.position - attackerTransform.position);
 
         if (health <= 0)
         {
@@ -91,13 +106,13 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     }
 
-    IEnumerator ApplyKnockback(Vector2 direction)
+    void applyKnockback(Vector2 direction)
     {
         isKnockedBack = true;
+        data.rb.linearVelocity = Vector2.zero;
+        direction.y = 5f;
         direction.Normalize();
-        direction.y = 1f;
-        data.rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
-        yield return new WaitForSeconds(knockbackLength);
-        isKnockedBack = false;
+        data.rb.linearVelocity = direction * knockbackForce;
+        hasLanded = true;
     }
 }

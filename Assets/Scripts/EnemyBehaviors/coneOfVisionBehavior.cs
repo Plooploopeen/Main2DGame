@@ -48,7 +48,6 @@ public class coneOfVisionBehavior : MonoBehaviour, IEnemyBehavior
 
         if ((hit.collider != null && hit.collider.CompareTag("Player")))
         {
-            Debug.Log("Seen player");
             data.hasSeenPlayer = true;
         }
     }

@@ -71,7 +71,7 @@ public class patrolBehavior : MonoBehaviour, IEnemyBehavior
 
     public void Exit()
     {
-        data.rb.linearVelocity = new Vector2(0, data.rb.linearVelocity.y);
+        
     }
 
 

@@ -49,7 +49,7 @@ public class PlayerMagicScript : MonoBehaviour
         topAction = InputSystem.actions.FindAction("TopBotton");
 
         hotbarSlots = hotbarParent.GetComponentsInChildren<SpellSlotScript>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     void Start()

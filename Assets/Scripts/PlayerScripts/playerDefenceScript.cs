@@ -140,7 +140,6 @@ public class playerDefenceScript : MonoBehaviour
 
     IEnumerator Flashgold()
     {
-        Debug.Log("Flash gold");
         spriteRenderer.color = Color.gold;
         yield return new WaitForSecondsRealtime(0.6f);
         spriteRenderer.color = original;
