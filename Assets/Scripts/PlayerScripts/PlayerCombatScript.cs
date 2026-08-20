@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,7 +9,14 @@ public class PlayerAttackScript : MonoBehaviour
     [SerializeField] DialogueUI dialogueUI;
     [SerializeField] HitBox swordHitBoxScript;
     private PlayerSwordThrowingScript playerSwordThrowingScript;
+    private PlayerHealthScript playerHealthScript;
+    private PlayerScript playerScript;
     private Animator animator;
+    private Rigidbody2D rb;
+
+    Vector2 lastSpriteLocalPosition;
+    bool applyRootMotion;
+    [SerializeField] Transform spriteChildTransform;
 
     private InputAction attackAction;
     private InputAction LB;
@@ -17,6 +25,7 @@ public class PlayerAttackScript : MonoBehaviour
     public bool canAttack = true;
     [SerializeField] float baseDamage;
     private bool IsLastAttack;
+    public bool isLunging;
 
     private void Awake()
     {
@@ -25,6 +34,10 @@ public class PlayerAttackScript : MonoBehaviour
 
         animator = GetComponent<Animator>();
         playerSwordThrowingScript = GetComponent<PlayerSwordThrowingScript>();
+        playerHealthScript = GetComponent<PlayerHealthScript>();
+        playerScript = GetComponent<PlayerScript>();
+
+        rb = GetComponent<Rigidbody2D>();
 
 
     }
@@ -104,5 +117,19 @@ public class PlayerAttackScript : MonoBehaviour
         {
             attack();
         }
+    }
+
+    public void LungeStep(float speed)
+    {
+        if (playerHealthScript.isKnockedBack || !playerScript.IsGrounded) { return; }
+        isLunging = true;
+        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+        rb.AddForce(new Vector2(speed * Mathf.Sign(transform.localScale.x), 0), ForceMode2D.Impulse);
+    }
+
+    public void StopLunge()
+    {
+        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+        isLunging = false;
     }
 }

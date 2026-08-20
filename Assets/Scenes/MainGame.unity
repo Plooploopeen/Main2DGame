@@ -6761,7 +6761,7 @@ MonoBehaviour:
   walkSpeed: 4.245
   sprintSpeed: 8.49
   decelRate: 5
-  focusedSpeed: 2
+  focusedSpeed: 1
   moveDirection: {x: 0, y: 0}
   horizontal: 0
   isOnEnemy: 0
@@ -6898,9 +6898,11 @@ MonoBehaviour:
   weaponGameObject: {fileID: 1948448134}
   dialogueUI: {fileID: 713220473}
   swordHitBoxScript: {fileID: 1948448136}
+  spriteChildTransform: {fileID: 1180962225}
   isAttacking: 0
   canAttack: 1
   baseDamage: 10
+  isLunging: 0
 --- !u!114 &616317166
 MonoBehaviour:
   m_ObjectHideFlags: 0

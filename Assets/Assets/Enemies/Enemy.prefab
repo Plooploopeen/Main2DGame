@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
   isKnockedBack: 0
-  maxHealth: 555
+  maxHealth: 50
   knockbackForce: 5
   flashLength: 0.2
   knockbackLength: 2

@@ -235,13 +235,16 @@ public class PlayerScript : MonoBehaviour
                 moveSpeed = walkSpeed;
                 isSprinting = false;
             }
-            else if (playerCombatScript.isAttacking && isGrounded)
+            else if (playerCombatScript.isAttacking && isGrounded && !playerCombatScript.isLunging)
             {
-                moveSpeed = focusedSpeed;
+                moveSpeed = 0f;
                 isSprinting = false;
             }
 
-            velocity.x = moveSpeed;
+            if (!playerCombatScript.isLunging)
+            {
+                velocity.x = moveSpeed;
+            }
         }
 
         if (isMovingLeft)
@@ -256,13 +259,16 @@ public class PlayerScript : MonoBehaviour
                 moveSpeed = -walkSpeed;
                 isSprinting = false;
             }
-            else if (playerCombatScript.isAttacking)
+            else if (playerCombatScript.isAttacking && isGrounded && !playerCombatScript.isLunging)
             {
-                moveSpeed = -focusedSpeed;
+                moveSpeed = 0f;
                 isSprinting = false;
             }
 
-            velocity.x = moveSpeed;
+            if (!playerCombatScript.isLunging)
+            {
+                velocity.x = moveSpeed;
+            }
         }
 
         if (isMovingRight && !playerCombatScript.isAttacking && !playerDefenceScript.IsParrying && !playerDefenceScript.justFinishedParry)
@@ -275,11 +281,11 @@ public class PlayerScript : MonoBehaviour
             transform.localScale = new Vector3(-absScale, absScale, absScale);
         }
 
-        if (!isMovingLeft && !isMovingRight && !playerHealthScript.isKnockedBack && !isOnEnemy)
+        if (!isMovingLeft && !isMovingRight && !playerHealthScript.isKnockedBack && !isOnEnemy && !playerCombatScript.isAttacking && !playerCombatScript.isLunging)
         {
-                velocity.x = 0;
+            velocity.x = 0;
         }
-        
+
         // Make jumps fast and falling slow
         if (rb.linearVelocity.y < 0f)
         {
