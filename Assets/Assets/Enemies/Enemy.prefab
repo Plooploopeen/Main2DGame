@@ -272,6 +272,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 852bed49dbb1d4c4dbc11afe750f7598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  patrol: {fileID: 3717405070096842161}
+  chase: {fileID: 4071492607050140768}
+  melee: {fileID: 2700944681790013465}
+  vision: {fileID: 3219762249800956657}
 --- !u!114 &3717405070096842161
 MonoBehaviour:
   m_ObjectHideFlags: 0

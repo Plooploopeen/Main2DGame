@@ -4,24 +4,23 @@ public class FirstEnemyBrain : MonoBehaviour
 {
     EnemyData data;
 
-    IEnemyBehavior currentBehavior;
+    EnemyBehaviorBase currentBehavior;
 
-    private patrolBehavior patrol;
-    private chasePlayerBehavior chase;
-    private basicMeleeBehavior melee;
-    private coneOfVisionBehavior vision;
+    [SerializeField] EnemyBehaviorBase patrol;
+    [SerializeField] EnemyBehaviorBase chase;
+    [SerializeField] EnemyBehaviorBase melee;
+    [SerializeField] EnemyBehaviorBase vision;
+
+    private basicMeleeBehavior meleeScript;
 
     private EnemyHealth enemyHealthScript;
 
     void Awake()
     {
         data = GetComponent<EnemyData>();
-        patrol = GetComponent<patrolBehavior>();
-        chase = GetComponent<chasePlayerBehavior>();
-        melee = GetComponent<basicMeleeBehavior>();
-        vision = GetComponent<coneOfVisionBehavior>();
-
         enemyHealthScript = GetComponent<EnemyHealth>();
+        
+        meleeScript = melee as basicMeleeBehavior;
     }
 
     private void Start()
@@ -44,7 +43,7 @@ public class FirstEnemyBrain : MonoBehaviour
     {
         if (!data.hasSeenPlayer) return;
 
-        if (melee.shouldAttack())
+        if (meleeScript.shouldAttack())
         {
             setBehavior(melee);
         }
@@ -54,7 +53,7 @@ public class FirstEnemyBrain : MonoBehaviour
         }
     }
 
-    void setBehavior (IEnemyBehavior newBehavior)
+    void setBehavior (EnemyBehaviorBase newBehavior)
     {
         if (enemyHealthScript.isKnockedBack) return;
         if (currentBehavior  == newBehavior) return;

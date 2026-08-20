@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class basicMeleeBehavior : MonoBehaviour, IEnemyBehavior
+public class basicMeleeBehavior : EnemyBehaviorBase
 {
     [SerializeField] float frontRayLength;
     [SerializeField] LayerMask frontRayLayers;
@@ -22,17 +22,17 @@ public class basicMeleeBehavior : MonoBehaviour, IEnemyBehavior
         weapon.SetActive(false);
     }
 
-    public void Enter()
+    public override void Enter()
     {
 
     }
 
-    public void Execute()
+    public override void Execute()
     {
         data.animator.Play("Attack");
     }
 
-    public void Exit()
+    public override void Exit()
     {
 
     }

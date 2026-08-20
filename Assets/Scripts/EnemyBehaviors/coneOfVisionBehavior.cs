@@ -1,7 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class coneOfVisionBehavior : MonoBehaviour, IEnemyBehavior
+public class coneOfVisionBehavior : EnemyBehaviorBase
 {
     [SerializeField] float detectionRange;
     [SerializeField] float detectionAngle;
@@ -13,12 +13,12 @@ public class coneOfVisionBehavior : MonoBehaviour, IEnemyBehavior
         data = GetComponent<EnemyData>();
     }
 
-    public void Enter()
+    public override void Enter()
     {
 
     }
 
-    public void Execute()
+    public override void Execute()
     {
         float distance = Vector2.Distance(transform.position, data.playerTransform.position);
 
@@ -52,7 +52,7 @@ public class coneOfVisionBehavior : MonoBehaviour, IEnemyBehavior
         }
     }
 
-    public void Exit()
+    public override void Exit()
     {
 
     }

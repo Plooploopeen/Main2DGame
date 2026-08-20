@@ -2,7 +2,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class StandStillBehavior : MonoBehaviour, IEnemyBehavior
+public class StandStillBehavior : EnemyBehaviorBase
 {
     EnemyData data;
 
@@ -12,7 +12,7 @@ public class StandStillBehavior : MonoBehaviour, IEnemyBehavior
     {
         data = GetComponent<EnemyData>();
     }
-    public void Enter()
+    public override void Enter()
     {
         float absScale = Mathf.Abs(transform.localScale.x);
 
@@ -26,11 +26,11 @@ public class StandStillBehavior : MonoBehaviour, IEnemyBehavior
         }
     }
 
-    public void Execute()
+    public override void Execute()
     {
-        data.rb.linearVelocity = Vector3.zero;
+        data.rb.linearVelocity = new Vector2(0f, data.rb.linearVelocity.y);
     }
-    public void Exit()
+    public override void Exit()
     {
 
     }

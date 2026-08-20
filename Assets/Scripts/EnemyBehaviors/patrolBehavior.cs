@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class patrolBehavior : MonoBehaviour, IEnemyBehavior
+public class patrolBehavior : EnemyBehaviorBase
 {
     private float patrolTime;
     [SerializeField] float speed;
@@ -18,12 +18,12 @@ public class patrolBehavior : MonoBehaviour, IEnemyBehavior
     }
 
 
-    public void Enter()
+    public override void Enter()
     {
 
     }
 
-    public void Execute()
+    public override void Execute()
     {
         patrolTime += Time.deltaTime;
 
@@ -69,7 +69,7 @@ public class patrolBehavior : MonoBehaviour, IEnemyBehavior
         }
     }
 
-    public void Exit()
+    public override void Exit()
     {
         
     }

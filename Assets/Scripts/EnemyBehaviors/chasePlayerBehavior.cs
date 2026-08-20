@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class chasePlayerBehavior : MonoBehaviour, IEnemyBehavior
+public class chasePlayerBehavior : EnemyBehaviorBase
 {
     private Vector2 lastMoveDir;
     private float lastJumpTime;
@@ -18,12 +18,12 @@ public class chasePlayerBehavior : MonoBehaviour, IEnemyBehavior
     {
         data = GetComponent<EnemyData>();
     }
-    public void Enter()
+    public override void Enter()
     {
 
     }
 
-    public void Execute()
+    public override void Execute()
     {
         // check direction and dont move if knocked back
         float direction = Mathf.Sign(data.playerTransform.position.x - transform.position.x);
@@ -60,7 +60,7 @@ public class chasePlayerBehavior : MonoBehaviour, IEnemyBehavior
         }
     }
 
-    public void Exit()
+    public override void Exit()
     {
 
     }

@@ -6423,7 +6423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4fea8d75c530d4469fdc2724ca27514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StandStillBehavior
-  startFacingRight: 1
+  startFacingRight: 0
 --- !u!1 &575234744
 GameObject:
   m_ObjectHideFlags: 0
@@ -13375,13 +13375,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2606433787767536204, guid: 8ba996f003c51d24c93b4539b6e0c824, type: 3}
+      propertyPath: patrol
+      value: 
+      objectReference: {fileID: 560009166}
     - target: {fileID: 6689259691134145660, guid: 8ba996f003c51d24c93b4539b6e0c824, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.39
       objectReference: {fileID: 0}
     - target: {fileID: 6689259691134145660, guid: 8ba996f003c51d24c93b4539b6e0c824, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.07
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 6689259691134145660, guid: 8ba996f003c51d24c93b4539b6e0c824, type: 3}
       propertyPath: m_LocalPosition.z
