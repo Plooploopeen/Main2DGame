@@ -23,11 +23,11 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     
     private void Awake()
     {
-        data = GetComponent<EnemyData>();
+        data = GetComponentInParent<EnemyData>();
 
-        firstEnemyAIScript = GetComponent<FirstEnemyAI>();
+        firstEnemyAIScript = GetComponentInParent<FirstEnemyAI>();
 
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        spriteRenderer = transform.parent.GetComponentInChildren<SpriteRenderer>();
     }
 
     private void Start()

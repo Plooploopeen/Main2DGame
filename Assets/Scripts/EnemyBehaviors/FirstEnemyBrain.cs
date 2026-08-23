@@ -18,7 +18,7 @@ public class FirstEnemyBrain : MonoBehaviour
     void Awake()
     {
         data = GetComponent<EnemyData>();
-        enemyHealthScript = GetComponent<EnemyHealth>();
+        enemyHealthScript = GetComponentInChildren<EnemyHealth>();
         
         meleeScript = melee as basicMeleeBehavior;
     }
