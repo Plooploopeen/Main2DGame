@@ -92,7 +92,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
                 swordScript.EnableAllCollision();
             }
         }
-        Destroy(gameObject);
+        Destroy(transform.root.gameObject);
     }
 
     IEnumerator FlashRed()

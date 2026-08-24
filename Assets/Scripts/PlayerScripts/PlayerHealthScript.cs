@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity.Cinemachine;
 
 public class PlayerHealthScript : MonoBehaviour, IDamageable
 {
@@ -48,6 +49,8 @@ public class PlayerHealthScript : MonoBehaviour, IDamageable
         }
 
         health -= damage;
+
+        GetComponent<CinemachineImpulseSource>().GenerateImpulse();
 
         if (!isFlashing) StartCoroutine(FlashRed());
 

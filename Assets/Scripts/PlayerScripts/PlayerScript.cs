@@ -68,11 +68,12 @@ public class PlayerScript : MonoBehaviour
     public bool IsGrounded => isGrounded;
 
     [Header("Player movement and input")]
-    [SerializeField] float moveSpeed;
     [SerializeField] float walkSpeed;
     [SerializeField] float sprintSpeed;
     [SerializeField] float decelRate;
     [SerializeField] float focusedSpeed;
+    [SerializeField] float airControl;
+    float targetSpeed = 0f;
 
     private bool isSliding;
     private bool isMoving;
@@ -225,51 +226,56 @@ public class PlayerScript : MonoBehaviour
 
         if (isMovingRight)
         {
-            if (sprintAction.IsPressed() && (!playerCombatScript.isAttacking || (playerCombatScript.isAttacking && !isGrounded)))
+            if (sprintAction.IsPressed() && !playerCombatScript.isAttacking)
             {
-                moveSpeed = sprintSpeed;
+                targetSpeed = sprintSpeed;
                 isSprinting = true;
             }
-            else if (!sprintAction.IsPressed() && (!playerCombatScript.isAttacking || (playerCombatScript.isAttacking && !isGrounded)))
+            else if (!sprintAction.IsPressed() && !playerCombatScript.isAttacking)
             {
-                moveSpeed = walkSpeed;
+                targetSpeed = walkSpeed;
                 isSprinting = false;
             }
-            else if (playerCombatScript.isAttacking && isGrounded && !playerCombatScript.isLunging)
+            else if (playerCombatScript.isAttacking && !playerCombatScript.isLunging &&isGrounded)
             {
-                moveSpeed = 0f;
+                targetSpeed = 0f;
                 isSprinting = false;
-            }
-
-            if (!playerCombatScript.isLunging)
-            {
-                velocity.x = moveSpeed;
             }
         }
 
-        if (isMovingLeft)
+        else if (isMovingLeft)
         {
-            if (sprintAction.IsPressed() && (!playerCombatScript.isAttacking || (playerCombatScript.isAttacking && !isGrounded)))
+            if (sprintAction.IsPressed() && !playerCombatScript.isAttacking)
             {
-                moveSpeed = -sprintSpeed;
+                targetSpeed = -sprintSpeed;
                 isSprinting = true;
             }
-            else if (!sprintAction.IsPressed() && (!playerCombatScript.isAttacking || (playerCombatScript.isAttacking && !isGrounded)))
+            else if (!sprintAction.IsPressed() && !playerCombatScript.isAttacking)
             {
-                moveSpeed = -walkSpeed;
+                targetSpeed = -walkSpeed;
                 isSprinting = false;
             }
-            else if (playerCombatScript.isAttacking && isGrounded && !playerCombatScript.isLunging)
+            else if (playerCombatScript.isAttacking && !playerCombatScript.isLunging &&isGrounded)
             {
-                moveSpeed = 0f;
+                targetSpeed = 0f;
                 isSprinting = false;
-            }
-
-            if (!playerCombatScript.isLunging)
-            {
-                velocity.x = moveSpeed;
             }
         }
+
+        if (!playerCombatScript.isLunging)
+        {
+            if (isGrounded)
+            {
+                velocity.x = targetSpeed;
+            }
+            else
+            {
+                velocity.x = Mathf.MoveTowards(velocity.x, targetSpeed, airControl * Time.fixedDeltaTime);
+            }
+        }
+
+
+
 
         if (isMovingRight && !playerCombatScript.isAttacking && !playerDefenceScript.IsParrying && !playerDefenceScript.justFinishedParry)
         {
@@ -355,7 +361,7 @@ public class PlayerScript : MonoBehaviour
         // Check if jumping
         if (canJump && jumpAction.IsPressed())
         {
-            rb.linearVelocity = Vector2.up * jumpForce;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             timerJump += Time.deltaTime;
         }
         
