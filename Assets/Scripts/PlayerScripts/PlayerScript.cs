@@ -150,6 +150,8 @@ public class PlayerScript : MonoBehaviour
     {       
         if (dialogueUI.isOpen || isVaulting) return;
 
+
+
         moveDirection = moveAction.ReadValue<Vector2>();
         horizontal = moveDirection.x;
         scale = transform.localScale.x;
@@ -206,7 +208,7 @@ public class PlayerScript : MonoBehaviour
         float absScale = Mathf.Abs(transform.localScale.x);
 
         // Check player movement input
-        if (moveDirection.x > 0.4 && !playerHealthScript.isKnockedBack)
+        if (moveDirection.x > 0.4 && !playerHealthScript.isKnockedBack && !playerCombatScript.isLunging)
         {
             isMovingRight = true;
         }
@@ -215,7 +217,7 @@ public class PlayerScript : MonoBehaviour
             isMovingRight = false;
         }
 
-        if (moveDirection.x < -0.4 && !playerHealthScript.isKnockedBack)
+        if (moveDirection.x < -0.4 && !playerHealthScript.isKnockedBack && !playerCombatScript.isLunging)
         {
             isMovingLeft = true;
         }
@@ -223,6 +225,16 @@ public class PlayerScript : MonoBehaviour
         {
             isMovingLeft = false;
         }
+
+        if (!isMovingLeft && !isMovingRight && isGrounded)
+        {
+            targetSpeed = 0f;
+        }
+
+        if (playerCombatScript.isAttacking && !isGrounded)
+{
+    targetSpeed = velocity.x;
+}
 
         if (isMovingRight)
         {
@@ -242,7 +254,6 @@ public class PlayerScript : MonoBehaviour
                 isSprinting = false;
             }
         }
-
         else if (isMovingLeft)
         {
             if (sprintAction.IsPressed() && !playerCombatScript.isAttacking)
@@ -273,9 +284,6 @@ public class PlayerScript : MonoBehaviour
                 velocity.x = Mathf.MoveTowards(velocity.x, targetSpeed, airControl * Time.fixedDeltaTime);
             }
         }
-
-
-
 
         if (isMovingRight && !playerCombatScript.isAttacking && !playerDefenceScript.IsParrying && !playerDefenceScript.justFinishedParry)
         {

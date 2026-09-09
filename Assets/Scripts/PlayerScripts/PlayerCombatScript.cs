@@ -129,7 +129,6 @@ public class PlayerAttackScript : MonoBehaviour
 
     public void StopLunge()
     {
-        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         isLunging = false;
     }
 }
