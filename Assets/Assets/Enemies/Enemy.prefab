@@ -135,11 +135,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 154c3ea3f3ea86246aea8bd612aea91b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
-  isKnockedBack: 0
   maxHealth: 50
   knockbackForce: 5
   flashLength: 0.2
   knockbackLength: 2
+  maxVelocity: 5
 --- !u!61 &7642008287640075419
 BoxCollider2D:
   m_ObjectHideFlags: 0

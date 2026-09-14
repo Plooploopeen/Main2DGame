@@ -1,304 +1,304 @@
-//using System.Numerics;
-using UnityEngine;
+////using System.Numerics;
+//using UnityEngine;
 
-public class FirstEnemyAI : MonoBehaviour
-{
-    private EnemyHealth enemyHealthScript;
+//public class FirstEnemyAI : MonoBehaviour
+//{
+//    private EnemyHealth enemyHealthScript;
 
-    [SerializeField] LayerMask layerMask;
-    private Rigidbody2D rb;
-    private Animator animator;
+//    [SerializeField] LayerMask layerMask;
+//    private Rigidbody2D rb;
+//    private Animator animator;
 
-    [SerializeField] float detectionRange;
-    [SerializeField] float detectionAngle;
+//    [SerializeField] float detectionRange;
+//    [SerializeField] float detectionAngle;
 
-    GameObject weaponGameObject;
-    BoxCollider2D weaponCollider;
+//    GameObject weaponGameObject;
+//    BoxCollider2D weaponCollider;
 
-    private HitBox hitBoxScript;
+//    private HitBox hitBoxScript;
 
-    private SpriteRenderer spriteRenderer;
+//    private SpriteRenderer spriteRenderer;
 
-    [SerializeField] private float speed;
-    private Transform playerTransform;
-    [SerializeField] float jumpRayLength;
-    private bool isGrounded;
-    [SerializeField] float jumpForce;
-    [SerializeField] float moveDistance;
-    [SerializeField] float frontRayLength;
-    [SerializeField] LayerMask frontRayLayers;
-    public bool hasSeenPlayer;
-    private bool isFacingRight;
-    private float patrolTime;
-    private float faceRight;
-    private float lastJumpTime = 0f;
-    private Vector2 lastMoveDir;
+//    [SerializeField] private float speed;
+//    private Transform playerTransform;
+//    [SerializeField] float jumpRayLength;
+//    private bool isGrounded;
+//    [SerializeField] float jumpForce;
+//    [SerializeField] float moveDistance;
+//    [SerializeField] float frontRayLength;
+//    [SerializeField] LayerMask frontRayLayers;
+//    public bool hasSeenPlayer;
+//    private bool isFacingRight;
+//    private float patrolTime;
+//    private float faceRight;
+//    private float lastJumpTime = 0f;
+//    private Vector2 lastMoveDir;
 
-    [SerializeField] float jumpCooldown;
-    [SerializeField] float rayCastLength;
-    [SerializeField] float rayShiftLeftAmount;
-    [SerializeField] float rayShiftRightAmount;
-    [SerializeField] float waitTimerLimit;
-    [SerializeField] float moveTimerLimit;
-    [SerializeField] float jumpRayOffset;
+//    [SerializeField] float jumpCooldown;
+//    [SerializeField] float rayCastLength;
+//    [SerializeField] float rayShiftLeftAmount;
+//    [SerializeField] float rayShiftRightAmount;
+//    [SerializeField] float waitTimerLimit;
+//    [SerializeField] float moveTimerLimit;
+//    [SerializeField] float jumpRayOffset;
 
-    private enum PatrolState { moveLeft, moveRight, standStill };
-    private PatrolState patrolState = PatrolState.moveRight;
-    private PatrolState nextState;
+//    private enum PatrolState { moveLeft, moveRight, standStill };
+//    private PatrolState patrolState = PatrolState.moveRight;
+//    private PatrolState nextState;
 
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        enemyHealthScript = GetComponent<EnemyHealth>();
-        animator = GetComponent<Animator>();
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        weaponGameObject = transform.Find("WeaponHitbox").gameObject;
-        weaponCollider = weaponGameObject.GetComponent<BoxCollider2D>();
-        hitBoxScript = weaponGameObject.GetComponent<HitBox>();
-    }
-    void Start()
-    {
-        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-        playerTransform = playerObject.transform;
-        weaponGameObject.SetActive(false);
-        weaponCollider.enabled = false;
-        hitBoxScript = GetComponentInChildren<HitBox>();
-    }
+//    private void Awake()
+//    {
+//        rb = GetComponent<Rigidbody2D>();
+//        enemyHealthScript = GetComponent<EnemyHealth>();
+//        animator = GetComponent<Animator>();
+//        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+//        weaponGameObject = transform.Find("WeaponHitbox").gameObject;
+//        weaponCollider = weaponGameObject.GetComponent<BoxCollider2D>();
+//        hitBoxScript = weaponGameObject.GetComponent<HitBox>();
+//    }
+//    void Start()
+//    {
+//        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+//        playerTransform = playerObject.transform;
+//        weaponGameObject.SetActive(false);
+//        weaponCollider.enabled = false;
+//        hitBoxScript = GetComponentInChildren<HitBox>();
+//    }
 
-    void Update()
-    {
-        checkIsGrounded();
-        checkDirection();
+//    void Update()
+//    {
+//        checkIsGrounded();
+//        checkDirection();
 
-        if (enemyHealthScript.isKnockedBack)
-        {
-            return;
-        }
+//        if (enemyHealthScript.isKnockedBack)
+//        {
+//            return;
+//        }
 
-        if (hasSeenPlayer)
-        {
-            chasePlayer();
-            checkAttack();
-        }
-        else
-        {
-            patrol();
-            checkForPlayer();
-        }
-        // Debug visualization
-        Vector2 enemyForward = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
-        float drawDistance = detectionRange;
+//        if (hasSeenPlayer)
+//        {
+//            chasePlayer();
+//            checkAttack();
+//        }
+//        else
+//        {
+//            patrol();
+//            checkForPlayer();
+//        }
+//        // Debug visualization
+//        Vector2 enemyForward = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
+//        float drawDistance = detectionRange;
 
-        // Draw forward direction
-        Debug.DrawRay(transform.position, enemyForward * drawDistance, Color.blue);
+//        // Draw forward direction
+//        Debug.DrawRay(transform.position, enemyForward * drawDistance, Color.blue);
 
-        // Draw cone boundaries
-        Vector2 leftBoundary = Quaternion.Euler(0, 0, detectionAngle) * enemyForward;
-        Vector2 rightBoundary = Quaternion.Euler(0, 0, -detectionAngle) * enemyForward;
+//        // Draw cone boundaries
+//        Vector2 leftBoundary = Quaternion.Euler(0, 0, detectionAngle) * enemyForward;
+//        Vector2 rightBoundary = Quaternion.Euler(0, 0, -detectionAngle) * enemyForward;
 
-        Color coneColor = hasSeenPlayer ? Color.red : Color.green;
-        Debug.DrawRay(transform.position, leftBoundary * drawDistance, coneColor);
-        Debug.DrawRay(transform.position, rightBoundary * drawDistance, coneColor);
-    }
+//        Color coneColor = hasSeenPlayer ? Color.red : Color.green;
+//        Debug.DrawRay(transform.position, leftBoundary * drawDistance, coneColor);
+//        Debug.DrawRay(transform.position, rightBoundary * drawDistance, coneColor);
+//    }
 
-    void checkIsGrounded()
-    {
-        // check isGrounded
-        Vector2 leftRayPosition = (Vector2)transform.position + Vector2.left * rayShiftLeftAmount;
-        Vector2 rightRayPosition = (Vector2)transform.position + Vector2.right * rayShiftRightAmount;
+//    void checkIsGrounded()
+//    {
+//        // check isGrounded
+//        Vector2 leftRayPosition = (Vector2)transform.position + Vector2.left * rayShiftLeftAmount;
+//        Vector2 rightRayPosition = (Vector2)transform.position + Vector2.right * rayShiftRightAmount;
 
-        int jumplayerMask = LayerMask.GetMask("Ground");
+//        int jumplayerMask = LayerMask.GetMask("Ground");
 
-        RaycastHit2D middleHit = Physics2D.Raycast(transform.position, Vector2.down, rayCastLength, jumplayerMask);
-        RaycastHit2D leftHit = Physics2D.Raycast(leftRayPosition, Vector2.down, rayCastLength, jumplayerMask);
-        RaycastHit2D rightHit = Physics2D.Raycast(rightRayPosition, Vector2.down, rayCastLength, jumplayerMask);
+//        RaycastHit2D middleHit = Physics2D.Raycast(transform.position, Vector2.down, rayCastLength, jumplayerMask);
+//        RaycastHit2D leftHit = Physics2D.Raycast(leftRayPosition, Vector2.down, rayCastLength, jumplayerMask);
+//        RaycastHit2D rightHit = Physics2D.Raycast(rightRayPosition, Vector2.down, rayCastLength, jumplayerMask);
 
-        Debug.DrawRay(transform.position, Vector2.down * rayCastLength, Color.orange);
-        Debug.DrawRay(leftRayPosition, Vector2.down * rayCastLength, Color.red);
-        Debug.DrawRay(rightRayPosition, Vector2.down * rayCastLength, Color.yellow);
+//        Debug.DrawRay(transform.position, Vector2.down * rayCastLength, Color.orange);
+//        Debug.DrawRay(leftRayPosition, Vector2.down * rayCastLength, Color.red);
+//        Debug.DrawRay(rightRayPosition, Vector2.down * rayCastLength, Color.yellow);
 
-        isGrounded = (middleHit.collider != null && middleHit.collider.CompareTag("Jumpable")) ||
-                     (leftHit.collider != null && leftHit.collider.CompareTag("Jumpable")) ||
-                     (rightHit.collider != null && rightHit.collider.CompareTag("Jumpable"));
-    }
+//        isGrounded = (middleHit.collider != null && middleHit.collider.CompareTag("Jumpable")) ||
+//                     (leftHit.collider != null && leftHit.collider.CompareTag("Jumpable")) ||
+//                     (rightHit.collider != null && rightHit.collider.CompareTag("Jumpable"));
+//    }
 
-    void chasePlayer()
-    {
-        // check direction and dont move if knocked back
-        float direction = Mathf.Sign(playerTransform.position.x - transform.position.x);
-        float distance = Mathf.Abs(Vector2.Distance(playerTransform.position, transform.position));
-        float horizontalDistance = playerTransform.position.x - transform.position.x;
+//    void chasePlayer()
+//    {
+//        // check direction and dont move if knocked back
+//        float direction = Mathf.Sign(playerTransform.position.x - transform.position.x);
+//        float distance = Mathf.Abs(Vector2.Distance(playerTransform.position, transform.position));
+//        float horizontalDistance = playerTransform.position.x - transform.position.x;
 
-        if (Mathf.Abs(horizontalDistance) > 1f)
-        {
-            if (distance > moveDistance)
-            {
-                rb.linearVelocity = new Vector2(speed * direction, rb.linearVelocity.y);
-                lastMoveDir = rb.linearVelocity;
-            }
-            else
-            {
-                rb.linearVelocity = lastMoveDir;
-            }
+//        if (Mathf.Abs(horizontalDistance) > 1f)
+//        {
+//            if (distance > moveDistance)
+//            {
+//                rb.linearVelocity = new Vector2(speed * direction, rb.linearVelocity.y);
+//                lastMoveDir = rb.linearVelocity;
+//            }
+//            else
+//            {
+//                rb.linearVelocity = lastMoveDir;
+//            }
 
-            // use ray casts to jump
-            Vector2 jumpRayPosition = (Vector2)transform.position + Vector2.down * jumpRayOffset;
-            RaycastHit2D jumpRay = Physics2D.Raycast(jumpRayPosition, Vector2.right * direction, jumpRayLength, layerMask);
-            Debug.DrawRay(jumpRayPosition, Vector2.right * direction * jumpRayLength, Color.green);
+//            // use ray casts to jump
+//            Vector2 jumpRayPosition = (Vector2)transform.position + Vector2.down * jumpRayOffset;
+//            RaycastHit2D jumpRay = Physics2D.Raycast(jumpRayPosition, Vector2.right * direction, jumpRayLength, layerMask);
+//            Debug.DrawRay(jumpRayPosition, Vector2.right * direction * jumpRayLength, Color.green);
 
-            if (jumpRay.collider != null && isGrounded && Time.time >= lastJumpTime + jumpCooldown)
-            {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
-                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-                lastJumpTime = Time.time;
-            }
-        }
-        else if (isGrounded)
-        {
-            rb.linearVelocity = Vector2.zero;
-        }
+//            if (jumpRay.collider != null && isGrounded && Time.time >= lastJumpTime + jumpCooldown)
+//            {
+//                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
+//                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+//                lastJumpTime = Time.time;
+//            }
+//        }
+//        else if (isGrounded)
+//        {
+//            rb.linearVelocity = Vector2.zero;
+//        }
 
-    }
+//    }
 
-    void patrol()
-    {
-        patrolTime += Time.deltaTime;
+//    void patrol()
+//    {
+//        patrolTime += Time.deltaTime;
 
-        if (patrolState == PatrolState.moveRight)
-        {
-            rb.linearVelocity = new Vector2(speed, rb.linearVelocity.y);
+//        if (patrolState == PatrolState.moveRight)
+//        {
+//            rb.linearVelocity = new Vector2(speed, rb.linearVelocity.y);
 
-            if (patrolTime > moveTimerLimit)
-            {
-                patrolTime = 0;
-                patrolState = PatrolState.standStill;
-                nextState = PatrolState.moveLeft;
-            }
-        }
-        else if (patrolState == PatrolState.moveLeft)
-        {
-            rb.linearVelocity = new Vector2(-speed, rb.linearVelocity.y);
+//            if (patrolTime > moveTimerLimit)
+//            {
+//                patrolTime = 0;
+//                patrolState = PatrolState.standStill;
+//                nextState = PatrolState.moveLeft;
+//            }
+//        }
+//        else if (patrolState == PatrolState.moveLeft)
+//        {
+//            rb.linearVelocity = new Vector2(-speed, rb.linearVelocity.y);
 
-            if (patrolTime > moveTimerLimit)
-            {
-                patrolTime = 0;
-                patrolState = PatrolState.standStill;
-                nextState = PatrolState.moveRight;
-            }
-        }
-        else if (patrolState == PatrolState.standStill)
-        {
-            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+//            if (patrolTime > moveTimerLimit)
+//            {
+//                patrolTime = 0;
+//                patrolState = PatrolState.standStill;
+//                nextState = PatrolState.moveRight;
+//            }
+//        }
+//        else if (patrolState == PatrolState.standStill)
+//        {
+//            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
 
-            if (patrolTime > waitTimerLimit)
-            {
-                patrolTime = 0;
+//            if (patrolTime > waitTimerLimit)
+//            {
+//                patrolTime = 0;
 
-                if (nextState == PatrolState.moveRight)
-                {
-                    patrolState = PatrolState.moveRight;
-                }
-                else
-                {
-                    patrolState = PatrolState.moveLeft;
-                }
-            }
-        }
-    }
+//                if (nextState == PatrolState.moveRight)
+//                {
+//                    patrolState = PatrolState.moveRight;
+//                }
+//                else
+//                {
+//                    patrolState = PatrolState.moveLeft;
+//                }
+//            }
+//        }
+//    }
 
-    void checkForPlayer()
-    {
-        float distance = Vector2.Distance(transform.position, playerTransform.position);
+//    void checkForPlayer()
+//    {
+//        float distance = Vector2.Distance(transform.position, playerTransform.position);
 
-        if (distance > detectionRange)
-        {
-            return;
-        }
+//        if (distance > detectionRange)
+//        {
+//            return;
+//        }
 
-        Vector2 directionToPlayer = (playerTransform.position - transform.position).normalized;
-        Vector2 enemyForward = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
+//        Vector2 directionToPlayer = (playerTransform.position - transform.position).normalized;
+//        Vector2 enemyForward = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
 
-        float angle = Vector2.Angle(enemyForward, directionToPlayer);
+//        float angle = Vector2.Angle(enemyForward, directionToPlayer);
 
-        if (angle > detectionAngle)
-        {
-            return;
-        }
+//        if (angle > detectionAngle)
+//        {
+//            return;
+//        }
 
-        int layermask = ~LayerMask.GetMask("Hurtbox");
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToPlayer, detectionRange, layermask);
+//        int layermask = ~LayerMask.GetMask("Hurtbox");
+//        RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToPlayer, detectionRange, layermask);
 
-        if ((hit.collider != null && hit.collider.CompareTag("Player")))
-        {
-            hasSeenPlayer = true;
-        }
-    }
+//        if ((hit.collider != null && hit.collider.CompareTag("Player")))
+//        {
+//            hasSeenPlayer = true;
+//        }
+//    }
 
-    void checkDirection()
-    {
-        float absScale = Mathf.Abs(transform.localScale.x);
+//    void checkDirection()
+//    {
+//        float absScale = Mathf.Abs(transform.localScale.x);
 
-        if (hasSeenPlayer)
-        {
-            float horizontalDistance = Mathf.Abs(playerTransform.position.x - transform.position.x);
-            float direction = Mathf.Sign(playerTransform.position.x - transform.position.x);
+//        if (hasSeenPlayer)
+//        {
+//            float horizontalDistance = Mathf.Abs(playerTransform.position.x - transform.position.x);
+//            float direction = Mathf.Sign(playerTransform.position.x - transform.position.x);
 
-            if (horizontalDistance > 0.566f)
-            {
-                if (direction > 0)
-                {
-                    transform.localScale = new Vector3(absScale, absScale, absScale);
-                    faceRight = 1;
-                }
-                else
-                {
-                    transform.localScale = new Vector3(-absScale, absScale, absScale);
-                    faceRight = -1;
-                }
-            } 
-        }
-        else
-        {
-            if (rb.linearVelocity.x > 0.283f) // Removed isGrounded becuase of problems
-            {
-                transform.localScale = new Vector3(absScale, absScale, absScale);
-                faceRight = 1;
-            }
-            else if (rb.linearVelocity.x < -0.283f) // Removed isGrounded becuase of problems
-            {
-                transform.localScale = new Vector3(-absScale, absScale, absScale);
-                faceRight = -1;
-            }
-        }
-    }
+//            if (horizontalDistance > 0.566f)
+//            {
+//                if (direction > 0)
+//                {
+//                    transform.localScale = new Vector3(absScale, absScale, absScale);
+//                    faceRight = 1;
+//                }
+//                else
+//                {
+//                    transform.localScale = new Vector3(-absScale, absScale, absScale);
+//                    faceRight = -1;
+//                }
+//            } 
+//        }
+//        else
+//        {
+//            if (rb.linearVelocity.x > 0.283f) // Removed isGrounded becuase of problems
+//            {
+//                transform.localScale = new Vector3(absScale, absScale, absScale);
+//                faceRight = 1;
+//            }
+//            else if (rb.linearVelocity.x < -0.283f) // Removed isGrounded becuase of problems
+//            {
+//                transform.localScale = new Vector3(-absScale, absScale, absScale);
+//                faceRight = -1;
+//            }
+//        }
+//    }
 
-    void checkAttack()
-    {
-        float absScale = Mathf.Abs(transform.localScale.x);
-        float direction = Mathf.Sign(playerTransform.position.x - transform.position.x);
+//    void checkAttack()
+//    {
+//        float absScale = Mathf.Abs(transform.localScale.x);
+//        float direction = Mathf.Sign(playerTransform.position.x - transform.position.x);
 
-        RaycastHit2D frontRay = Physics2D.Raycast(transform.position, Vector2.right * faceRight, frontRayLength, frontRayLayers);
+//        RaycastHit2D frontRay = Physics2D.Raycast(transform.position, Vector2.right * faceRight, frontRayLength, frontRayLayers);
 
-        Debug.DrawRay(transform.position, Vector2.right * direction * frontRayLength, Color.red);
+//        Debug.DrawRay(transform.position, Vector2.right * direction * frontRayLength, Color.red);
 
-        if (frontRay.collider != null && !animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
-        {
-            animator.Play("Attack");
-        }
-    }
+//        if (frontRay.collider != null && !animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+//        {
+//            animator.Play("Attack");
+//        }
+//    }
 
-    public void enableHitbox()
-    {
-        weaponGameObject.SetActive(true);
-        weaponCollider.enabled = true;
+//    public void enableHitbox()
+//    {
+//        weaponGameObject.SetActive(true);
+//        weaponCollider.enabled = true;
 
-        HitBox hitBox = weaponGameObject.GetComponent<HitBox>();
-        hitBox.SetHitStop(0.01f);
-    }
+//        HitBox hitBox = weaponGameObject.GetComponent<HitBox>();
+//        hitBox.SetHitStop(0.01f);
+//    }
 
-    public void disableHitbox()
-    {
-        weaponGameObject.SetActive(false);
-        weaponCollider.enabled = false;
-    }
-}
+//    public void disableHitbox()
+//    {
+//        weaponGameObject.SetActive(false);
+//        weaponCollider.enabled = false;
+//    }
+//}

@@ -232,9 +232,9 @@ public class PlayerScript : MonoBehaviour
         }
 
         if (playerCombatScript.isAttacking && !isGrounded)
-{
-    targetSpeed = velocity.x;
-}
+        {
+            targetSpeed = velocity.x;
+        }
 
         if (isMovingRight)
         {
@@ -273,7 +273,7 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
-        if (!playerCombatScript.isLunging)
+        if (!playerCombatScript.isLunging && !playerHealthScript.isKnockedBack)
         {
             if (isGrounded)
             {

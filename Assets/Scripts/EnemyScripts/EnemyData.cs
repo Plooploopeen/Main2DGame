@@ -10,6 +10,8 @@ public class EnemyData : MonoBehaviour
 
     public bool hasSeenPlayer { get; set; }
 
+    public bool isKnockedBack { get; set; }
+
     [SerializeField] float rayCastLength;
     [SerializeField] float rayShiftLeftAmount;
     [SerializeField] float rayShiftRightAmount;
@@ -60,15 +62,17 @@ public class EnemyData : MonoBehaviour
 
             if (horizontalDistance > 0.566f)
             {
-                if (direction > 0)
                 {
-                    transform.localScale = new Vector3(absScale, absScale, absScale);
-                    faceRight = 1;
-                }
-                else
-                {
-                    transform.localScale = new Vector3(-absScale, absScale, absScale);
-                    faceRight = -1;
+                    if (direction > 0)
+                    {
+                        transform.localScale = new Vector3(absScale, absScale, absScale);
+                        faceRight = 1;
+                    }
+                    else
+                    {
+                        transform.localScale = new Vector3(-absScale, absScale, absScale);
+                        faceRight = -1;
+                    }
                 }
             }
         }
@@ -85,5 +89,5 @@ public class EnemyData : MonoBehaviour
                 faceRight = -1;
             }
         }
+        }
     }
-}

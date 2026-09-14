@@ -24,7 +24,7 @@ public class basicMeleeBehavior : EnemyBehaviorBase
 
     public override void Enter()
     {
-
+        data.animator.Play("Attack");
     }
 
     public override void Execute()
@@ -46,7 +46,7 @@ public class basicMeleeBehavior : EnemyBehaviorBase
 
         Debug.DrawRay(transform.position, Vector2.right * direction * frontRayLength, Color.red);
 
-        if (frontRay.collider != null && !data.animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+        if (frontRay.collider != null && !data.animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && !data.isKnockedBack)
         {
             return true;
         }

@@ -8,24 +8,21 @@ using TMPro;
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
     EnemyData data;
-    FirstEnemyAI firstEnemyAIScript;
 
     private float health;
     private bool isFlashing = false;
-    public bool isKnockedBack;
     private bool hasLanded;
     [SerializeField] float maxHealth;
     [SerializeField] float knockbackForce;
     [SerializeField] float flashLength;
     [SerializeField] float knockbackLength;
+    [SerializeField] float maxVelocity;
 
     private SpriteRenderer spriteRenderer;
     
     private void Awake()
     {
         data = GetComponentInParent<EnemyData>();
-
-        firstEnemyAIScript = GetComponentInParent<FirstEnemyAI>();
 
         spriteRenderer = transform.parent.GetComponentInChildren<SpriteRenderer>();
     }
@@ -39,14 +36,14 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        if (isKnockedBack && !data.isGrounded)
+        if (data.isKnockedBack && !data.isGrounded)
         {
             hasLanded = false;
         }
 
-        if (data.isGrounded && !hasLanded && isKnockedBack)
+        if (data.isGrounded && !hasLanded && data.isKnockedBack)
         {
-            isKnockedBack = false;
+            data.isKnockedBack = false;
             hasLanded = true;
         }
     }
@@ -108,11 +105,18 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     void applyKnockback(Vector2 direction)
     {
-        isKnockedBack = true;
+        data.isKnockedBack = true;
         data.rb.linearVelocity = Vector2.zero;
         direction.y = 5f;
         direction.Normalize();
         data.rb.linearVelocity = direction * knockbackForce;
+
+        // Cap velocity so combos don't send enemy flying
+        data.rb.linearVelocity = new Vector2(
+            Mathf.Clamp(data.rb.linearVelocity.x, -maxVelocity, maxVelocity),
+            Mathf.Clamp(data.rb.linearVelocity.y, -maxVelocity, maxVelocity)
+        );
+
         hasLanded = true;
     }
 }
