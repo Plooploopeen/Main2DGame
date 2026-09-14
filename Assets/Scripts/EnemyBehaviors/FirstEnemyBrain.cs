@@ -30,7 +30,16 @@ public class FirstEnemyBrain : MonoBehaviour
 
     private void Update()
     {
-        if (data.isKnockedBack) return;
+        if (data.isKnockedBack)
+        {
+            if (currentBehavior != null)
+            {
+                currentBehavior.Exit();
+                currentBehavior = null;
+                data.animator.Play("Idle");
+            }
+            return;
+        }
 
         vision.Execute();
 
@@ -53,13 +62,13 @@ public class FirstEnemyBrain : MonoBehaviour
             setBehavior(chase);
         }
 
-        //finicky fixes
-        if (currentBehavior == melee && data.isKnockedBack)
-        {
-            meleeScript.disableHitbox();
-            currentBehavior?.Exit();
-            currentBehavior = null;
-        }
+        ////finicky fixes
+        //if (currentBehavior == melee && data.isKnockedBack)
+        //{
+        //    meleeScript.disableHitbox();
+        //    currentBehavior?.Exit();
+        //    currentBehavior = null;
+        //}
     }
 
     void setBehavior (EnemyBehaviorBase newBehavior)

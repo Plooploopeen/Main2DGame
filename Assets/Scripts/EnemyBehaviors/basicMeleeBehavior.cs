@@ -34,7 +34,7 @@ public class basicMeleeBehavior : EnemyBehaviorBase
 
     public override void Exit()
     {
-
+        disableHitbox();
     }
 
     public bool shouldAttack()
