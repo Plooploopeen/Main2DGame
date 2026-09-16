@@ -48,7 +48,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         }
     }
 
-    public void takeDamage(float damage, Transform attackerTransform)
+    public virtual void takeDamage(float damage, Transform attackerTransform)
     {
         health -= damage;
 

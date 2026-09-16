@@ -257,6 +257,7 @@ GameObject:
   - component: {fileID: 7124734432174632402}
   - component: {fileID: 3054374250565102803}
   - component: {fileID: 6605134106582347043}
+  - component: {fileID: 2568583752044702938}
   m_Layer: 7
   m_Name: Hurtbox
   m_TagString: Untagged
@@ -337,11 +338,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 154c3ea3f3ea86246aea8bd612aea91b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
-  isKnockedBack: 0
   maxHealth: 50
   knockbackForce: 5
   flashLength: 0.2
   knockbackLength: 2
+  maxVelocity: 4
+--- !u!114 &2568583752044702938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8475058081119773036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 617a2270f84ddfb4092b085327592959, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShieldEnemyHealth
 --- !u!1 &8496902435244321338
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,6 +366,7 @@ GameObject:
   - component: {fileID: 8970195850340050762}
   - component: {fileID: 176737448076753543}
   - component: {fileID: 5703046242690791433}
+  - component: {fileID: -4182366739291601033}
   m_Layer: 0
   m_Name: Shield Enemy
   m_TagString: Untagged
@@ -428,3 +442,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-4182366739291601033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8496902435244321338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f165fd57fb7a82f439392889fe4160fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  rayCastLength: 0
+  rayShiftLeftAmount: 0
+  rayShiftRightAmount: 0

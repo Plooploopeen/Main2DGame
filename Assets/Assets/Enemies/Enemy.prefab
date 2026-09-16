@@ -292,6 +292,7 @@ MonoBehaviour:
   rayCastLength: 0.57
   rayShiftLeftAmount: 0.3396
   rayShiftRightAmount: 0.29
+  shouldCheckDirection: 1
 --- !u!114 &2606433787767536204
 MonoBehaviour:
   m_ObjectHideFlags: 0

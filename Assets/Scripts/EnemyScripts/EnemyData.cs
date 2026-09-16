@@ -16,6 +16,8 @@ public class EnemyData : MonoBehaviour
     [SerializeField] float rayShiftLeftAmount;
     [SerializeField] float rayShiftRightAmount;
 
+    [SerializeField] bool shouldCheckDirection;
+
 
     private void Awake()
     {
@@ -53,6 +55,11 @@ public class EnemyData : MonoBehaviour
 
     void checkDirection()
     {
+        if (!shouldCheckDirection)
+        {
+            return;
+        }
+
         float absScale = Mathf.Abs(transform.localScale.x);
 
         if (hasSeenPlayer)
