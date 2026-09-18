@@ -7,4 +7,6 @@ public abstract class EnemyBehaviorBase : MonoBehaviour
     public abstract void Execute();
 
     public abstract void Exit();
+
+    public virtual bool shouldAttack() { return false; }
 }

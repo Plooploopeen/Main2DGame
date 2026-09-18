@@ -37,7 +37,7 @@ public class basicMeleeBehavior : EnemyBehaviorBase
         disableHitbox();
     }
 
-    public bool shouldAttack()
+    public override bool shouldAttack()
     {
         float absScale = Mathf.Abs(transform.localScale.x);
         float direction = Mathf.Sign(data.playerTransform.position.x - transform.position.x);

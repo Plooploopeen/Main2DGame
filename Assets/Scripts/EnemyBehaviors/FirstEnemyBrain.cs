@@ -8,19 +8,12 @@ public class FirstEnemyBrain : MonoBehaviour
 
     [SerializeField] EnemyBehaviorBase patrol;
     [SerializeField] EnemyBehaviorBase chase;
-    [SerializeField] EnemyBehaviorBase melee;
+    [SerializeField] EnemyBehaviorBase attack;
     [SerializeField] EnemyBehaviorBase vision;
-
-    private basicMeleeBehavior meleeScript;
-
-    private EnemyHealth enemyHealthScript;
 
     void Awake()
     {
         data = GetComponent<EnemyData>();
-        enemyHealthScript = GetComponentInChildren<EnemyHealth>();
-        
-        meleeScript = melee as basicMeleeBehavior;
     }
 
     private void Start()
@@ -53,22 +46,14 @@ public class FirstEnemyBrain : MonoBehaviour
         if (!data.hasSeenPlayer) return;
 
         //core transitions
-        if (meleeScript.shouldAttack())
+        if (attack.shouldAttack())
         {
-            setBehavior(melee);
+            setBehavior(attack);
         }
         else if (!data.isKnockedBack)
         {
             setBehavior(chase);
         }
-
-        ////finicky fixes
-        //if (currentBehavior == melee && data.isKnockedBack)
-        //{
-        //    meleeScript.disableHitbox();
-        //    currentBehavior?.Exit();
-        //    currentBehavior = null;
-        //}
     }
 
     void setBehavior (EnemyBehaviorBase newBehavior)

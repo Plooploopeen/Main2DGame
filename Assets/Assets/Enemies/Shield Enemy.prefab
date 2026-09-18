@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3887937467344619631}
   - component: {fileID: 6117110995280578752}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2406187983084232732}
   - component: {fileID: 3784225703669109327}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Shield2
   m_TagString: Jumpable
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.040703297, y: 0.8140842}
+  m_Offset: {x: 0.05788088, y: 0.8140842}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -154,7 +154,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.2442255, y: 0.38491416}
+  m_Size: {x: 1.0470572, y: 0.38491416}
   m_EdgeRadius: 0
 --- !u!1 &6018703474478644423
 GameObject:
@@ -256,7 +256,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7124734432174632402}
   - component: {fileID: 3054374250565102803}
-  - component: {fileID: 6605134106582347043}
   - component: {fileID: 2568583752044702938}
   m_Layer: 7
   m_Name: Hurtbox
@@ -326,23 +325,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &6605134106582347043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8475058081119773036}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 154c3ea3f3ea86246aea8bd612aea91b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
-  maxHealth: 50
-  knockbackForce: 5
-  flashLength: 0.2
-  knockbackLength: 2
-  maxVelocity: 4
 --- !u!114 &2568583752044702938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,6 +337,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 617a2270f84ddfb4092b085327592959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShieldEnemyHealth
+  maxHealth: 1
+  knockbackForce: 5
+  flashLength: 0.2
+  knockbackLength: 2
+  maxVelocity: 5
 --- !u!1 &8496902435244321338
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,6 +354,11 @@ GameObject:
   - component: {fileID: 176737448076753543}
   - component: {fileID: 5703046242690791433}
   - component: {fileID: -4182366739291601033}
+  - component: {fileID: 3227008753263652657}
+  - component: {fileID: 6466475937001419998}
+  - component: {fileID: 8948440778847135081}
+  - component: {fileID: 651062836248411528}
+  - component: {fileID: 4348860120125234483}
   m_Layer: 0
   m_Name: Shield Enemy
   m_TagString: Untagged
@@ -441,7 +433,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &-4182366739291601033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -454,6 +446,83 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f165fd57fb7a82f439392889fe4160fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  rayCastLength: 0
-  rayShiftLeftAmount: 0
-  rayShiftRightAmount: 0
+  rayCastLength: 0.57
+  rayShiftLeftAmount: 0.3396
+  rayShiftRightAmount: 0.29
+  shouldCheckDirection: 0
+--- !u!114 &3227008753263652657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8496902435244321338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 852bed49dbb1d4c4dbc11afe750f7598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  patrol: {fileID: 8948440778847135081}
+  chase: {fileID: 6466475937001419998}
+  melee: {fileID: 4348860120125234483}
+  vision: {fileID: 651062836248411528}
+--- !u!114 &6466475937001419998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8496902435244321338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7deed5b53fa7f1848897aeb314020d48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  speed: 2.83
+  moveDistance: 1.25
+  jumpRayOffset: 0.44
+  jumpRayLength: 0.9622
+  jumpForce: 6
+  jumpCooldown: 0.5
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1024
+--- !u!114 &8948440778847135081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8496902435244321338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4fea8d75c530d4469fdc2724ca27514, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StandStillBehavior
+  startFacingRight: 1
+--- !u!114 &651062836248411528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8496902435244321338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b44d0ceb36a54843bcd21470c7fa072, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  detectionRange: 6
+  detectionAngle: 30
+--- !u!114 &4348860120125234483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8496902435244321338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50da4863671b5754f8a734ef58e805b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BasicRangeBehavior
