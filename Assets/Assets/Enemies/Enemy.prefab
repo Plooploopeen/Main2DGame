@@ -307,7 +307,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   patrol: {fileID: 3717405070096842161}
   chase: {fileID: 4071492607050140768}
-  melee: {fileID: 2700944681790013465}
+  attack: {fileID: 2700944681790013465}
   vision: {fileID: 3219762249800956657}
 --- !u!114 &3717405070096842161
 MonoBehaviour:
