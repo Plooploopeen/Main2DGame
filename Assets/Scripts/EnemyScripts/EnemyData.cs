@@ -12,6 +12,9 @@ public class EnemyData : MonoBehaviour
 
     public bool isKnockedBack { get; set; }
 
+    [SerializeField] bool faceVelocity;
+    [SerializeField] bool facePlayer;
+
     [SerializeField] float rayCastLength;
     [SerializeField] float rayShiftLeftAmount;
     [SerializeField] float rayShiftRightAmount;
@@ -55,46 +58,64 @@ public class EnemyData : MonoBehaviour
 
     void checkDirection()
     {
+        float absScale = Mathf.Abs(transform.localScale.x);
+
         if (!shouldCheckDirection)
         {
             return;
         }
 
-        float absScale = Mathf.Abs(transform.localScale.x);
-
-        if (hasSeenPlayer)
+        if (faceVelocity)
         {
-            float horizontalDistance = Mathf.Abs(playerTransform.position.x - transform.position.x);
-            float direction = Mathf.Sign(playerTransform.position.x - transform.position.x);
-
-            if (horizontalDistance > 0.566f)
+            if (hasSeenPlayer)
             {
+                float horizontalDistance = Mathf.Abs(playerTransform.position.x - transform.position.x);
+                float direction = Mathf.Sign(playerTransform.position.x - transform.position.x);
+
+                if (horizontalDistance > 0.566f)
                 {
-                    if (direction > 0)
                     {
-                        transform.localScale = new Vector3(absScale, absScale, absScale);
-                        faceRight = 1;
-                    }
-                    else
-                    {
-                        transform.localScale = new Vector3(-absScale, absScale, absScale);
-                        faceRight = -1;
+                        if (direction > 0)
+                        {
+                            transform.localScale = new Vector3(absScale, absScale, absScale);
+                            faceRight = 1;
+                        }
+                        else
+                        {
+                            transform.localScale = new Vector3(-absScale, absScale, absScale);
+                            faceRight = -1;
+                        }
                     }
                 }
             }
-        }
-        else
-        {
-            if (rb.linearVelocity.x > 0.283f) // Removed isGrounded becuase of problems
+            else
             {
-                transform.localScale = new Vector3(absScale, absScale, absScale);
-                faceRight = 1;
+                if (rb.linearVelocity.x > 0.283f) // Removed isGrounded becuase of problems
+                {
+                    transform.localScale = new Vector3(absScale, absScale, absScale);
+                    faceRight = 1;
+                }
+                else if (rb.linearVelocity.x < -0.283f) // Removed isGrounded becuase of problems
+                {
+                    transform.localScale = new Vector3(-absScale, absScale, absScale);
+                    faceRight = -1;
+                }
             }
-            else if (rb.linearVelocity.x < -0.283f) // Removed isGrounded becuase of problems
+        }
+
+
+        else if (facePlayer)
+        {
+            if (transform.position.x - playerTransform.position.x > 0)
             {
                 transform.localScale = new Vector3(-absScale, absScale, absScale);
                 faceRight = -1;
             }
-        }
+            else if (transform.position.x - playerTransform.position.x < 0)
+            {
+                transform.localScale = new Vector3(absScale, absScale, absScale);
+                faceRight = 1;
+            }
         }
     }
+}

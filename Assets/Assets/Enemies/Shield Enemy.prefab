@@ -446,6 +446,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f165fd57fb7a82f439392889fe4160fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  faceVelocity: 0
+  facePlayer: 1
   rayCastLength: 0.57
   rayShiftLeftAmount: 0.3396
   rayShiftRightAmount: 0.29
@@ -519,11 +521,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FollowAtDistanceBehavior
   speed: 2.5
   playerSeparation: 10
-  moveDistance: 1.25
-  jumpRayOffset: 0.44
-  jumpRayLength: 3.26
-  jumpForce: 6
-  jumpCooldown: 0.5
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 0

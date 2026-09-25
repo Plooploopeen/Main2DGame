@@ -289,6 +289,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f165fd57fb7a82f439392889fe4160fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  faceVelocity: 1
+  facePlayer: 0
   rayCastLength: 0.57
   rayShiftLeftAmount: 0.3396
   rayShiftRightAmount: 0.29
