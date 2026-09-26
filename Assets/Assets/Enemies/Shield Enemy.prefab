@@ -354,7 +354,7 @@ GameObject:
   - component: {fileID: 176737448076753543}
   - component: {fileID: 5703046242690791433}
   - component: {fileID: -4182366739291601033}
-  - component: {fileID: 3227008753263652657}
+  - component: {fileID: 1950809127122822399}
   - component: {fileID: 8948440778847135081}
   - component: {fileID: 651062836248411528}
   - component: {fileID: 4348860120125234483}
@@ -376,7 +376,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 11.58454, y: 1.46094, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.33, y: 1.33, z: 1.33}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7124734432174632402}
@@ -423,7 +423,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 4f0348b542031f04c86757ec20fc73e8, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -433,7 +433,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 6
+  m_Constraints: 4
 --- !u!114 &-4182366739291601033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -448,11 +448,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   faceVelocity: 0
   facePlayer: 1
-  rayCastLength: 0.57
-  rayShiftLeftAmount: 0.3396
-  rayShiftRightAmount: 0.29
-  shouldCheckDirection: 0
---- !u!114 &3227008753263652657
+  rayCastLength: 1.22
+  rayShiftLeftAmount: 0.86
+  rayShiftRightAmount: 0.67
+  shouldCheckDirection: 1
+--- !u!114 &1950809127122822399
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -461,9 +461,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8496902435244321338}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 852bed49dbb1d4c4dbc11afe750f7598, type: 3}
+  m_Script: {fileID: 11500000, guid: 5abcc94e49c205f44bf9b8c7aa282f54, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
+  m_EditorClassIdentifier: Assembly-CSharp::ShieldEnemyBrain
   patrol: {fileID: 8948440778847135081}
   chase: {fileID: 7692179852490459830}
   attack: {fileID: 4348860120125234483}
@@ -520,4 +520,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FollowAtDistanceBehavior
   speed: 2.5
-  playerSeparation: 10
+  playerSeparation: 5
