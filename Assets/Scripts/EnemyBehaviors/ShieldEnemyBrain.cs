@@ -54,6 +54,7 @@ public class ShieldEnemyBrain : MonoBehaviour
         {
             setBehavior(attack);
             LastThrowTime = Time.time;
+            ThrowCooldownLimit = Random.Range(0.5f, 2.2f);
         }
         else if (!data.isKnockedBack)
         {

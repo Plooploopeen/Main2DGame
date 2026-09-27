@@ -17,8 +17,6 @@ public class basicRangeBehavior : EnemyBehaviorBase
 
     public override void Enter()
     {
-        Debug.Log("Throw");
-
         float direction = Mathf.Sign(data.playerTransform.position.x - transform.position.x);
         GameObject axe = Instantiate(axePrefab, spawnPoint.position, Quaternion.identity);
         Rigidbody2D axeRb = axe.GetComponent<Rigidbody2D>();
@@ -36,7 +34,7 @@ public class basicRangeBehavior : EnemyBehaviorBase
 
     public override void Execute()
     {
-        Debug.Log("Error");
+        
     }
 
     public override void Exit()
